@@ -26,15 +26,15 @@
     body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
 
     /* HEADER */
-    .header{background:linear-gradient(135deg,#07101f,#0d1b35);border-bottom:1px solid var(--border);padding:16px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 4px 24px rgba(0,0,0,0.4);}
-    .header::after{content:"";position:absolute;bottom:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,var(--blue-dark),var(--blue),var(--blue-dark));}
-    .logo-box{width:160px;height:60px;display:flex;align-items:center;justify-content:center;}
-    .logo-box img{max-width:100%;max-height:100%;object-fit:contain;filter:brightness(1.1);}
+    .header{background:linear-gradient(135deg,#020c1b 0%,#051428 50%,#020c1b 100%);border-bottom:1px solid rgba(255,255,255,0.06);padding:20px 40px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 4px 20px rgba(0,0,0,0.6);position:relative;}
+    .header::after{content:"";position:absolute;bottom:0;left:0;width:100%;height:4px;background:linear-gradient(90deg,#b8860b,#f0c040,#ffd700,#f0c040,#b8860b);}
+    .logo-box{width:200px;height:90px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0);}
+    .logo-box img{max-width:90%;max-height:90%;object-fit:contain;}
     .header-center{text-align:center;flex:1;}
-    .header-center h1{font-size:1.3rem;font-weight:600;color:#fff;letter-spacing:0.5px;}
-    .header-center p{font-size:0.78rem;color:var(--text-muted);margin-top:2px;}
-    .user-info{font-size:0.75rem;color:var(--text-muted);margin-top:4px;}
-    .user-info i{color:var(--blue);margin-right:4px;}
+    .header-center h1{font-size:1.6rem;font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:1px;margin:0;}
+    .header-center p{font-size:1rem;color:rgba(255,255,255,0.75);font-weight:300;margin:2px 0 0;}
+    .user-info{font-size:0.75rem;color:rgba(255,255,255,0.45);margin-top:5px;}
+    .user-info i{color:rgba(255,255,255,0.45);margin-right:4px;}
 
     /* CONTAINER */
     .container{max-width:1800px;margin:24px auto;padding:0 24px;}
@@ -165,13 +165,13 @@
 <body>
 
 <div class="header">
-  <div class="logo-box"><img src="logo-esq.png" alt="Logo" onerror="this.style.display='none'"></div>
+  <div class="logo-box"><img src="logo-esq.png" alt="Logo Esquerda" onerror="this.style.display='none'"></div>
   <div class="header-center">
-    <h1><i class="fas fa-music" style="color:var(--blue);margin-right:8px;"></i>Grupo de Música</h1>
+    <h1>Grupo de Música Verbo Casa Caiada</h1>
     <p>Verbo da Vida Casa Caiada</p>
     <div class="user-info"><i class="fas fa-user-circle"></i><span id="user-nome">Carregando...</span></div>
   </div>
-  <div class="logo-box"><img src="logo-dir.png" alt="Logo" onerror="this.style.display='none'"></div>
+  <div class="logo-box"><img src="logo-dir.png" alt="Logo Direita" onerror="this.style.display='none'"></div>
 </div>
 
 <div class="container">
