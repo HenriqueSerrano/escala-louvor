@@ -875,7 +875,7 @@ function renderEscala(){
     const instrParts=Object.entries(e.instrumental||{}).map(([catId,pesId])=>{
       const cat=cacheCategorias.find(c=>c.id==catId);
       const isTb=pesId==e.talkback_id;
-      return`<span style="color:#888;font-size:.78rem;">${esc(cat?.nome||catId)}:</span> <b style="font-size:.88rem;">${esc(nomePorId(pesId))}</b>${isTb?` <span class="badge badge-talkback" style="font-size:.6rem;padding:2px 5px;vertical-align:middle;">TB</span>`:""}`;
+      return`<span style="color:#555;font-size:.78rem;font-weight:600;">${esc(cat?.nome||catId)}:</span> <span style="font-size:.88rem;">${esc(nomePorId(pesId))}</span>${isTb?` <span class="badge badge-talkback" style="font-size:.6rem;padding:2px 5px;vertical-align:middle;">TB</span>`:""}`;
     }).join(" &nbsp;·&nbsp; ");
     const acoes=podeEditar?`<td style="white-space:nowrap;">
       <button class="btn btn-ghost btn-sm" onclick="editarEscalaId(${e.id})" title="Editar"><i class="fas fa-edit"></i></button>
@@ -896,11 +896,13 @@ function renderEscala(){
 function filtrarTabela(){renderEscala();}
 
 async function editarEscalaId(id){
-  // Garante que o item está em cache; se não, recarrega
-  let e = escalaCache.find(x=>x.id===id);
+  let e = escalaCache.find(x=>x.id==id);
   if(!e){
-    await carregarEscala();
-    e = escalaCache.find(x=>x.id===id);
+    try{
+      const lista = await api("GET",`/escala?mes=${document.getElementById("sel-mes").value}`);
+      escalaCache = Array.isArray(lista)?lista:[];
+      e = escalaCache.find(x=>x.id==id);
+    }catch(err){ alert("Erro ao carregar escala: "+err.message); return; }
   }
   if(!e){ alert("Escala não encontrada."); return; }
   abrirModalEscala(id);
