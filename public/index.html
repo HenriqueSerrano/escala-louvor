@@ -8,205 +8,198 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
     :root {
-      --p-dark: #03213f;
-      --p-mid: #aebecd;
-      --p-soft: #7094B8;
-      --accent: #C5A059;
-      --accent-hover: #b48d48;
-      --bg: #ebf0f5;
-      --white: #ffffff;
-      --radius: 15px;
-      --shadow: 0 10px 25px rgba(0,0,0,0.05);
+      --p-dark:#03213f; --p-mid:#aebecd; --p-soft:#7094B8;
+      --accent:#C5A059; --accent-h:#b48d48;
+      --bg:#ebf0f5; --white:#fff;
+      --radius:14px; --shadow:0 6px 20px rgba(0,0,0,0.06);
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Poppins', sans-serif; background: var(--bg); color: #333; overflow-x: hidden; }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Poppins',sans-serif;background:var(--bg);color:#333;}
 
     /* HEADER */
-    .header {
-      background: linear-gradient(135deg, var(--p-dark), var(--p-mid));
-      color: white; padding: 20px 40px;
-      display: flex; align-items: center; justify-content: space-between;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1); position: relative;
-    }
-    .header::after {
-      content: ""; position: absolute; bottom: 0; left: 0;
-      width: 100%; height: 4px;
-      background: linear-gradient(90deg, var(--accent), #ffd27a, var(--accent));
-    }
-    .logo-box { width: 200px; height: 90px; display: flex; align-items: center; justify-content: center; }
-    .logo-box img { max-width: 90%; max-height: 90%; object-fit: contain; }
-    .header-center { text-align: center; flex-grow: 1; }
-    .header-center h1 { margin: 0; font-size: 1.6rem; text-transform: uppercase; letter-spacing: 1px; }
-    .header-center h3 { margin: 2px 0; font-weight: 300; font-size: 1rem; opacity: 0.9; }
-    .header-center .user-info { font-size: 0.75rem; margin-top: 5px; opacity: 0.8; }
+    .header{background:linear-gradient(135deg,var(--p-dark),var(--p-mid));color:#fff;padding:20px 40px;
+      display:flex;align-items:center;justify-content:space-between;position:relative;box-shadow:0 4px 12px rgba(0,0,0,0.15);}
+    .header::after{content:"";position:absolute;bottom:0;left:0;width:100%;height:4px;
+      background:linear-gradient(90deg,var(--accent),#ffd27a,var(--accent));}
+    .logo-box{width:200px;height:90px;display:flex;align-items:center;justify-content:center;}
+    .logo-box img{max-width:90%;max-height:90%;object-fit:contain;}
+    .header-center{text-align:center;flex:1;}
+    .header-center h1{font-size:1.6rem;text-transform:uppercase;letter-spacing:1px;margin:0;}
+    .header-center h3{font-weight:300;font-size:1rem;opacity:.9;margin:3px 0 0;}
+    .header-center .user-info{font-size:.75rem;margin-top:5px;opacity:.75;}
 
     /* CONTAINER */
-    .container { max-width: 1900px; margin: 25px auto; padding: 0 20px; }
+    .container{max-width:1600px;margin:22px auto;padding:0 20px;}
 
     /* CARD */
-    .card {
-      background: var(--white); border-radius: var(--radius);
-      padding: 18px; box-shadow: var(--shadow);
-      margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.03);
-    }
-
-    /* GRID */
-    .grid-main { display: grid; grid-template-columns: 2.4fr 1fr; gap: 25px; align-items: start; }
+    .card{background:var(--white);border-radius:var(--radius);padding:18px;
+      box-shadow:var(--shadow);border:1px solid rgba(0,0,0,0.04);}
 
     /* TOOLBAR */
-    .toolbar { display: flex; gap: 10px; flex-wrap: wrap; align-items: flex-end; }
-    .toolbar .field label { display: block; font-size: 0.78rem; font-weight: 600; color: var(--p-dark); margin-bottom: 4px; }
+    .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;}
+    .toolbar .field label{display:block;font-size:.77rem;font-weight:600;color:var(--p-dark);margin-bottom:4px;}
 
     /* BUTTONS */
-    .btn {
-      padding: 11px 18px; border-radius: 10px; border: none; cursor: pointer;
-      font-weight: 600; display: inline-flex; align-items: center; gap: 7px;
-      transition: 0.25s; font-size: 0.88rem; font-family: 'Poppins', sans-serif;
-    }
-    .btn:disabled { opacity: 0.45; cursor: not-allowed; }
-    .btn-accent { background: var(--accent); color: white; }
-    .btn-accent:hover:not(:disabled) { background: var(--accent-hover); }
-    .btn-primary { background: var(--p-dark); color: white; }
-    .btn-primary:hover:not(:disabled) { background: #052d55; }
-    .btn-ghost { background: transparent; border: 1.5px solid var(--p-dark); color: var(--p-dark); }
-    .btn-ghost:hover:not(:disabled) { background: var(--p-dark); color: white; }
-    .btn-danger { background: #e74c3c; color: white; }
-    .btn-success { background: #27ae60; color: white; }
-    .btn-sm { padding: 7px 11px; font-size: 0.8rem; }
+    .btn{padding:10px 16px;border-radius:10px;border:none;cursor:pointer;font-weight:600;
+      display:inline-flex;align-items:center;gap:7px;transition:.2s;
+      font-size:.86rem;font-family:'Poppins',sans-serif;}
+    .btn:disabled{opacity:.45;cursor:not-allowed;}
+    .btn-accent{background:var(--accent);color:#fff;}
+    .btn-accent:hover:not(:disabled){background:var(--accent-h);}
+    .btn-primary{background:var(--p-dark);color:#fff;}
+    .btn-primary:hover:not(:disabled){background:#052d55;}
+    .btn-ghost{background:transparent;border:1.5px solid var(--p-dark);color:var(--p-dark);}
+    .btn-ghost:hover:not(:disabled){background:var(--p-dark);color:#fff;}
+    .btn-danger{background:#e74c3c;color:#fff;}
+    .btn-success{background:#27ae60;color:#fff;}
+    .btn-sm{padding:6px 11px;font-size:.79rem;}
 
     /* INPUTS */
-    select, input, textarea {
-      width: 100%; padding: 11px 13px; border-radius: 10px;
-      border: 1.5px solid #d1d9e0; font-family: 'Poppins', sans-serif;
-      transition: 0.25s; background: white; font-size: 0.87rem; color: #333;
-    }
-    select:focus, input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(197,160,89,0.12); }
-
-    /* CAMPOS DESABILITADOS — visivelmente diferentes */
-    input:disabled, select:disabled {
-      background: #f0f2f5; color: #aab; border-color: #e0e4ea; cursor: not-allowed;
-    }
-    input:disabled::placeholder { color: #bbb; }
+    select,input,textarea{width:100%;padding:10px 12px;border-radius:9px;
+      border:1.5px solid #d1d9e0;font-family:'Poppins',sans-serif;
+      transition:.2s;background:#fff;font-size:.86rem;color:#333;}
+    select:focus,input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(197,160,89,.12);}
+    input:disabled,select:disabled{background:#f0f2f5;color:#aab;border-color:#e0e4ea;cursor:not-allowed;}
 
     /* TABELA */
-    table { width: 100%; border-collapse: collapse; }
-    th { background: #f8f9fa; color: var(--p-dark); padding: 11px 12px; text-align: left; font-size: 0.78rem; border-bottom: 2px solid var(--bg); }
-    td { padding: 11px 12px; border-bottom: 1px solid #eee; font-size: 0.87rem; vertical-align: middle; }
-    tr:last-child td { border-bottom: none; }
+    table{width:100%;border-collapse:collapse;}
+    th{background:#f8f9fa;color:var(--p-dark);padding:10px 12px;text-align:left;font-size:.77rem;border-bottom:2px solid var(--bg);}
+    td{padding:10px 12px;border-bottom:1px solid #eee;font-size:.86rem;vertical-align:middle;}
+    tr:last-child td{border-bottom:none;}
 
-    /* CARD TÍTULO */
-    .card-titulo { margin: 0 0 14px 0; color: var(--p-dark); font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-
-    /* BADGE */
-    .badge { padding: 3px 9px; border-radius: 20px; font-size: 0.7rem; font-weight: 600; color: white; }
-    .badge-vocal { background: #8b5cf6; }
-    .badge-instr { background: var(--p-soft); }
-    .badge-lider { background: var(--accent); color: #333; }
-    .badge-talkback { background: var(--accent); }
+    /* BADGES */
+    .badge{padding:3px 8px;border-radius:20px;font-size:.68rem;font-weight:600;color:#fff;}
+    .badge-vocal{background:#8b5cf6;}
+    .badge-instr{background:var(--p-soft);}
+    .badge-lider{background:var(--accent);color:#333;}
+    .badge-talkback{background:var(--accent);}
 
     /* MSGS */
-    .msg-box { margin-top: 10px; padding: 10px 12px; border-radius: 10px; font-size: 0.87rem; display: none; }
-    .msg-erro { background: #fdeaea; color: #a93226; border: 1px solid #f5c6cb; }
-    .msg-sucesso { background: #eafaf1; color: #1e8449; border: 1px solid #b7e1cd; }
+    .msg-box{margin-top:10px;padding:9px 12px;border-radius:9px;font-size:.85rem;display:none;}
+    .msg-erro{background:#fdeaea;color:#a93226;border:1px solid #f5c6cb;}
+    .msg-sucesso{background:#eafaf1;color:#1e8449;border:1px solid #b7e1cd;}
 
-    /* MODAL */
-    .modal-overlay {
-      display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,0.55); z-index: 1000;
-      align-items: center; justify-content: center; backdrop-filter: blur(4px);
-    }
-    .modal-overlay.open { display: flex; }
-    .modal {
-      background: white; width: 95%; border-radius: var(--radius);
-      max-height: 92vh; display: flex; flex-direction: column;
-      overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.25);
-    }
-    .modal-sm  { max-width: 520px; }
-    .modal-md  { max-width: 780px; }
-    .modal-lg  { max-width: 1020px; }
-    .modal-xl  { max-width: 1200px; }
-    .modal-header {
-      padding: 18px 24px; border-bottom: 1px solid #eee;
-      display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
-    }
-    .modal-header h2 { font-size: 1rem; font-weight: 600; color: var(--p-dark); display: flex; align-items: center; gap: 8px; }
-    .modal-header h2 i { color: var(--accent); }
-    .modal-body { padding: 20px 24px; overflow-y: auto; flex: 1; }
-    .modal-footer { padding: 14px 24px; border-top: 1px solid #eee; display: flex; justify-content: flex-end; gap: 10px; flex-shrink: 0; }
+    /* ── MODAL BASE ── */
+    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);
+      z-index:1000;align-items:center;justify-content:center;backdrop-filter:blur(4px);}
+    .modal-overlay.open{display:flex;}
+    .modal{background:#fff;width:95%;border-radius:var(--radius);
+      display:flex;flex-direction:column;overflow:hidden;
+      box-shadow:0 20px 60px rgba(0,0,0,0.25);}
+    .modal-sm{max-width:520px;max-height:85vh;}
+    .modal-md{max-width:700px;max-height:88vh;}
+    .modal-lg{max-width:960px;max-height:90vh;}
+    .modal-xl{max-width:1140px;max-height:90vh;}
 
-    /* MODAL ESCALA — 2 colunas com scroll independente */
-    .modal-escala-inner {
-      display: grid; grid-template-columns: 1fr 280px; gap: 20px;
-      height: 100%; overflow: hidden;
-    }
-    .modal-escala-form { overflow-y: auto; padding-right: 8px; }
-    .modal-escala-form::-webkit-scrollbar { width: 4px; }
-    .modal-escala-form::-webkit-scrollbar-thumb { background: #d1d9e0; border-radius: 4px; }
-    .modal-escala-hist {
-      border-left: 1px solid #eee; padding-left: 16px;
-      overflow-y: auto; display: flex; flex-direction: column;
-    }
-    .modal-escala-hist::-webkit-scrollbar { width: 4px; }
-    .modal-escala-hist::-webkit-scrollbar-thumb { background: #d1d9e0; border-radius: 4px; }
-    .hist-title { font-size: 0.8rem; font-weight: 600; color: var(--p-dark); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
-    .hist-title i { color: var(--accent); }
+    .modal-header{padding:16px 22px;border-bottom:1px solid #eee;
+      display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+    .modal-header h2{font-size:.97rem;font-weight:600;color:var(--p-dark);display:flex;align-items:center;gap:8px;}
+    .modal-header h2 i{color:var(--accent);}
+    .modal-footer{padding:13px 22px;border-top:1px solid #eee;
+      display:flex;justify-content:flex-end;gap:10px;flex-shrink:0;background:#fafafa;}
 
-    /* FORM FIELDS */
-    .form-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; align-items: flex-end; }
-    .form-row .field { flex: 1; min-width: 140px; }
-    .field label { display: block; font-size: 0.77rem; font-weight: 600; color: var(--p-dark); margin-bottom: 5px; }
+    /* ── MODAL ESCALA — 2 colunas ── */
+    .modal-escala-body{
+      display:grid;grid-template-columns:1fr 260px;
+      flex:1;min-height:0;overflow:hidden;
+    }
+    .modal-escala-form{
+      overflow-y:auto;padding:20px 20px 20px 22px;
+      border-right:1px solid #eee;
+    }
+    .modal-escala-form::-webkit-scrollbar{width:5px;}
+    .modal-escala-form::-webkit-scrollbar-thumb{background:#d1d9e0;border-radius:4px;}
+    .modal-escala-hist{
+      overflow-y:auto;padding:18px 16px;
+      display:flex;flex-direction:column;gap:6px;
+    }
+    .modal-escala-hist::-webkit-scrollbar{width:5px;}
+    .modal-escala-hist::-webkit-scrollbar-thumb{background:#d1d9e0;border-radius:4px;}
+    .hist-col-title{font-size:.8rem;font-weight:600;color:var(--p-dark);
+      display:flex;align-items:center;gap:6px;flex-shrink:0;margin-bottom:4px;}
+    .hist-col-title i{color:var(--accent);}
+    .hist-item{padding:9px 11px;border-radius:9px;background:#f8fafc;border:1px solid #e5eaf0;}
+    .hist-item .hdata{font-size:.7rem;color:#999;}
+    .hist-item .hev{font-size:.81rem;font-weight:500;color:var(--p-dark);margin-top:1px;}
 
     /* SEÇÕES */
-    .esc-secao { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; margin-bottom: 14px; }
-    .esc-secao-title { font-size: 0.77rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
-    .esc-secao-title.vocal { color: #8b5cf6; }
-    .esc-secao-title.instrumental { color: var(--p-soft); }
+    .esc-secao{background:#f8fafc;border:1px solid #e2e8f0;border-radius:11px;padding:14px 15px;margin-bottom:14px;}
+    .esc-secao-title{font-size:.75rem;font-weight:700;text-transform:uppercase;
+      letter-spacing:.07em;margin-bottom:12px;display:flex;align-items:center;gap:6px;}
+    .esc-secao-title.vocal{color:#8b5cf6;}
+    .esc-secao-title.instrumental{color:var(--p-soft);}
 
-    /* INSTR ROW */
-    .instr-row { display: flex; align-items: flex-end; gap: 10px; margin-bottom: 10px; }
-    .instr-row .field { flex: 1; margin: 0; }
-    .instr-row .field label { margin-bottom: 4px; }
-    .chk-tb { display: flex; align-items: center; gap: 5px; font-size: 0.74rem; color: #888; white-space: nowrap; padding-bottom: 11px; }
-    .chk-tb input[type=checkbox] { accent-color: var(--accent); width: 14px; height: 14px; cursor: pointer; }
-    .chk-tb label { cursor: pointer; }
+    /* FORM FIELDS */
+    .frow{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;}
+    .frow .field{flex:1;min-width:120px;}
+    .field label{display:block;font-size:.75rem;font-weight:600;color:var(--p-dark);margin-bottom:5px;}
 
-    /* HISTÓRICO ITENS */
-    .hist-item { padding: 9px 11px; border-radius: 9px; background: #f8fafc; border: 1px solid #e8edf2; margin-bottom: 7px; }
-    .hist-item .data { font-size: 0.7rem; color: #999; }
-    .hist-item .evento { font-size: 0.82rem; font-weight: 500; color: var(--p-dark); }
-    .hist-vazio { font-size: 0.82rem; color: #aaa; text-align: center; padding: 20px 0; }
+    /* INSTRUMENTAL ROWS */
+    .instr-row{display:flex;align-items:flex-end;gap:9px;margin-bottom:10px;}
+    .instr-row .field{flex:1;margin:0;}
+    .chk-tb{display:flex;align-items:center;gap:5px;font-size:.73rem;color:#777;
+      white-space:nowrap;padding-bottom:10px;cursor:pointer;}
+    .chk-tb input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;}
 
-    /* VÍNCULO ROW */
-    .vinculo-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 7px 11px; }
-    .vinculo-row select { background: transparent; border: none; padding: 0; font-size: 0.83rem; flex: 1; color: #333; }
-    .vinculo-row select:focus { outline: none; box-shadow: none; }
+    /* ── MODAL INTEGRANTES ── */
+    .modal-pessoa-body{display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden;}
 
-    /* FORM DESABILITADO — wrapper cinza */
-    .form-disabled-wrap { background: #f5f7fa; border-radius: 12px; border: 1px dashed #cdd5de; padding: 16px; transition: 0.3s; }
-    .form-disabled-wrap.active { background: #fff; border: 1px dashed var(--p-soft); }
+    /* Formulário compacto — fixo */
+    .pessoa-form-wrap{
+      flex-shrink:0;padding:16px 22px;border-bottom:2px solid #e8edf2;
+      background:#f8fafc;
+    }
+    .pessoa-form-wrap.active{background:#fff;}
+    .pessoa-form-grid{display:grid;grid-template-columns:2fr 2fr 1.2fr auto;gap:10px;align-items:end;margin-bottom:10px;}
+    .pessoa-lider-row{display:flex;align-items:center;gap:16px;margin-bottom:10px;flex-wrap:wrap;}
+    .chk-lider{display:flex;align-items:center;gap:7px;font-size:.84rem;cursor:pointer;}
+    .chk-lider input{accent-color:var(--accent);width:15px;height:15px;}
 
-    /* EMPTY */
-    .empty { text-align: center; padding: 28px; color: #aaa; font-size: 0.85rem; }
-    .empty i { font-size: 1.8rem; display: block; margin-bottom: 8px; opacity: 0.3; }
+    /* Vínculos inline */
+    .vinculos-wrap{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin-bottom:0;}
+    .vinc-pill{display:flex;align-items:center;gap:5px;background:#eaf0f8;
+      border:1px solid #c8d8ec;border-radius:20px;padding:4px 10px;font-size:.77rem;color:var(--p-dark);}
+    .vinc-pill select{background:transparent;border:none;padding:0;font-size:.77rem;
+      color:var(--p-dark);width:auto;max-width:180px;}
+    .vinc-pill select:focus{outline:none;box-shadow:none;}
+    .vinc-pill button{background:none;border:none;cursor:pointer;color:#e74c3c;padding:0;font-size:.8rem;}
+
+    /* Tabela integrantes — área scrollável */
+    .pessoa-table-wrap{flex:1;overflow-y:auto;padding:0 22px 16px;}
+    .pessoa-table-wrap::-webkit-scrollbar{width:5px;}
+    .pessoa-table-wrap::-webkit-scrollbar-thumb{background:#d1d9e0;border-radius:4px;}
+    .pessoa-table-header{display:flex;align-items:center;justify-content:space-between;
+      padding:12px 0 8px;position:sticky;top:0;background:#fff;z-index:2;}
 
     /* FILTRO */
-    .filtro-input { padding: 8px 12px; border-radius: 8px; border: 1px solid #d1d9e0; font-size: 0.83rem; width: 220px; font-family: 'Poppins', sans-serif; }
+    .filtro-input{padding:8px 12px;border-radius:8px;border:1px solid #d1d9e0;
+      font-size:.82rem;font-family:'Poppins',sans-serif;}
 
-    /* SCROLL AREA tabela */
-    .scroll-area { max-height: calc(100vh - 360px); overflow-y: auto; padding-right: 4px; }
-    .scroll-area::-webkit-scrollbar { width: 4px; }
-    .scroll-area::-webkit-scrollbar-thumb { background: #d1d9e0; border-radius: 4px; }
+    /* SCROLL na tabela principal */
+    .scroll-area{max-height:calc(100vh - 340px);overflow-y:auto;padding-right:4px;}
+    .scroll-area::-webkit-scrollbar{width:5px;}
+    .scroll-area::-webkit-scrollbar-thumb{background:#d1d9e0;border-radius:4px;}
+
+    /* EMPTY */
+    .empty{text-align:center;padding:28px;color:#bbb;font-size:.85rem;}
+    .empty i{font-size:1.8rem;display:block;margin-bottom:8px;opacity:.3;}
 
     /* ALERTA */
-    .alerta-box { background: #fff8e1; border: 1px solid #f0c040; border-radius: 10px; padding: 12px 16px; margin-bottom: 14px; font-size: 0.83rem; color: #856404; }
+    .alerta-box{background:#fff8e1;border:1px solid #f0c040;border-radius:9px;
+      padding:11px 14px;margin-bottom:12px;font-size:.82rem;color:#856404;}
 
-    @media(max-width:900px) {
-      .grid-main { grid-template-columns: 1fr; }
-      .header { padding: 16px 20px; }
-      .header-center h1 { font-size: 1.1rem; }
-      .logo-box { width: 80px; height: 55px; }
-      .modal-escala-inner { grid-template-columns: 1fr; }
-      .modal-escala-hist { border-left: none; border-top: 1px solid #eee; padding-left: 0; padding-top: 16px; margin-top: 8px; }
+    /* EDIÇÃO INLINE na tabela de escala */
+    .row-editing td{background:#fffbf0 !important;}
+    .inline-input{padding:5px 8px;border-radius:7px;border:1.5px solid var(--accent);
+      font-size:.82rem;font-family:'Poppins',sans-serif;width:100%;}
+
+    @media(max-width:860px){
+      .modal-escala-body{grid-template-columns:1fr;}
+      .modal-escala-hist{border-left:none;border-top:1px solid #eee;}
+      .header{padding:14px 16px;}
+      .header-center h1{font-size:1.1rem;}
+      .logo-box{width:80px;height:55px;}
+      .pessoa-form-grid{grid-template-columns:1fr 1fr;}
     }
   </style>
 </head>
@@ -214,193 +207,193 @@
 
 <!-- HEADER -->
 <div class="header">
-  <div class="logo-box"><img src="logo-esq.png" alt="Logo" onerror="this.style.display='none'"></div>
+  <div class="logo-box"><img src="logo-esq.png" alt="" onerror="this.style.display='none'"></div>
   <div class="header-center">
     <h1>Grupo de Música Verbo Casa Caiada</h1>
     <h3>Verbo da Vida Casa Caiada</h3>
-    <div class="user-info"><i class="fas fa-user-circle"></i> <span id="user-nome">Carregando...</span></div>
+    <div class="user-info"><i class="fas fa-user-circle"></i> <span id="user-nome">...</span></div>
   </div>
-  <div class="logo-box"><img src="logo-dir.png" alt="Logo" onerror="this.style.display='none'"></div>
+  <div class="logo-box"><img src="logo-dir.png" alt="" onerror="this.style.display='none'"></div>
 </div>
 
 <div class="container">
 
   <!-- TOOLBAR -->
-  <div class="card" style="border-top:4px solid var(--accent);">
+  <div class="card" style="border-top:4px solid var(--accent);margin-bottom:20px;">
     <div class="toolbar">
       <div class="field">
         <label><i class="fas fa-calendar-alt"></i> Mês Referência</label>
         <select id="sel-mes" onchange="aoMudarMes()" style="width:auto;min-width:180px;"></select>
       </div>
       <div style="margin-left:auto;display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end;">
-        <button class="btn btn-ghost lider-only" id="btn-nova-escala" onclick="abrirModalEscala()" style="display:none"><i class="fas fa-plus"></i> Nova Escala</button>
-        <button class="btn btn-ghost lider-only" id="btn-gerar" onclick="abrirModalGerar()" style="display:none"><i class="fas fa-wand-magic-sparkles"></i> Gerar Escala</button>
-        <button class="btn btn-ghost lider-only" id="btn-integrantes" onclick="abrirModalIntegrantes()" style="display:none"><i class="fas fa-users-cog"></i> Cadastro Integrantes</button>
-        <button class="btn btn-ghost lider-only" id="btn-categorias" onclick="abrirModalCategorias()" style="display:none"><i class="fas fa-tags"></i> Categorias</button>
-        <button class="btn btn-primary lider-only" id="btn-travar" onclick="travarMes()" style="display:none"><i class="fas fa-lock"></i> Travar Mês</button>
-        <button class="btn btn-accent lider-only" id="btn-limpar" onclick="confirmarLimpar()" style="display:none"><i class="fas fa-eraser"></i> Limpar Mês</button>
+        <button class="btn btn-ghost lider-only" onclick="abrirModalEscala()" style="display:none" id="btn-nova-escala"><i class="fas fa-plus"></i> Nova Escala</button>
+        <button class="btn btn-ghost lider-only" onclick="abrirModalGerar()" style="display:none" id="btn-gerar"><i class="fas fa-magic"></i> Gerar Escala</button>
+        <button class="btn btn-ghost lider-only" onclick="abrirModalIntegrantes()" style="display:none" id="btn-integrantes"><i class="fas fa-users-cog"></i> Cadastro Integrantes</button>
+        <button class="btn btn-ghost lider-only" onclick="abrirModalCategorias()" style="display:none" id="btn-categorias"><i class="fas fa-tags"></i> Categorias</button>
+        <button class="btn btn-primary lider-only" onclick="travarMes()" style="display:none" id="btn-travar"><i class="fas fa-lock"></i> Travar Mês</button>
+        <button class="btn btn-accent lider-only" onclick="confirmarLimpar()" style="display:none" id="btn-limpar"><i class="fas fa-eraser"></i> Limpar Mês</button>
         <button class="btn btn-primary" onclick="gerarPdf()"><i class="fas fa-file-pdf"></i> Gerar PDF</button>
         <button class="btn btn-danger" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Sair</button>
       </div>
     </div>
   </div>
 
-  <!-- GRID PRINCIPAL -->
-  <div class="grid-main">
-    <!-- TABELA -->
-    <div class="card" style="border-top:4px solid var(--accent);">
-      <div class="card-titulo">
-        <span><i class="fas fa-table"></i> Escalas do Mês</span>
-        <input type="text" class="filtro-input" id="filtro-escala" placeholder="🔎 Buscar..." oninput="filtrarTabela()">
-      </div>
-      <div class="scroll-area" id="tabela-escala-wrap">
-        <div class="empty"><i class="fas fa-calendar-times"></i>Selecione um mês</div>
-      </div>
+  <!-- TABELA ESCALA (ocupa toda largura) -->
+  <div class="card" style="border-top:4px solid var(--accent);">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
+      <span style="font-weight:600;color:var(--p-dark);font-size:.95rem;"><i class="fas fa-table" style="color:var(--accent);margin-right:6px;"></i>Escalas do Mês</span>
+      <input type="text" class="filtro-input" id="filtro-escala" placeholder="🔎 Buscar..." oninput="filtrarTabela()" style="width:240px;">
     </div>
-    <!-- HISTORICO LATERAL (página) -->
-    <div class="card" style="border-top:4px solid var(--accent);">
-      <div class="card-titulo"><i class="fas fa-history"></i> Histórico</div>
-      <div id="historico-wrap"><div class="empty"><i class="fas fa-clock"></i>Selecione um integrante</div></div>
+    <div class="scroll-area" id="tabela-escala-wrap">
+      <div class="empty"><i class="fas fa-calendar-times"></i>Selecione um mês</div>
     </div>
   </div>
 </div>
 
-<!-- ═══════ MODAL ESCALA ═══════ -->
+<!-- ══════════════════════════════════════
+     MODAL ESCALA (Nova / Editar)
+══════════════════════════════════════ -->
 <div class="modal-overlay" id="modalEscala">
-  <div class="modal modal-xl" style="max-height:88vh;">
+  <div class="modal modal-xl">
+
     <div class="modal-header">
-      <h2><i class="fas fa-edit"></i> <span id="modal-escala-titulo">Nova Escala</span></h2>
+      <h2><i class="fas fa-edit"></i> <span id="modal-esc-titulo">Nova Escala</span></h2>
       <button class="btn btn-ghost btn-sm" onclick="fecharModalEscala()"><i class="fas fa-times"></i> Fechar</button>
     </div>
 
-    <!-- BODY: form + histórico lado a lado -->
-    <div class="modal-body" style="overflow:hidden;padding:0;flex:1;min-height:0;">
-      <div class="modal-escala-inner" style="height:100%;max-height:calc(88vh - 130px);">
+    <div class="modal-escala-body">
 
-        <!-- FORM -->
-        <div class="modal-escala-form" style="padding:20px 12px 20px 24px;">
-
-          <!-- Data + Evento -->
-          <div class="form-row">
-            <div class="field" style="max-width:180px;">
-              <label><i class="fas fa-calendar"></i> Data</label>
-              <input type="date" id="esc-data">
-            </div>
-            <div class="field">
-              <label><i class="fas fa-music"></i> Evento</label>
-              <input type="text" id="esc-evento" placeholder="Ex: Domingo Manhã, Quinta Noite, Culto Casais...">
-            </div>
+      <!-- COLUNA FORM -->
+      <div class="modal-escala-form">
+        <div class="frow" style="margin-bottom:14px;">
+          <div class="field" style="max-width:190px;">
+            <label><i class="fas fa-calendar"></i> Data</label>
+            <input type="date" id="esc-data">
           </div>
-
-          <!-- VOCAL -->
-          <div class="esc-secao">
-            <div class="esc-secao-title vocal"><i class="fas fa-microphone"></i> Vocal</div>
-            <div class="field" style="margin-bottom:12px;">
-              <label>Ministro(a)</label>
-              <select id="esc-ministro" onchange="verHistorico(this.value)"><option value="">— Nenhum —</option></select>
-            </div>
-            <!-- 4 backs em linha única -->
-            <div class="form-row" style="margin-bottom:0;flex-wrap:nowrap;">
-              <div class="field"><label>Backing 1</label><select id="esc-back1" onchange="verHistorico(this.value)"><option value="">— Nenhum —</option></select></div>
-              <div class="field"><label>Backing 2</label><select id="esc-back2" onchange="verHistorico(this.value)"><option value="">— Nenhum —</option></select></div>
-              <div class="field"><label>Backing 3</label><select id="esc-back3" onchange="verHistorico(this.value)"><option value="">— Nenhum —</option></select></div>
-              <div class="field"><label>Backing 4</label><select id="esc-back4" onchange="verHistorico(this.value)"><option value="">— Nenhum —</option></select></div>
-            </div>
-          </div>
-
-          <!-- INSTRUMENTAL -->
-          <div class="esc-secao">
-            <div class="esc-secao-title instrumental"><i class="fas fa-guitar"></i> Instrumental</div>
-            <div id="instrumental-campos"></div>
-          </div>
-
-          <div class="msg-box" id="msg-escala"></div>
-        </div>
-
-        <!-- HISTÓRICO -->
-        <div class="modal-escala-hist" style="padding:20px 24px 20px 0;">
-          <div class="hist-title"><i class="fas fa-history"></i> Histórico do Integrante</div>
-          <div id="modal-historico-wrap" style="flex:1;">
-            <div class="hist-vazio">Selecione alguém no formulário</div>
+          <div class="field">
+            <label><i class="fas fa-music"></i> Evento</label>
+            <input type="text" id="esc-evento" placeholder="Ex: Domingo Manhã, Quinta Noite, Culto Casais...">
           </div>
         </div>
 
+        <!-- VOCAL -->
+        <div class="esc-secao">
+          <div class="esc-secao-title vocal"><i class="fas fa-microphone"></i> Vocal</div>
+          <div class="field" style="margin-bottom:12px;">
+            <label>Ministro(a)</label>
+            <select id="esc-ministro" onchange="verHistorico(this.value)"><option value="">— Nenhum —</option></select>
+          </div>
+          <div class="frow" style="flex-wrap:nowrap;margin-bottom:0;">
+            <div class="field"><label>Backing 1</label><select id="esc-back1" onchange="verHistorico(this.value)"><option value="">— Nenhum —</option></select></div>
+            <div class="field"><label>Backing 2</label><select id="esc-back2" onchange="verHistorico(this.value)"><option value="">— Nenhum —</option></select></div>
+            <div class="field"><label>Backing 3</label><select id="esc-back3" onchange="verHistorico(this.value)"><option value="">— Nenhum —</option></select></div>
+            <div class="field"><label>Backing 4</label><select id="esc-back4" onchange="verHistorico(this.value)"><option value="">— Nenhum —</option></select></div>
+          </div>
+        </div>
+
+        <!-- INSTRUMENTAL -->
+        <div class="esc-secao">
+          <div class="esc-secao-title instrumental"><i class="fas fa-guitar"></i> Instrumental</div>
+          <div id="instrumental-campos"></div>
+        </div>
+
+        <div class="msg-box" id="msg-escala"></div>
       </div>
-    </div>
+
+      <!-- COLUNA HISTÓRICO -->
+      <div class="modal-escala-hist">
+        <div class="hist-col-title"><i class="fas fa-history"></i> Histórico do Integrante</div>
+        <div id="modal-hist-wrap">
+          <div style="font-size:.82rem;color:#bbb;text-align:center;padding:20px 0;">Selecione alguém ao lado</div>
+        </div>
+      </div>
+
+    </div><!-- /modal-escala-body -->
 
     <div class="modal-footer">
       <button class="btn btn-ghost" onclick="fecharModalEscala()">Cancelar</button>
       <button class="btn btn-primary" id="btn-salvar-escala" onclick="salvarEscala()">
-        <i class="fas fa-save"></i> <span id="btn-salvar-label">Salvar Escala</span>
+        <i class="fas fa-save"></i> <span id="btn-esc-label">Salvar Escala</span>
       </button>
     </div>
   </div>
 </div>
 
-<!-- ═══════ MODAL INTEGRANTES ═══════ -->
+<!-- ══════════════════════════════════════
+     MODAL INTEGRANTES
+══════════════════════════════════════ -->
 <div class="modal-overlay" id="modalIntegrantes">
   <div class="modal modal-lg">
     <div class="modal-header">
       <h2><i class="fas fa-users-cog"></i> Cadastro de Integrantes</h2>
       <button class="btn btn-ghost btn-sm" onclick="fecharModal('modalIntegrantes')"><i class="fas fa-times"></i></button>
     </div>
-    <div class="modal-body">
 
-      <!-- FORM PESSOA -->
-      <div class="form-disabled-wrap" id="form-pessoa-wrap">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
-          <div id="form-pessoa-title" style="font-size:0.87rem;font-weight:600;color:#888;">
-            <i class="fas fa-info-circle"></i> Clique em <b>Novo</b> ou no botão <i class="fas fa-edit"></i> para editar
-          </div>
+    <div class="modal-pessoa-body">
+
+      <!-- FORMULÁRIO FIXO COMPACTO -->
+      <div class="pessoa-form-wrap" id="pessoa-form-wrap">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:8px;flex-wrap:wrap;">
+          <span id="form-pessoa-title" style="font-size:.83rem;font-weight:600;color:#999;">
+            <i class="fas fa-info-circle"></i> Clique em <b>Novo</b> ou em <i class="fas fa-edit"></i> para editar
+          </span>
           <div style="display:flex;gap:8px;">
             <button class="btn btn-ghost btn-sm" onclick="novoIntegrante()"><i class="fas fa-plus"></i> Novo</button>
             <button class="btn btn-primary btn-sm" id="btn-salvar-pessoa" onclick="salvarPessoa()" disabled><i class="fas fa-save"></i> Salvar</button>
           </div>
         </div>
 
-        <div class="form-row">
-          <div class="field" style="flex:2"><label>Nome</label><input type="text" id="cad-nome" disabled placeholder="Nome completo"></div>
-          <div class="field" style="flex:2"><label>E-mail</label><input type="email" id="cad-email" disabled placeholder="email@..."></div>
-          <div class="field" style="max-width:150px;"><label>Senha</label><input type="password" id="cad-senha" disabled placeholder="••••••"></div>
+        <!-- Grid compacto: nome | email | senha | [lider] -->
+        <div class="pessoa-form-grid">
+          <div class="field"><label>Nome</label><input type="text" id="cad-nome" disabled placeholder="Nome completo"></div>
+          <div class="field"><label>E-mail</label><input type="email" id="cad-email" disabled placeholder="email@..."></div>
+          <div class="field"><label>Senha</label><input type="password" id="cad-senha" disabled placeholder="••••••"></div>
+          <div style="padding-bottom:2px;">
+            <label class="chk-lider" id="label-lider" style="cursor:not-allowed;opacity:.45;">
+              <input type="checkbox" id="cad-lider" disabled> É Líder
+            </label>
+          </div>
         </div>
 
-        <label id="label-lider" style="display:inline-flex;align-items:center;gap:8px;font-size:0.84rem;color:#aaa;cursor:not-allowed;margin-bottom:12px;user-select:none;">
-          <input type="checkbox" id="cad-lider" disabled style="width:15px;height:15px;accent-color:var(--accent);"> <span>É Líder</span>
-        </label>
-
-        <div style="font-size:0.77rem;font-weight:600;color:#aaa;margin-bottom:8px;" id="label-vinculos">Vínculos de Categoria</div>
-        <div id="lista-vinculos-cad"></div>
-        <button class="btn btn-ghost btn-sm" id="btn-add-vinculo" onclick="adicionarLinhaVinculo()" disabled style="margin-top:6px;opacity:0.45;">
-          <i class="fas fa-plus"></i> Add Categoria
-        </button>
+        <!-- Vínculos em linha -->
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+          <span id="label-vinculos" style="font-size:.75rem;font-weight:600;color:#aaa;white-space:nowrap;">Categorias:</span>
+          <div class="vinculos-wrap" id="lista-vinculos-cad"></div>
+          <button class="btn btn-ghost btn-sm" id="btn-add-vinculo" onclick="adicionarLinhaVinculo()" disabled style="opacity:.45;white-space:nowrap;">
+            <i class="fas fa-plus"></i> Add
+          </button>
+        </div>
 
         <div class="msg-box" id="msg-form-pessoa"></div>
       </div>
 
-      <!-- LISTA -->
-      <div style="display:flex;justify-content:space-between;align-items:center;margin:16px 0 10px;">
-        <span style="font-size:0.82rem;color:#888;font-weight:600;">Integrantes cadastrados</span>
-        <input type="text" class="filtro-input" id="busca-integrantes" placeholder="🔎 Buscar..." oninput="filtrarIntegrantes()">
-      </div>
-      <div style="overflow-x:auto;">
+      <!-- TABELA SCROLLÁVEL -->
+      <div class="pessoa-table-wrap">
+        <div class="pessoa-table-header">
+          <span style="font-size:.82rem;font-weight:600;color:#888;">Integrantes cadastrados</span>
+          <input type="text" class="filtro-input" id="busca-integrantes" placeholder="🔎 Buscar..." oninput="filtrarIntegrantes()" style="width:200px;">
+        </div>
         <table>
           <thead><tr><th>Nome / E-mail</th><th>Categorias</th><th>Líder</th><th>Ações</th></tr></thead>
           <tbody id="tbody-pessoas"></tbody>
         </table>
       </div>
-    </div>
+
+    </div><!-- /modal-pessoa-body -->
   </div>
 </div>
 
-<!-- ═══════ MODAL CATEGORIAS ═══════ -->
+<!-- ══════════════════════════════════════
+     MODAL CATEGORIAS
+══════════════════════════════════════ -->
 <div class="modal-overlay" id="modalCategorias">
   <div class="modal modal-sm">
     <div class="modal-header">
       <h2><i class="fas fa-tags"></i> Gerenciar Categorias</h2>
       <button class="btn btn-ghost btn-sm" onclick="fecharModal('modalCategorias')"><i class="fas fa-times"></i></button>
     </div>
-    <div class="modal-body">
-      <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+    <div style="padding:20px 22px;overflow-y:auto;flex:1;">
+      <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;">
         <input type="text" id="nova-cat-nome" placeholder="Nome da categoria" style="flex:1;min-width:130px;">
         <select id="nova-cat-tipo" style="width:auto;min-width:130px;">
           <option value="vocal">Vocal</option>
@@ -417,17 +410,19 @@
   </div>
 </div>
 
-<!-- ═══════ MODAL GERAR ═══════ -->
+<!-- ══════════════════════════════════════
+     MODAL GERAR
+══════════════════════════════════════ -->
 <div class="modal-overlay" id="modalGerar">
   <div class="modal modal-sm">
     <div class="modal-header">
       <h2><i class="fas fa-magic"></i> Gerar Escala Automática</h2>
       <button class="btn btn-ghost btn-sm" onclick="fecharModal('modalGerar')"><i class="fas fa-times"></i></button>
     </div>
-    <div class="modal-body">
-      <p style="font-size:0.85rem;color:#666;margin-bottom:14px;">Monta o mês completo usando o algoritmo de peso — quem foi escalado há mais tempo tem prioridade. Ninguém é repetido no mesmo dia.</p>
+    <div style="padding:20px 22px;flex:1;overflow-y:auto;">
+      <p style="font-size:.85rem;color:#666;margin-bottom:14px;">Monta o mês completo usando algoritmo de peso — quem foi escalado há mais tempo tem prioridade. Ninguém é repetido no mesmo dia.</p>
       <div id="alertas-gerar"></div>
-      <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px;font-size:0.84rem;">
+      <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:9px;padding:12px;font-size:.84rem;">
         <b>Mês:</b> <span id="label-mes-gerar"></span>
       </div>
     </div>
@@ -441,23 +436,18 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
-// ═══════════════════════════════════
-// ESTADO GLOBAL
-// ═══════════════════════════════════
-let dadosGlobal = {};
-let cachePessoas = [];
-let cacheCategorias = [];
-let escalaCache = [];
-let modoEdicaoPessoa = false;
-let emailEditando = null;
-let modoEdicaoEscala = false;
-let escalaEditId = null;
-const API = "";
-const MESES = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+// ═══════════════════════════
+// ESTADO
+// ═══════════════════════════
+let dadosGlobal={}, cachePessoas=[], cacheCategorias=[], escalaCache=[];
+let modoEdicaoPessoa=false, emailEditando=null;
+let modoEdicaoEscala=false, escalaEditId=null;
+const API="";
+const MESES=["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
 
-function esc(v){ if(v==null)return""; return String(v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
-function hdrs(){ return {"Content-Type":"application/json","Authorization":`Bearer ${dadosGlobal.token}`}; }
-function ehLider(){ return !!(dadosGlobal.is_admin||dadosGlobal.eh_lider); }
+const esc=v=>v==null?"":String(v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const hdrs=()=>({"Content-Type":"application/json","Authorization":`Bearer ${dadosGlobal.token}`});
+const ehLider=()=>!!(dadosGlobal.is_admin||dadosGlobal.eh_lider);
 
 async function api(method,path,body){
   const opts={method,headers:hdrs()};
@@ -468,68 +458,59 @@ async function api(method,path,body){
   return data;
 }
 
-function fmtData(d){ if(!d)return""; const[a,m,dia]=String(d).slice(0,10).split("-"); return`${dia}/${m}/${a}`; }
-function fmtInput(d){ return d?String(d).slice(0,10):""; }
-function diaSem(d){ if(!d)return""; const[a,m,dia]=String(d).slice(0,10).split("-").map(Number); return["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"][new Date(a,m-1,dia).getDay()]; }
-function mesLabel(s){ const[a,m]=s.split("-"); return`${MESES[Number(m)-1]} ${a}`; }
-function nomePorId(id){ const p=cachePessoas.find(x=>x.id==id); return p?.nome||p?.email||""; }
+const fmtData=d=>{if(!d)return"";const[a,m,dia]=String(d).slice(0,10).split("-");return`${dia}/${m}/${a}`;};
+const fmtInput=d=>d?String(d).slice(0,10):"";
+const diaSem=d=>{if(!d)return"";const[a,m,dia]=String(d).slice(0,10).split("-").map(Number);return["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"][new Date(a,m-1,dia).getDay()];};
+const mesLabel=s=>{const[a,m]=s.split("-");return`${MESES[Number(m)-1]} ${a}`;};
+const nomePorId=id=>{const p=cachePessoas.find(x=>x.id==id);return p?.nome||p?.email||"";};
 
 function mostrarMsg(id,texto,tipo="sucesso"){
-  const el=document.getElementById(id); if(!el)return;
+  const el=document.getElementById(id);if(!el)return;
   el.className="msg-box "+(tipo==="erro"?"msg-erro":"msg-sucesso");
-  el.textContent=texto; el.style.display="block";
+  el.textContent=texto;el.style.display="block";
   setTimeout(()=>{el.style.display="none";},3500);
 }
 
-// ═══════════════════════════════════
+// ═══════════════════════════
 // INIT
-// ═══════════════════════════════════
-window.onload = async () => {
+// ═══════════════════════════
+window.onload=async()=>{
   const saved=localStorage.getItem("auth");
   if(!saved){location.href="/login";return;}
   const auth=JSON.parse(saved);
   if(!auth?.token){location.href="/login";return;}
   dadosGlobal={...auth.user,token:auth.token};
   document.getElementById("user-nome").textContent=dadosGlobal.nome||dadosGlobal.email;
-
   if(ehLider()) document.querySelectorAll(".lider-only").forEach(el=>el.style.display="");
 
-  // Meses
   const sel=document.getElementById("sel-mes");
   const hoje=new Date();
   for(let i=-3;i<=6;i++){
     const d=new Date(hoje.getFullYear(),hoje.getMonth()+i,1);
     const val=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`;
     const opt=document.createElement("option");
-    opt.value=val; opt.textContent=mesLabel(val);
-    if(i===0) opt.selected=true;
+    opt.value=val;opt.textContent=mesLabel(val);
+    if(i===0)opt.selected=true;
     sel.appendChild(opt);
   }
-
   await carregarCategorias();
   await carregarPessoas();
   preencherSelectsVocal();
   preencherCamposInstrumental();
   await carregarEscala();
-
-  try{
-    const cfg=await api("GET","/config");
-    if(cfg?.travado&&cfg?.mes_atual){sel.value=cfg.mes_atual;sel.disabled=true;}
-  }catch{}
+  try{const cfg=await api("GET","/config");if(cfg?.travado&&cfg?.mes_atual){sel.value=cfg.mes_atual;sel.disabled=true;}}catch{}
 };
 
-// ═══════════════════════════════════
+// ═══════════════════════════
 // CATEGORIAS
-// ═══════════════════════════════════
+// ═══════════════════════════
 async function carregarCategorias(){
   try{cacheCategorias=await api("GET","/categorias");}catch{cacheCategorias=[];}
 }
-
 async function abrirModalCategorias(){
   document.getElementById("modalCategorias").classList.add("open");
   renderCategorias();
 }
-
 function renderCategorias(){
   const tbody=document.getElementById("tbody-categorias");
   if(!cacheCategorias.length){tbody.innerHTML=`<tr><td colspan="3" class="empty">Nenhuma categoria</td></tr>`;return;}
@@ -539,7 +520,6 @@ function renderCategorias(){
     <td><button class="btn btn-danger btn-sm" onclick="excluirCategoria(${c.id},'${esc(c.nome)}')"><i class="fas fa-trash"></i></button></td>
   </tr>`).join("");
 }
-
 async function criarCategoria(){
   const nome=document.getElementById("nova-cat-nome").value.trim();
   const tipo=document.getElementById("nova-cat-tipo").value;
@@ -548,44 +528,41 @@ async function criarCategoria(){
     const nova=await api("POST","/categorias",{nome,tipo});
     cacheCategorias.push(nova);
     document.getElementById("nova-cat-nome").value="";
-    renderCategorias(); preencherCamposInstrumental();
+    renderCategorias();preencherCamposInstrumental();
     mostrarMsg("msg-cat","Categoria criada!");
   }catch(err){mostrarMsg("msg-cat",err.message,"erro");}
 }
-
 async function excluirCategoria(id,nome){
   if(!confirm(`Excluir "${nome}"?`))return;
   try{
     await api("DELETE",`/categorias/${id}`);
     cacheCategorias=cacheCategorias.filter(c=>c.id!==id);
-    renderCategorias(); preencherCamposInstrumental();
+    renderCategorias();preencherCamposInstrumental();
   }catch(err){alert(err.message);}
 }
 
-// ═══════════════════════════════════
+// ═══════════════════════════
 // PESSOAS
-// ═══════════════════════════════════
+// ═══════════════════════════
 async function carregarPessoas(){
   try{cachePessoas=await api("GET","/users");}catch{cachePessoas=[];}
 }
-
 async function abrirModalIntegrantes(){
   document.getElementById("modalIntegrantes").classList.add("open");
   limparFormPessoa();
   await carregarPessoas();
   renderPessoas();
 }
-
 function renderPessoas(){
   const tbody=document.getElementById("tbody-pessoas");
   const filtro=(document.getElementById("busca-integrantes")?.value||"").toLowerCase();
   const lista=cachePessoas.filter(p=>(p.nome||"").toLowerCase().includes(filtro)||(p.email||"").toLowerCase().includes(filtro));
   if(!lista.length){tbody.innerHTML=`<tr><td colspan="4" class="empty">Nenhum integrante</td></tr>`;return;}
   tbody.innerHTML=lista.map(p=>{
-    const cats=(p.vinculos||[]).map(v=>`<span class="badge ${v.tipo==="vocal"?"badge-vocal":"badge-instr"}" style="margin:1px;font-size:0.68rem;">${esc(v.categoria_nome)}</span>`).join(" ");
+    const cats=(p.vinculos||[]).map(v=>`<span class="badge ${v.tipo==="vocal"?"badge-vocal":"badge-instr"}" style="margin:1px;font-size:.67rem;">${esc(v.categoria_nome)}</span>`).join(" ");
     return`<tr>
       <td><b>${esc(p.nome)}</b><br><small style="color:#999">${esc(p.email)}</small></td>
-      <td>${cats||"<small style='color:#bbb'>Nenhum</small>"}</td>
+      <td>${cats||"<small style='color:#ccc'>Nenhum</small>"}</td>
       <td>${p.eh_lider?`<span class="badge badge-lider" style="color:#333">Líder</span>`:"-"}</td>
       <td style="white-space:nowrap;">
         <button class="btn btn-ghost btn-sm" onclick="prepararEdicaoPessoa('${esc(p.email)}')"><i class="fas fa-edit"></i></button>
@@ -594,26 +571,19 @@ function renderPessoas(){
     </tr>`;
   }).join("");
 }
-
 function filtrarIntegrantes(){renderPessoas();}
 
-function setFormPessoaAtivo(ativo){
-  const wrap=document.getElementById("form-pessoa-wrap");
+function setFormAtivo(ativo){
+  const wrap=document.getElementById("pessoa-form-wrap");
   wrap.classList.toggle("active",ativo);
-  // Campos
-  ["cad-nome","cad-senha","cad-lider"].forEach(id=>{
-    const el=document.getElementById(id); if(el) el.disabled=!ativo;
-  });
-  // Email: só habilita em NOVO
-  document.getElementById("cad-email").disabled=true; // sempre; habilita seletivamente
-  // Botões
+  ["cad-nome","cad-senha"].forEach(id=>{const el=document.getElementById(id);if(el)el.disabled=!ativo;});
+  const liderEl=document.getElementById("cad-lider");
+  const labelEl=document.getElementById("label-lider");
+  if(liderEl) liderEl.disabled=!ativo;
+  if(labelEl){labelEl.style.cursor=ativo?"pointer":"not-allowed";labelEl.style.opacity=ativo?"1":".45";}
   document.getElementById("btn-add-vinculo").disabled=!ativo;
-  document.getElementById("btn-add-vinculo").style.opacity=ativo?"1":"0.45";
+  document.getElementById("btn-add-vinculo").style.opacity=ativo?"1":".45";
   document.getElementById("btn-salvar-pessoa").disabled=!ativo;
-  // Label lider
-  const labelLider=document.getElementById("label-lider");
-  labelLider.style.color=ativo?"var(--p-dark)":"#aaa";
-  labelLider.style.cursor=ativo?"pointer":"not-allowed";
   document.getElementById("label-vinculos").style.color=ativo?"var(--p-dark)":"#aaa";
 }
 
@@ -623,46 +593,42 @@ function limparFormPessoa(){
   document.getElementById("cad-senha").value="";
   document.getElementById("cad-lider").checked=false;
   document.getElementById("lista-vinculos-cad").innerHTML="";
-  document.getElementById("form-pessoa-title").innerHTML=`<i class="fas fa-info-circle"></i> Clique em <b>Novo</b> ou no botão <i class="fas fa-edit"></i> para editar`;
-  setFormPessoaAtivo(false);
-  modoEdicaoPessoa=false; emailEditando=null;
+  document.getElementById("form-pessoa-title").innerHTML=`<i class="fas fa-info-circle"></i> Clique em <b>Novo</b> ou em <i class="fas fa-edit"></i> para editar`;
+  document.getElementById("cad-email").disabled=true;
+  setFormAtivo(false);
+  modoEdicaoPessoa=false;emailEditando=null;
 }
 
 function novoIntegrante(){
   limparFormPessoa();
   document.getElementById("form-pessoa-title").textContent="Novo Integrante";
-  document.getElementById("cad-email").disabled=false;
-  setFormPessoaAtivo(true);
-  modoEdicaoPessoa=false; emailEditando=null;
+  document.getElementById("cad-email").disabled=false; // ← habilitado no NOVO
+  setFormAtivo(true);
+  modoEdicaoPessoa=false;emailEditando=null;
   adicionarLinhaVinculo();
   document.getElementById("cad-nome").focus();
 }
 
 function prepararEdicaoPessoa(email){
-  const p=cachePessoas.find(x=>x.email===email); if(!p)return;
+  const p=cachePessoas.find(x=>x.email===email);if(!p)return;
   limparFormPessoa();
   document.getElementById("form-pessoa-title").textContent=`Editando: ${p.nome}`;
+  setFormAtivo(true);
+  document.getElementById("cad-email").disabled=true; // email bloqueado na edição
   document.getElementById("cad-nome").value=p.nome||"";
   document.getElementById("cad-email").value=p.email||"";
   document.getElementById("cad-senha").value="";
-  // ← BUG CORRIGIDO: setar checked DEPOIS de habilitar o campo
-  setFormPessoaAtivo(true);
-  document.getElementById("cad-email").disabled=true;
   document.getElementById("cad-lider").checked=!!p.eh_lider;
-  modoEdicaoPessoa=true; emailEditando=email;
-  const cont=document.getElementById("lista-vinculos-cad");
-  cont.innerHTML="";
+  modoEdicaoPessoa=true;emailEditando=email;
   (p.vinculos||[]).forEach(v=>adicionarLinhaVinculo(v.categoria_id));
-  document.querySelector("#modalIntegrantes .modal-body")?.scrollTo(0,0);
 }
 
 function adicionarLinhaVinculo(catId=""){
   const cont=document.getElementById("lista-vinculos-cad");
-  const div=document.createElement("div"); div.className="vinculo-row";
-  const opts=cacheCategorias.map(c=>`<option value="${c.id}" ${c.id==catId?"selected":""}>${esc(c.nome)} (${c.tipo})</option>`).join("");
-  div.innerHTML=`
-    <select class="vc-cat">${opts||'<option value="">Sem categorias</option>'}</select>
-    <button type="button" class="btn btn-danger btn-sm" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>`;
+  const div=document.createElement("div");div.className="vinc-pill";
+  const opts=cacheCategorias.map(c=>`<option value="${c.id}" ${c.id==catId?"selected":""}>${esc(c.nome)}</option>`).join("");
+  div.innerHTML=`<select class="vc-cat">${opts||'<option value="">—</option>'}</select>
+    <button type="button" onclick="this.parentElement.remove()" title="Remover"><i class="fas fa-times"></i></button>`;
   cont.appendChild(div);
 }
 
@@ -672,17 +638,17 @@ async function salvarPessoa(){
   const senha=document.getElementById("cad-senha").value;
   const eh_lider=document.getElementById("cad-lider").checked;
   const vinculos=[];
-  document.querySelectorAll("#lista-vinculos-cad .vinculo-row").forEach(row=>{
+  document.querySelectorAll("#lista-vinculos-cad .vinc-pill").forEach(row=>{
     const cat=row.querySelector(".vc-cat")?.value;
     if(cat) vinculos.push({categoria_id:Number(cat),eh_talkback:false});
   });
   if(!nome||!email){mostrarMsg("msg-form-pessoa","Nome e e-mail obrigatórios","erro");return;}
-  if(!modoEdicaoPessoa&&!senha){mostrarMsg("msg-form-pessoa","Senha obrigatória para novo integrante","erro");return;}
+  if(!modoEdicaoPessoa&&!senha){mostrarMsg("msg-form-pessoa","Senha obrigatória","erro");return;}
   const btn=document.getElementById("btn-salvar-pessoa");
-  btn.disabled=true; btn.innerHTML='<i class="fas fa-spinner fa-spin"></i>';
+  btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i>';
   try{
     const dados={nome,email,eh_lider,vinculos};
-    if(senha) dados.senha=senha;
+    if(senha)dados.senha=senha;
     if(modoEdicaoPessoa) await api("PUT",`/users/${encodeURIComponent(emailEditando)}`,dados);
     else await api("POST","/users",dados);
     mostrarMsg("msg-form-pessoa","Salvo com sucesso!");
@@ -699,22 +665,20 @@ async function excluirPessoa(email){
   if(!confirm(`Excluir ${email}?`))return;
   try{
     await api("DELETE",`/users/${encodeURIComponent(email)}`);
-    await carregarPessoas();
-    renderPessoas();
+    await carregarPessoas();renderPessoas();
   }catch(err){alert(err.message);}
 }
 
-// ═══════════════════════════════════
-// MODAL ESCALA — preencher selects
-// ═══════════════════════════════════
+// ═══════════════════════════
+// MODAL ESCALA
+// ═══════════════════════════
 function preencherSelectsVocal(){
   const pessoas=cachePessoas.filter(p=>(p.vinculos||[]).some(v=>{
-    const cat=cacheCategorias.find(c=>c.id==v.categoria_id);
-    return cat?.tipo==="vocal";
+    const cat=cacheCategorias.find(c=>c.id==v.categoria_id);return cat?.tipo==="vocal";
   }));
   const opts=pessoas.map(p=>`<option value="${p.id}">${esc(p.nome)}</option>`).join("");
   ["esc-ministro","esc-back1","esc-back2","esc-back3","esc-back4"].forEach(id=>{
-    const el=document.getElementById(id); if(!el)return;
+    const el=document.getElementById(id);if(!el)return;
     const cur=el.value;
     el.innerHTML=`<option value="">— Nenhum —</option>${opts}`;
     el.value=cur;
@@ -722,13 +686,13 @@ function preencherSelectsVocal(){
 }
 
 function preencherCamposInstrumental(){
-  const cont=document.getElementById("instrumental-campos"); if(!cont)return;
+  const cont=document.getElementById("instrumental-campos");if(!cont)return;
   const instrumentais=cacheCategorias.filter(c=>c.tipo==="instrumental");
   cont.innerHTML="";
   instrumentais.forEach(cat=>{
     const pessoas=cachePessoas.filter(p=>(p.vinculos||[]).some(v=>v.categoria_id==cat.id));
     const opts=pessoas.map(p=>`<option value="${p.id}">${esc(p.nome)}</option>`).join("");
-    const row=document.createElement("div"); row.className="instr-row";
+    const row=document.createElement("div");row.className="instr-row";
     row.innerHTML=`
       <div class="field">
         <label>${esc(cat.nome)}</label>
@@ -736,59 +700,59 @@ function preencherCamposInstrumental(){
           <option value="">— Nenhum —</option>${opts}
         </select>
       </div>
-      <div class="chk-tb">
+      <label class="chk-tb">
         <input type="checkbox" id="esc-tb-${cat.id}">
-        <label for="esc-tb-${cat.id}"><i class="fas fa-headphones" style="color:var(--accent);"></i> TB</label>
-      </div>`;
+        <i class="fas fa-headphones" style="color:var(--accent);"></i> TB
+      </label>`;
     cont.appendChild(row);
   });
 }
 
 function abrirModalEscala(id=null){
-  modoEdicaoEscala=!!id; escalaEditId=id;
-  document.getElementById("modal-escala-titulo").textContent=id?"Editar Escala":"Nova Escala";
-  document.getElementById("btn-salvar-label").textContent=id?"Atualizar Escala":"Salvar Escala";
-  document.getElementById("modal-historico-wrap").innerHTML=`<div class="hist-vazio">Selecione alguém no formulário</div>`;
+  modoEdicaoEscala=!!id;escalaEditId=id;
+  document.getElementById("modal-esc-titulo").textContent=id?"Editar Escala":"Nova Escala";
+  document.getElementById("btn-esc-label").textContent=id?"Atualizar":"Salvar Escala";
+  document.getElementById("modal-hist-wrap").innerHTML=`<div style="font-size:.82rem;color:#bbb;text-align:center;padding:20px 0;">Selecione alguém ao lado</div>`;
   preencherSelectsVocal();
   preencherCamposInstrumental();
 
+  // Limpar
+  document.getElementById("esc-data").value="";
+  document.getElementById("esc-evento").value="";
+  ["esc-ministro","esc-back1","esc-back2","esc-back3","esc-back4"].forEach(bid=>{
+    const el=document.getElementById(bid);if(el)el.value="";
+  });
+
   if(id){
-    const e=escalaCache.find(x=>x.id===id); if(!e)return;
+    const e=escalaCache.find(x=>x.id===id);if(!e)return;
     setTimeout(()=>{
       document.getElementById("esc-data").value=fmtInput(e.data);
       document.getElementById("esc-evento").value=e.evento||"";
       document.getElementById("esc-ministro").value=e.ministro_id||"";
-      const backs=e.backs||[];
-      ["esc-back1","esc-back2","esc-back3","esc-back4"].forEach((bid,i)=>{
-        const el=document.getElementById(bid); if(el) el.value=backs[i]||"";
+      (e.backs||[]).forEach((pid,i)=>{
+        const el=document.getElementById(`esc-back${i+1}`);if(el)el.value=pid||"";
       });
       Object.entries(e.instrumental||{}).forEach(([catId,pesId])=>{
-        const sel=document.getElementById(`esc-instr-${catId}`); if(sel) sel.value=pesId;
+        const sel=document.getElementById(`esc-instr-${catId}`);if(sel)sel.value=pesId;
         if(pesId==e.talkback_id){
-          const chk=document.getElementById(`esc-tb-${catId}`); if(chk) chk.checked=true;
+          const chk=document.getElementById(`esc-tb-${catId}`);if(chk)chk.checked=true;
         }
       });
-    },50);
-  }else{
-    document.getElementById("esc-data").value="";
-    document.getElementById("esc-evento").value="";
-    ["esc-ministro","esc-back1","esc-back2","esc-back3","esc-back4"].forEach(id=>{
-      const el=document.getElementById(id); if(el) el.value="";
-    });
+    },60);
   }
   document.getElementById("modalEscala").classList.add("open");
 }
 
 function fecharModalEscala(){
   if(modoEdicaoEscala){
-    // Se estava editando, volta para modo "nova escala" sem fechar
-    modoEdicaoEscala=false; escalaEditId=null;
-    document.getElementById("modal-escala-titulo").textContent="Nova Escala";
-    document.getElementById("btn-salvar-label").textContent="Salvar Escala";
+    // Volta para nova escala sem fechar modal
+    modoEdicaoEscala=false;escalaEditId=null;
+    document.getElementById("modal-esc-titulo").textContent="Nova Escala";
+    document.getElementById("btn-esc-label").textContent="Salvar Escala";
     document.getElementById("esc-data").value="";
     document.getElementById("esc-evento").value="";
-    ["esc-ministro","esc-back1","esc-back2","esc-back3","esc-back4"].forEach(id=>{
-      const el=document.getElementById(id); if(el) el.value="";
+    ["esc-ministro","esc-back1","esc-back2","esc-back3","esc-back4"].forEach(bid=>{
+      const el=document.getElementById(bid);if(el)el.value="";
     });
     preencherCamposInstrumental();
     return;
@@ -807,39 +771,38 @@ async function salvarEscala(){
   const backs=["esc-back1","esc-back2","esc-back3","esc-back4"]
     .map(id=>document.getElementById(id)?.value||null).filter(Boolean).map(Number);
 
-  const instrumental={};
-  let talkback_id=null;
+  const instrumental={};let talkback_id=null;
   cacheCategorias.filter(c=>c.tipo==="instrumental").forEach(cat=>{
     const val=document.getElementById(`esc-instr-${cat.id}`)?.value;
     const isTb=document.getElementById(`esc-tb-${cat.id}`)?.checked;
-    if(val){ instrumental[cat.id]=Number(val); if(isTb) talkback_id=Number(val); }
+    if(val){instrumental[cat.id]=Number(val);if(isTb)talkback_id=Number(val);}
   });
 
   const dados={mes,data,evento,ministro_id:ministro_id?Number(ministro_id):null,backs,instrumental,talkback_id};
   const btn=document.getElementById("btn-salvar-escala");
-  btn.disabled=true; btn.innerHTML='<i class="fas fa-spinner fa-spin"></i>';
+  btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i>';
   try{
     if(modoEdicaoEscala) await api("PUT",`/escala/${escalaEditId}`,dados);
     else await api("POST","/escala",dados);
-    mostrarMsg("msg-escala",modoEdicaoEscala?"Escala atualizada!":"Escala salva com sucesso!");
+    mostrarMsg("msg-escala",modoEdicaoEscala?"Escala atualizada!":"Escala salva!");
     await carregarEscala();
-    // Limpa form mas mantém modal aberto
-    modoEdicaoEscala=false; escalaEditId=null;
-    document.getElementById("modal-escala-titulo").textContent="Nova Escala";
-    document.getElementById("btn-salvar-label").textContent="Salvar Escala";
+    // Limpa e fica aberto
+    modoEdicaoEscala=false;escalaEditId=null;
+    document.getElementById("modal-esc-titulo").textContent="Nova Escala";
+    document.getElementById("btn-esc-label").textContent="Salvar Escala";
     document.getElementById("esc-data").value="";
     document.getElementById("esc-evento").value="";
-    ["esc-ministro","esc-back1","esc-back2","esc-back3","esc-back4"].forEach(id=>{
-      const el=document.getElementById(id); if(el) el.value="";
+    ["esc-ministro","esc-back1","esc-back2","esc-back3","esc-back4"].forEach(bid=>{
+      const el=document.getElementById(bid);if(el)el.value="";
     });
     preencherCamposInstrumental();
   }catch(err){mostrarMsg("msg-escala",err.message,"erro");}
-  finally{btn.disabled=false;btn.innerHTML=`<i class="fas fa-save"></i> <span id="btn-salvar-label">${modoEdicaoEscala?"Atualizar Escala":"Salvar Escala"}</span>`;}
+  finally{btn.disabled=false;btn.innerHTML=`<i class="fas fa-save"></i> <span id="btn-esc-label">${modoEdicaoEscala?"Atualizar":"Salvar Escala"}</span>`;}
 }
 
-// ═══════════════════════════════════
-// ESCALA TABELA
-// ═══════════════════════════════════
+// ═══════════════════════════
+// TABELA ESCALA
+// ═══════════════════════════
 async function aoMudarMes(){await carregarEscala();}
 
 async function carregarEscala(){
@@ -874,7 +837,7 @@ function renderEscala(){
     const instrParts=Object.entries(e.instrumental||{}).map(([catId,pesId])=>{
       const cat=cacheCategorias.find(c=>c.id==catId);
       const isTb=pesId==e.talkback_id;
-      return `<span style="font-size:0.74rem;color:#888;">${esc(cat?.nome||catId)}:</span> ${esc(nomePorId(pesId))}${isTb?` <span class="badge badge-talkback" style="font-size:0.62rem;padding:2px 6px;">TB</span>`:""}`;
+      return`<span style="font-size:.73rem;color:#888;">${esc(cat?.nome||catId)}:</span> ${esc(nomePorId(pesId))}${isTb?` <span class="badge badge-talkback" style="font-size:.6rem;padding:2px 5px;">TB</span>`:""}`;
     }).join("<br>");
     const acoes=podeEditar?`<td style="white-space:nowrap;">
       <button class="btn btn-ghost btn-sm" onclick="abrirModalEscala(${e.id})" title="Editar"><i class="fas fa-edit"></i></button>
@@ -882,17 +845,16 @@ function renderEscala(){
     </td>`:"";
     html+=`<tr>
       <td><b>${esc(fmtData(e.data))}</b><br><small style="color:#999">${diaSem(e.data)}</small></td>
-      <td><span style="background:#eaf0f8;color:var(--p-dark);padding:3px 9px;border-radius:20px;font-size:0.78rem;font-weight:600;">${esc(e.evento||"-")}</span></td>
+      <td><span style="background:#eaf0f8;color:var(--p-dark);padding:3px 9px;border-radius:20px;font-size:.77rem;font-weight:600;">${esc(e.evento||"-")}</span></td>
       <td>${esc(nomePorId(e.ministro_id)||"-")}</td>
-      <td style="font-size:0.82rem;">${backs}</td>
-      <td style="font-size:0.82rem;">${instrParts||"-"}</td>
+      <td style="font-size:.82rem;">${backs}</td>
+      <td style="font-size:.82rem;">${instrParts||"-"}</td>
       ${acoes}
     </tr>`;
   });
   html+=`</tbody></table>`;
   wrap.innerHTML=html;
 }
-
 function filtrarTabela(){renderEscala();}
 
 async function deletarEscala(id){
@@ -901,79 +863,59 @@ async function deletarEscala(id){
   catch(err){alert(err.message);}
 }
 
-// ═══════════════════════════════════
-// HISTÓRICO
-// ═══════════════════════════════════
+// ═══════════════════════════
+// HISTÓRICO (só no modal)
+// ═══════════════════════════
 async function verHistorico(pessoaId){
-  // Atualiza ambos — modal interno e lateral da página
-  const wrap1=document.getElementById("modal-historico-wrap");
-  const wrap2=document.getElementById("historico-wrap");
-
-  if(!pessoaId){
-    if(wrap1) wrap1.innerHTML=`<div class="hist-vazio">Selecione alguém no formulário</div>`;
-    return;
-  }
+  const wrap=document.getElementById("modal-hist-wrap");if(!wrap)return;
+  if(!pessoaId){wrap.innerHTML=`<div style="font-size:.82rem;color:#bbb;text-align:center;padding:20px 0;">Selecione alguém ao lado</div>`;return;}
   const mes=document.getElementById("sel-mes").value;
   try{
     const lista=await api("GET",`/escala/historico?pessoa_id=${pessoaId}&mes=${encodeURIComponent(mes)}`);
     const p=cachePessoas.find(x=>x.id==pessoaId);
-    const header=`<div style="font-size:0.75rem;color:#888;margin-bottom:8px;"><i class="fas fa-user" style="color:var(--accent);margin-right:4px;"></i>${esc(p?.nome||pessoaId)}</div>`;
-    if(!lista.length){
-      const html=header+`<div class="hist-vazio">Não escalado este mês</div>`;
-      if(wrap1) wrap1.innerHTML=html;
-      if(wrap2) wrap2.innerHTML=html;
-      return;
-    }
-    const itens=lista.map(h=>`<div class="hist-item">
-      <div class="data">${fmtData(h.data)} · ${diaSem(h.data)}</div>
-      <div class="evento">${esc(h.evento||"")} <span style="color:#aaa;font-size:0.74rem;">· ${esc(h.funcao)}</span></div>
+    const header=`<div style="font-size:.74rem;color:#888;margin-bottom:8px;"><i class="fas fa-user" style="color:var(--accent);margin-right:4px;"></i><b>${esc(p?.nome||pessoaId)}</b></div>`;
+    if(!lista.length){wrap.innerHTML=header+`<div style="font-size:.81rem;color:#bbb;text-align:center;">Não escalado este mês</div>`;return;}
+    wrap.innerHTML=header+lista.map(h=>`<div class="hist-item">
+      <div class="hdata">${fmtData(h.data)} · ${diaSem(h.data)}</div>
+      <div class="hev">${esc(h.evento||"")} <span style="color:#aaa;font-size:.73rem;">· ${esc(h.funcao)}</span></div>
     </div>`).join("");
-    const html=header+itens;
-    if(wrap1) wrap1.innerHTML=html;
-    if(wrap2) wrap2.innerHTML=html;
-  }catch(err){
-    const html=`<div class="hist-vazio">${esc(err.message)}</div>`;
-    if(wrap1) wrap1.innerHTML=html;
-  }
+  }catch(err){wrap.innerHTML=`<div style="font-size:.8rem;color:#e74c3c;">${esc(err.message)}</div>`;}
 }
 
-// ═══════════════════════════════════
+// ═══════════════════════════
 // GERAR
-// ═══════════════════════════════════
+// ═══════════════════════════
 function abrirModalGerar(){
   const mes=document.getElementById("sel-mes").value;
   document.getElementById("label-mes-gerar").textContent=mesLabel(mes);
   document.getElementById("alertas-gerar").innerHTML="";
   document.getElementById("modalGerar").classList.add("open");
 }
-
 async function confirmarGerarEscala(){
   const mes=document.getElementById("sel-mes").value;
   const btn=document.getElementById("btn-confirmar-gerar");
-  btn.disabled=true; btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Gerando...';
+  btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Gerando...';
   try{
     const res=await api("POST","/escala/gerar",{mes});
     if(res.alertas?.length){
       const ul=res.alertas.map(a=>`<li>${esc(a.categoria)}: ${a.disponiveis} disponíveis, ${a.necessario} necessários</li>`).join("");
       document.getElementById("alertas-gerar").innerHTML=`<div class="alerta-box"><b><i class="fas fa-exclamation-triangle"></i> Equipe curta:</b><ul style="padding-left:16px;margin-top:4px;">${ul}</ul></div>`;
     }
-    fecharModal("modalGerar");
-    await carregarEscala();
+    fecharModal("modalGerar");await carregarEscala();
     alert(`Escala gerada! ${res.escala?.length||0} eventos criados.`);
   }catch(err){alert("Erro: "+err.message);}
   finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-magic"></i> Gerar Agora';}
 }
 
-// ═══════════════════════════════════
+// ═══════════════════════════
 // CONFIG
-// ═══════════════════════════════════
+// ═══════════════════════════
 async function travarMes(){
   const mes=document.getElementById("sel-mes").value;
   if(!confirm(`Travar ${mesLabel(mes)}?`))return;
   try{await api("POST","/config/travar",{mes});document.getElementById("sel-mes").disabled=true;alert("Mês travado.");}
   catch(err){alert(err.message);}
 }
-
 async function confirmarLimpar(){
   const mes=document.getElementById("sel-mes").value;
   if(!confirm(`Limpar toda a escala de ${mesLabel(mes)}?`))return;
@@ -981,9 +923,9 @@ async function confirmarLimpar(){
   catch(err){alert(err.message);}
 }
 
-// ═══════════════════════════════════
+// ═══════════════════════════
 // PDF
-// ═══════════════════════════════════
+// ═══════════════════════════
 async function gerarPdf(){
   const mes=document.getElementById("sel-mes").value;
   if(!escalaCache.length){alert("Nenhuma escala para gerar PDF.");return;}
@@ -998,8 +940,7 @@ async function gerarPdf(){
     backs:(e.backs||[]).map(nomePorId).filter(Boolean).join(", ")||"-",
     instrumental:Object.entries(e.instrumental||{}).map(([catId,pesId])=>{
       const cat=cacheCategorias.find(c=>c.id==catId);
-      const isTb=pesId==e.talkback_id;
-      return`${cat?.nome||catId}: ${nomePorId(pesId)}${isTb?" (TB)":""}`;
+      return`${cat?.nome||catId}: ${nomePorId(pesId)}${pesId==e.talkback_id?" (TB)":""}`;
     }).join(" | ")||"-",
     talkback:e.talkback_id?nomePorId(e.talkback_id):"-"
   }));
@@ -1015,14 +956,14 @@ async function gerarPdf(){
     const pdf=new jsPDF({orientation:"landscape",unit:"mm",format:"a4"});
     const w=pdf.internal.pageSize.getWidth();
     const h=w*(canvas.height/canvas.width);
-    pdf.addImage(canvas.toDataURL("image/jpeg",0.92),"JPEG",0,0,w,h);
+    pdf.addImage(canvas.toDataURL("image/jpeg",.92),"JPEG",0,0,w,h);
     pdf.save(`Escala_${mesLabel(mes)}.pdf`);
   }finally{document.body.removeChild(iframe);}
 }
 
-// ═══════════════════════════════════
+// ═══════════════════════════
 // MODAIS
-// ═══════════════════════════════════
+// ═══════════════════════════
 function fecharModal(id){document.getElementById(id).classList.remove("open");}
 window.addEventListener("click",e=>{
   document.querySelectorAll(".modal-overlay.open").forEach(m=>{
