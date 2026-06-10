@@ -1,10 +1,5 @@
-﻿import express from "express";
-import {
-  obterConfig,
-  travarMes,
-  destravarMes,
-  limparMes
-} from "../controllers/configController.js";
+import express from "express";
+import { obterConfig, travarMes, destravarMes, limparMes } from "../controllers/configController.js";
 import { validarToken, apenasLider } from "../middleware/authMiddleware.js";
 
 const router = express.Router();

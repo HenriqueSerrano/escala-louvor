@@ -1,1863 +1,1031 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Escala Departamento Infantil</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EscalaLouvor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
   <style>
-    :root {
-      --p-dark: #03213f;
-      --p-mid: #aebecd;
-      --p-soft: #7094B8;
-      --accent: #C5A059;
-      --accent-hover: #b48d48;
-      --bg: #ebf0f5;
-      --white: #ffffff;
-      --radius: 15px;
-      --shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    :root{
+      --bg:#07101f;
+      --surface:#0d1b35;
+      --surface2:#112040;
+      --border:rgba(255,255,255,0.07);
+      --blue:#3b82f6;
+      --blue-dark:#1a56db;
+      --blue-glow:rgba(59,130,246,0.25);
+      --text:#e2e8f0;
+      --text-muted:rgba(255,255,255,0.4);
+      --accent:#f59e0b;
+      --danger:#ef4444;
+      --success:#22c55e;
+      --radius:14px;
     }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: var(--bg);
-      margin: 0;
-      color: #333;
-      overflow-x: hidden;
-    }
-
-    .header {
-      background: linear-gradient(135deg, var(--p-dark), var(--p-mid));
-      color: white;
-      padding: 20px 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      position: relative;
-    }
-
-    .header::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      /* 🔥 fica na base */
-      left: 0;
-      width: 100%;
-      height: 4px;
-
-      background: linear-gradient(90deg, var(--accent), #ffd27a, var(--accent));
-    }
-
-
-    .logo-box {
-      width: 200px;
-      height: 90px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(255, 255, 255, 0);
-      border-radius: 8px;
-    }
-
-    .logo-box img {
-      max-width: 90%;
-      max-height: 90%;
-      object-fit: contain;
-    }
-
-    .header-center {
-      text-align: center;
-      flex-grow: 1;
-    }
-
-    .header-center h1 {
-      margin: 0;
-      font-size: 1.6rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .header-center h3 {
-      margin: 2px 0;
-      font-weight: 300;
-      font-size: 1rem;
-      opacity: 0.9;
-    }
-
-    .container {
-      max-width: 1900px;
-      margin: 25px auto;
-      padding: 0 20px;
-    }
-
-    .card {
-      background: var(--white);
-      border-radius: var(--radius);
-      padding: 15px;
-      box-shadow: var(--shadow);
-      margin-bottom: 20px;
-      border: 1px solid rgba(0, 0, 0, 0.03);
-      min-width: 0;
-    }
-
-    .grid-main {
-      display: grid;
-      grid-template-columns: 0.8fr 2.4fr 1fr !important;
-      gap: 25px;
-      align-items: start;
-    }
-
-    .card-form,
-    .card-tabela-escala {
-      min-height: 520px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .history-card {
-      min-width: 320px;
-      max-width: 100%;
-      overflow-x: visible;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .card-form #form-escala {
-      flex: 1 1 auto;
-      max-height: calc(100vh - 320px);
-      overflow: auto;
-      padding-right: 6px;
-      border-top: 1px solid #eee;
-      padding-top: 20px;
-    }
-
-    .card-tabela-escala #tabela-escala {
-      flex: 1 1 auto;
-      max-height: calc(100vh - 320px);
-      overflow: auto;
-      padding-right: 6px;
-      margin-top: 16px;
-    }
-
-    .card-tabela-escala h4,
-    .card-form h4 {
-      margin-top: 0;
-      color: var(--p-dark);
-    }
-
-    .card-tabela-escala table,
-    .history-card table {
-      min-width: 720px;
-      width: 100%;
-      table-layout: auto;
-    }
-
-    .card-tabela-escala th,
-    .card-tabela-escala td {
-      white-space: nowrap;
-    }
-
-    .history-card th,
-    .history-card td {
-      white-space: normal;
-      word-break: break-word;
-    }
-
-    .history-card table {
-      table-layout: fixed;
-    }
-
-    .row {
-      display: flex;
-      gap: 15px;
-      margin-bottom: 15px;
-      flex-wrap: wrap;
-      align-items: flex-end;
-      min-width: 0;
-    }
-
-    .field {
-      flex: 1 1 200px;
-      min-width: 180px;
-      max-width: 280px;
-      box-sizing: border-box;
-    }
-
-    .field select,
-    .field input {
-      min-width: 0;
-      max-width: 100%;
-    }
-
-    #form-escala .row:nth-child(3) .field,
-    #form-escala .row:nth-child(4) .field {
-      min-width: 180px;
-      max-width: 240px;
-    }
-
-    .escala-acoes {
-      display: flex;
-      gap: 6px;
-      justify-content: center;
-      align-items: center;
-      white-space: nowrap;
-    }
-
-    .escala-acoes .btn {
-      padding: 6px 8px;
-      min-width: 32px;
-      min-height: 32px;
-      font-size: 0.82rem;
-      line-height: 1;
-    }
-
-    .escala-acoes .btn i {
-      font-size: 0.85rem;
-    }
-
-    .card-tabela-escala table td:last-child,
-    .card-tabela-escala table th:last-child {
-      width: 90px;
-      min-width: 90px;
-      white-space: nowrap;
-    }
-
-    .history-card th,
-    .history-card td {
-      font-size: 0.82rem;
-      padding: 8px 6px;
-    }
-
-    #lista-conflitos {
-      overflow-x: visible;
-      width: 100%;
-    }
-
-    #lista-conflitos table {
-      width: 100%;
-      table-layout: fixed;
-      border-collapse: collapse;
-      min-width: 0;
-    }
-
-    #lista-conflitos th,
-    #lista-conflitos td {
-      padding: 10px 8px;
-      text-align: left;
-      word-break: break-word;
-      overflow-wrap: break-word;
-      white-space: normal;
-    }
-
-    #lista-conflitos th:nth-child(1),
-    #lista-conflitos td:nth-child(1) {
-      width: 22%;
-    }
-
-    #lista-conflitos th:nth-child(2),
-    #lista-conflitos td:nth-child(2) {
-      width: 18%;
-    }
-
-    #lista-conflitos th:nth-child(3),
-    #lista-conflitos td:nth-child(3) {
-      width: 22%;
-    }
-
-    #lista-conflitos th:nth-child(4),
-    #lista-conflitos td:nth-child(4) {
-      width: 16%;
-    }
-
-    #lista-conflitos th:nth-child(5),
-    #lista-conflitos td:nth-child(5) {
-      width: 20%;
-    }
-
-    select,
-    input {
-      width: 100%;
-      padding: 12px;
-      border-radius: 10px;
-      border: 1.5px solid #d1d9e0;
-      font-family: inherit;
-      transition: 0.3s;
-      background: white;
-    }
-
-    select:focus,
-    input:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.1);
-    }
-
-    .btn {
-      padding: 12px 20px;
-      border-radius: 10px;
-      border: none;
-      cursor: pointer;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: 0.3s;
-      font-size: 0.9rem;
-    }
-
-    .btn-accent {
-      background: var(--accent);
-      color: white;
-    }
-
-    .btn-primary {
-      background: var(--p-dark);
-      color: white;
-    }
-
-    .btn-ghost {
-      background: transparent;
-      border: 1.5px solid var(--p-dark);
-      color: var(--p-dark);
-    }
-
-    .btn-danger {
-      background: #e74c3c;
-      color: white;
-    }
-
-    .btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-    }
-
-    th {
-      background: #f8f9fa;
-      color: var(--p-dark);
-      padding: 12px;
-      text-align: left;
-      font-size: 0.8rem;
-      border-bottom: 2px solid var(--bg);
-    }
-
-    td {
-      padding: 12px;
-      border-bottom: 1px solid #eee;
-      font-size: 0.9rem;
-      vertical-align: top;
-    }
-
-    #modalPessoas {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      z-index: 1000;
-      align-items: center;
-      justify-content: center;
-      backdrop-filter: blur(4px);
-    }
-
-    .modal-content {
-      background: white;
-      width: 95%;
-      max-width: 900px;
-      padding: 30px;
-      border-radius: var(--radius);
-      max-height: 92vh;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    .modal-form {
-      flex: 0 0 auto;
-    }
-
-    .modal-list {
-      flex: 1 1 auto;
-      overflow: auto;
-      padding-right: 6px;
-      /* espaço para scrollbar sem sobrepor conteúdo */
-    }
-
-    .badge {
-      padding: 2px 8px;
-      border-radius: 5px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: white;
-      background: var(--p-soft);
-    }
-
-    .msg-box {
-      margin-top: 10px;
-      padding: 10px 12px;
-      border-radius: 10px;
-      font-size: 0.9rem;
-      display: none;
-    }
-
-    .msg-erro {
-      background: #fdeaea;
-      color: #a93226;
-      border: 1px solid #f5c6cb;
-    }
-
-    .msg-sucesso {
-      background: #eafaf1;
-      color: #1e8449;
-      border: 1px solid #b7e1cd;
-    }
-
-    @media (max-width: 900px) {
-      .grid-main {
-        grid-template-columns: 1fr;
-      }
-
-      .header {
-        padding: 18px 20px;
-        gap: 10px;
-      }
-
-      .header-center h1 {
-        font-size: 1.2rem;
-      }
-
-      .header-center h3 {
-        font-size: 0.9rem;
-      }
-
-      .logo-box {
-        width: 80px;
-        height: 55px;
-      }
-    }
-
-    /* Scroll interno para histórico */
-    .history-card {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .history-card #lista-conflitos {
-      flex: 1 1 auto;
-      max-height: calc(100vh - 320px);
-      overflow: auto;
-      padding-right: 6px;
-    }
-
-    #filtro-geral,
-    #filtro-data {
-      padding: 8px 10px;
-      border-radius: 8px;
-      border: 1px solid #d1d9e0;
-      font-size: 0.85rem;
-    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+
+    /* HEADER */
+    .header{background:linear-gradient(135deg,#07101f,#0d1b35);border-bottom:1px solid var(--border);padding:16px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 4px 24px rgba(0,0,0,0.4);}
+    .header::after{content:"";position:absolute;bottom:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,var(--blue-dark),var(--blue),var(--blue-dark));}
+    .logo-box{width:160px;height:60px;display:flex;align-items:center;justify-content:center;}
+    .logo-box img{max-width:100%;max-height:100%;object-fit:contain;filter:brightness(1.1);}
+    .header-center{text-align:center;flex:1;}
+    .header-center h1{font-size:1.3rem;font-weight:600;color:#fff;letter-spacing:0.5px;}
+    .header-center p{font-size:0.78rem;color:var(--text-muted);margin-top:2px;}
+    .user-info{font-size:0.75rem;color:var(--text-muted);margin-top:4px;}
+    .user-info i{color:var(--blue);margin-right:4px;}
+
+    /* CONTAINER */
+    .container{max-width:1800px;margin:24px auto;padding:0 24px;}
+
+    /* TOOLBAR */
+    .toolbar{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;margin-bottom:20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+    .toolbar .field{display:flex;flex-direction:column;gap:4px;}
+    .toolbar label{font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;font-weight:500;}
+    .toolbar select{background:var(--surface2);border:1.5px solid var(--border);color:var(--text);padding:9px 14px;border-radius:10px;font-family:'Poppins',sans-serif;font-size:0.85rem;cursor:pointer;min-width:160px;transition:0.3s;}
+    .toolbar select:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-glow);}
+    .toolbar-btns{display:flex;gap:8px;flex-wrap:wrap;margin-left:auto;}
+
+    /* GRID */
+    .grid-main{display:grid;grid-template-columns:1fr 2.2fr 0.9fr;gap:20px;align-items:start;}
+
+    /* CARDS */
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;}
+    .card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);}
+    .card-header h4{font-size:0.9rem;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px;}
+    .card-header h4 i{color:var(--blue);}
+
+    /* BUTTONS */
+    .btn{padding:9px 16px;border-radius:10px;border:none;cursor:pointer;font-family:'Poppins',sans-serif;font-weight:500;font-size:0.82rem;display:inline-flex;align-items:center;gap:7px;transition:0.25s;}
+    .btn:disabled{opacity:0.5;cursor:not-allowed;}
+    .btn-primary{background:linear-gradient(135deg,var(--blue-dark),var(--blue));color:#fff;}
+    .btn-primary:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 6px 20px var(--blue-glow);}
+    .btn-ghost{background:transparent;border:1.5px solid var(--border);color:var(--text-muted);}
+    .btn-ghost:hover:not(:disabled){border-color:var(--blue);color:var(--blue);}
+    .btn-accent{background:linear-gradient(135deg,#b45309,var(--accent));color:#fff;}
+    .btn-danger{background:linear-gradient(135deg,#b91c1c,var(--danger));color:#fff;}
+    .btn-success{background:linear-gradient(135deg,#15803d,var(--success));color:#fff;}
+    .btn-sm{padding:6px 10px;font-size:0.78rem;}
+
+    /* INPUTS */
+    input,select,textarea{font-family:'Poppins',sans-serif;}
+    .form-field{margin-bottom:14px;}
+    .form-field label{display:block;font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;font-weight:500;margin-bottom:6px;}
+    .form-field input,.form-field select{width:100%;background:var(--surface2);border:1.5px solid var(--border);color:var(--text);padding:10px 14px;border-radius:10px;font-size:0.85rem;transition:0.3s;}
+    .form-field input:focus,.form-field select:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-glow);}
+    .form-field input::placeholder{color:var(--text-muted);}
+    .form-row{display:flex;gap:12px;flex-wrap:wrap;}
+    .form-row .form-field{flex:1;min-width:140px;}
+
+    /* TABELA */
+    table{width:100%;border-collapse:collapse;}
+    th{background:var(--surface2);color:var(--text-muted);padding:10px 12px;text-align:left;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.06em;font-weight:500;border-bottom:1px solid var(--border);}
+    td{padding:11px 12px;border-bottom:1px solid var(--border);font-size:0.83rem;color:var(--text);vertical-align:top;}
+    tr:last-child td{border-bottom:none;}
+    tr:hover td{background:rgba(59,130,246,0.04);}
+
+    /* BADGES */
+    .badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:0.7rem;font-weight:500;}
+    .badge-vocal{background:rgba(139,92,246,0.2);color:#a78bfa;border:1px solid rgba(139,92,246,0.3);}
+    .badge-instr{background:rgba(59,130,246,0.15);color:#93c5fd;border:1px solid rgba(59,130,246,0.25);}
+    .badge-talkback{background:rgba(245,158,11,0.2);color:#fbbf24;border:1px solid rgba(245,158,11,0.3);}
+    .badge-lider{background:rgba(34,197,94,0.15);color:#86efac;border:1px solid rgba(34,197,94,0.25);}
+
+    /* EVENTO LABELS */
+    .ev-dom-manha{color:#93c5fd;}
+    .ev-dom-noite{color:#a78bfa;}
+    .ev-quinta{color:#6ee7b7;}
+
+    /* MODALS */
+    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:1000;align-items:center;justify-content:center;backdrop-filter:blur(6px);}
+    .modal-overlay.open{display:flex;}
+    .modal{background:var(--surface);border:1px solid var(--border);border-radius:20px;width:95%;max-width:860px;max-height:92vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,0.6);}
+    .modal-header{padding:24px 28px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+    .modal-header h2{font-size:1rem;font-weight:600;color:#fff;display:flex;align-items:center;gap:10px;}
+    .modal-header h2 i{color:var(--blue);}
+    .modal-body{padding:24px 28px;overflow-y:auto;flex:1;}
+    .modal-footer{padding:16px 28px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:10px;flex-shrink:0;}
+
+    /* SECTION DIVIDER */
+    .section-label{font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;font-weight:500;margin:18px 0 10px;display:flex;align-items:center;gap:8px;}
+    .section-label::after{content:"";flex:1;height:1px;background:var(--border);}
+
+    /* VÍNCULOS */
+    .vinculo-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:8px 12px;}
+    .vinculo-row select{background:transparent;border:none;color:var(--text);font-family:'Poppins',sans-serif;font-size:0.83rem;flex:1;padding:0;}
+    .vinculo-row select:focus{outline:none;}
+    .vinculo-row .chk-label{display:flex;align-items:center;gap:6px;font-size:0.78rem;color:var(--text-muted);white-space:nowrap;}
+    .vinculo-row input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;}
+
+    /* MSGS */
+    .msg-box{padding:10px 14px;border-radius:10px;font-size:0.83rem;display:none;margin-top:10px;}
+    .msg-erro{background:rgba(239,68,68,0.15);color:#fca5a5;border:1px solid rgba(239,68,68,0.3);}
+    .msg-sucesso{background:rgba(34,197,94,0.15);color:#86efac;border:1px solid rgba(34,197,94,0.3);}
+
+    /* ALERTA EQUIPE CURTA */
+    .alerta-box{background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);border-radius:12px;padding:14px 16px;margin-bottom:16px;}
+    .alerta-box .alerta-title{font-size:0.82rem;font-weight:600;color:#fbbf24;margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+    .alerta-box ul{list-style:none;font-size:0.78rem;color:var(--text-muted);}
+    .alerta-box ul li::before{content:"⚠ ";color:#fbbf24;}
+
+    /* HISTORICO ITEM */
+    .hist-item{padding:10px 12px;border-radius:10px;background:var(--surface2);border:1px solid var(--border);margin-bottom:8px;}
+    .hist-item .data{font-size:0.72rem;color:var(--text-muted);}
+    .hist-item .evento{font-size:0.82rem;font-weight:500;margin-top:2px;}
+
+    /* VAZIO */
+    .empty{text-align:center;padding:32px 16px;color:var(--text-muted);font-size:0.85rem;}
+    .empty i{font-size:2rem;margin-bottom:10px;display:block;opacity:0.3;}
+
+    /* SCROLL */
+    .scroll-area{max-height:calc(100vh - 380px);overflow-y:auto;padding-right:4px;}
+    .scroll-area::-webkit-scrollbar{width:4px;}
+    .scroll-area::-webkit-scrollbar-track{background:transparent;}
+    .scroll-area::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
+
+    /* FILTRO */
+    .filtro-input{background:var(--surface2);border:1.5px solid var(--border);color:var(--text);padding:8px 12px;border-radius:10px;font-family:'Poppins',sans-serif;font-size:0.82rem;width:220px;transition:0.3s;}
+    .filtro-input:focus{outline:none;border-color:var(--blue);}
+    .filtro-input::placeholder{color:var(--text-muted);}
+
+    /* FORM ESCALA — seções vocal/instrumental */
+    .esc-secao{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:12px;}
+    .esc-secao-title{font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+    .esc-secao-title.vocal{color:#a78bfa;}
+    .esc-secao-title.instrumental{color:#93c5fd;}
+
+    /* CATEGORIA PILL */
+    .cat-pill{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:20px;font-size:0.7rem;margin:2px;}
+
+    @media(max-width:1100px){.grid-main{grid-template-columns:1fr 1.8fr;}}
+    @media(max-width:768px){.grid-main{grid-template-columns:1fr;}.header{padding:14px 16px;}.header-center h1{font-size:1rem;}.logo-box{width:80px;height:40px;}}
   </style>
 </head>
-
 <body>
 
-  <div class="header">
-    <div class="logo-box">
-      <img src="https://verbodavida.org.br/wp-content/uploads/2022/07/Ministerio-Verbo-da-Vida-1536x428.png"
-        alt="Logo Igreja">
-    </div>
-
-    <div class="header-center">
-      <h1>Escala Departamento Infantil</h1>
-      <h3>Verbo da Vida Casa Caiada</h3>
-      <div style="font-size: 0.75rem; margin-top: 5px; opacity: 0.8;">
-        <i class="fas fa-user-circle"></i> <span id="user-email">Carregando...</span>
-      </div>
-    </div>
-
-    <div class="logo-box">
-      <img src="https://images.sympla.com.br/60f08d41664f2-xs.png" alt="Logo DI">
-    </div>
+<div class="header">
+  <div class="logo-box"><img src="logo-esq.png" alt="Logo" onerror="this.style.display='none'"></div>
+  <div class="header-center">
+    <h1><i class="fas fa-music" style="color:var(--blue);margin-right:8px;"></i>Grupo de Música</h1>
+    <p>Verbo da Vida Casa Caiada</p>
+    <div class="user-info"><i class="fas fa-user-circle"></i><span id="user-nome">Carregando...</span></div>
   </div>
+  <div class="logo-box"><img src="logo-dir.png" alt="Logo" onerror="this.style.display='none'"></div>
+</div>
 
-  <div class="container">
-    <div class="card row" style="border-top: 4px solid var(--accent);">
-      <div class="field">
-        <label><i class="fas fa-calendar-alt"></i> Mês Referência</label>
-        <select id="sel-mes-global"></select>
-      </div>
+<div class="container">
 
-      <div class="field">
-        <label><i class="fas fa-door-open"></i> Selecionar Sala</label>
-        <select id="sel-sala-global" onchange="aoMudarSala()"></select>
-      </div>
-
-      <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <button id="btn-cadastro-integrantes" class="btn btn-ghost" onclick="abrirGestao()">
-          <i class="fas fa-users-cog"></i> Cadastro Integrantes
-        </button>
-
-        <button id="btn-travar-mes" class="btn btn-primary" onclick="travarMes()">
-          <i class="fas fa-lock"></i> Travar Mês
-        </button>
-
-        <button id="btn-limpar-mes" class="btn btn-accent" onclick="confirmarLimpar()">
-          <i class="fas fa-eraser"></i> Limpar Mês
-        </button>
-
-        <button class="btn btn-primary" onclick="gerarPdfSala()">
-          <i class="fas fa-file-pdf"></i> Gerar PDF
-        </button>
-
-        <button class="btn btn-danger" onclick="logout()">
-          <i class="fas fa-sign-out-alt"></i> Sair
-        </button>
-      </div>
+  <!-- TOOLBAR -->
+  <div class="toolbar">
+    <div class="field">
+      <label><i class="fas fa-calendar"></i> Mês</label>
+      <select id="sel-mes" onchange="aoMudarMes()"></select>
     </div>
-
-    <div class="grid-main">
-      <div class="card card-form" style="border-top: 4px solid var(--accent);">
-        <h4>
-          <i class="fas fa-edit"></i> Formulário de Escala
-        </h4>
-
-        <div id="titulo-sala" style="font-size:1rem; margin-bottom:12px; color:var(--p-dark);">
-          <i class="fas fa-door-open"></i> Selecione uma sala...
-        </div>
-
-        <div id="form-escala" style="display:none;"></div>
-      </div>
-
-      <div class="card card-tabela-escala" style="border-top: 4px solid var(--accent);">
-        <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
-
-          <h4 style="margin:0;">
-            <i class="fas fa-table"></i> Escalas salvas
-          </h4>
-
-          <input type="text" id="filtro-geral" placeholder="🔎 Buscar (nome, data, evento...)" onkeyup="filtrarTabela()"
-            style="max-width:300px; width:100%;">
-
-        </div>
-        <div id="tabela-escala"></div>
-      </div>
-
-      <div class="card history-card" style="border-top: 4px solid var(--accent);">
-        <h4 style="margin-top:0; color:var(--p-dark);">
-          <i class="fas fa-history"></i> Histórico
-        </h4>
-        <div id="lista-conflitos"></div>
-      </div>
-    </div>
-  </div>
-
-  <div id="modalPessoas">
-    <div class="modal-content">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-        <h2 style="color:var(--p-dark); margin:0;">Cadastro de Integrantes</h2>
-        <button class="btn btn-ghost" onclick="fecharModal()">
-          <i class="fas fa-times"></i> Fechar
-        </button>
-      </div>
-
-      <div class="modal-form card" style="background:#fcfcfc; border: 1px dashed var(--p-soft);">
-        <h4 id="form-title" style="margin-top:0;">Cadastrar / Editar Voluntário</h4>
-
-        <div class="row">
-          <div class="field" style="flex:2">
-            <label>Nome Completo</label>
-            <input type="text" id="cad-nome">
-          </div>
-
-          <div class="field" style="flex:2; min-width:260px;">
-            <label>E-mail (ID)</label>
-            <input type="email" id="cad-email">
-          </div>
-        </div>
-        <label>Vínculos com Salas:</label>
-        <div id="lista-vics-cad" style="margin-bottom:10px;"></div>
-
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:15px;">
-          <button id="btn-add-vic" class="btn btn-ghost" onclick="addLinhaVic()">
-            <i class="fas fa-plus"></i> Add Sala
-          </button>
-          <button class="btn btn-primary" id="btn-salvar-pessoa" onclick="processarCadastro()">
-            <i class="fas fa-user-check"></i> Salvar Cadastro
-          </button>
-        </div>
-
-        <div id="msg-form" class="msg-box"></div>
-      </div>
-
-      <div class="modal-list">
-        <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; margin:20px 0 10px 0;">
-          <h4 style="margin:0;">Lista de Integrantes</h4>
-          <input
-            type="text"
-            id="busca-integrantes"
-            placeholder="🔎 Buscar por nome ou e-mail..."
-            oninput="filtrarTabelaIntegrantes()"
-            style="flex:1; max-width:300px; padding:7px 12px; border:1.5px solid #d1d9e0; border-radius:8px; font-size:0.88rem;"
-          >
-        </div>
-        <div style="overflow-x:auto;">
-          <table>
-            <thead>
-              <tr>
-                <th>Nome / E-mail</th>
-                <th>Salas / Funções</th>
-                <th style="text-align:center">Líder de Sala</th>
-                <th style="text-align:center">Ações</th>
-              </tr>
-            </thead>
-            <tbody id="corpo-tabela-pessoas">
-              <tr>
-                <td colspan="4" style="text-align:center;">Nenhum integrante cadastrado.</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- Dependências para geração de PDF no cliente -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-  <script>
-    let dadosGlobal = {};
-    let modoEdicao = false;
-    let cachePessoas = []; // ✅ cache local para edição e escala
-    let modoEscalaEdicao = false;
-    let escalaEditId = null;
-    let escalaCache = [];
-    const API = "";
-
-    function escapeHtml(valor) {
-      if (valor === null || valor === undefined) return "";
-      return String(valor)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#39;");
-    }
-
-    function escapeJsString(valor) {
-      if (valor === null || valor === undefined) return "";
-      return String(valor)
-        .replace(/\\/g, "\\\\")
-        .replace(/'/g, "\\'")
-        .replace(/"/g, '\\"')
-        .replace(/\n/g, "\\n")
-        .replace(/\r/g, "\\r");
-    }
-
-
-    function mostrarMensagem(texto, tipo = "sucesso") {
-      const box = document.getElementById("msg-form");
-      box.className = "msg-box " + (tipo === "erro" ? "msg-erro" : "msg-sucesso");
-      box.style.display = "block";
-      box.textContent = texto;
-
-      setTimeout(() => {
-        box.style.display = "none";
-        box.textContent = "";
-      }, 3500);
-    }
-
-    async function tratarResposta(res) {
-      const contentType = res.headers.get("content-type") || "";
-      let body;
-
-      if (contentType.includes("application/json")) {
-        body = await res.json();
-      } else {
-        body = await res.text();
-      }
-
-      if (!res.ok) {
-        const mensagem =
-          (body && body.erro) ||
-          (body && body.mensagem) ||
-          (typeof body === "string" && body) ||
-          "Erro na requisição.";
-        throw new Error(mensagem);
-      }
-
-      return body;
-    }
-
-    function popularSelect(id, lista, placeholder = "") {
-      const el = document.getElementById(id);
-      if (!el) return;
-
-      el.innerHTML = "";
-
-      if (placeholder) {
-        el.innerHTML += `<option value="">${placeholder}</option>`;
-      }
-
-      (Array.isArray(lista) ? lista : []).forEach(item => {
-        if (typeof item === "object" && item !== null) {
-          const valor = item.valor ?? item.value ?? item.id ?? item.email ?? "";
-          const nome = item.nome ?? item.label ?? item.name ?? item.email ?? valor;
-          el.innerHTML += `<option value="${escapeHtml(valor)}">${escapeHtml(nome)}</option>`;
-        } else {
-          el.innerHTML += `<option value="${escapeHtml(item)}">${escapeHtml(item)}</option>`;
-        }
-      });
-    }
-
-    function montarCredenciaisUsuario() {
-      const token = dadosGlobal?.token || "";
-      const usuario = dadosGlobal?.userId || dadosGlobal?.email || "";
-
-      return {
-        usuario,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-          "x-user-email": dadosGlobal?.email || ""
-        }
-      };
-    }
-
-    function usuarioPodeEditarEscala(sala) {
-      if (dadosGlobal?.is_admin) return true;
-      const salaSelecionada = sala || document.getElementById("sel-sala-global")?.value || "";
-      const salasLider = Array.isArray(dadosGlobal?.salas_lider) ? dadosGlobal.salas_lider : [];
-      return salasLider.includes(salaSelecionada);
-    }
-
-    window.onload = async () => {
-      try {
-        const savedAuth = localStorage.getItem("auth");
-        if (!savedAuth) {
-          window.location.href = "/login";
-          return;
-        }
-
-        const auth = JSON.parse(savedAuth);
-        if (!auth?.token || !auth?.user) {
-          localStorage.removeItem("auth");
-          window.location.href = "/login";
-          return;
-        }
-
-        const user = auth.user;
-        dadosGlobal = { ...user, token: auth.token };
-        dadosGlobal.userId = user?.id || user?.email || user?.user_id || "";
-
-        document.getElementById("user-email").innerText = user?.email || "Usuário";
-
-
-        popularSelect("sel-mes-global", [
-          { valor: 1, nome: "Janeiro" },
-          { valor: 2, nome: "Fevereiro" },
-          { valor: 3, nome: "Março" },
-          { valor: 4, nome: "Abril" },
-          { valor: 5, nome: "Maio" },
-          { valor: 6, nome: "Junho" },
-          { valor: 7, nome: "Julho" },
-          { valor: 8, nome: "Agosto" },
-          { valor: 9, nome: "Setembro" },
-          { valor: 10, nome: "Outubro" },
-          { valor: 11, nome: "Novembro" },
-          { valor: 12, nome: "Dezembro" }
-        ]);
-
-        try {
-          const resConfig = await fetch(`${API}/config`);
-          const config = await tratarResposta(resConfig);
-
-          const selMes = document.getElementById("sel-mes-global");
-          if (config?.travado) {
-            selMes.value = config?.mes_atual || "";
-            selMes.disabled = true;
-            mostrarMensagem("Mês travado. Apenas a sala selecionada e o mês atual ficam fixos.", "erro");
-          } else {
-            selMes.disabled = false;
-          }
-        } catch {
-          console.warn("Config não carregada (ok por enquanto)");
-        }
-
-        try {
-          const resSalas = await fetch(`${API}/salas`);
-          const salasRaw = await tratarResposta(resSalas);
-
-          let salasNomes = (Array.isArray(salasRaw) ? salasRaw : [])
-            .map(s => typeof s === "string" ? s : (s?.nome || s?.sala || ""))
-            .filter(Boolean);
-
-          if (!dadosGlobal?.is_admin) {
-            const { headers } = montarCredenciaisUsuario();
-            const resVinculos = await fetch(`${API}/vinculos/pessoa/${encodeURIComponent(dadosGlobal.email)}`, { headers });
-            const vinculos = await tratarResposta(resVinculos);
-            const salasVinculadas = (Array.isArray(vinculos) ? vinculos : []).map(v => v.sala);
-            const salasLider = Array.isArray(dadosGlobal?.salas_lider) ? dadosGlobal.salas_lider : [];
-            const salasPermitidas = [...new Set([...salasVinculadas, ...salasLider])];
-            salasNomes = salasNomes.filter(sala => salasPermitidas.includes(sala));
-          }
-
-          dadosGlobal.salas = salasNomes;
-          // todasSalas: lista completa sem filtro, usada nos selects de vínculo do modal
-          dadosGlobal.todasSalas = (Array.isArray(salasRaw) ? salasRaw : [])
-            .map(s => typeof s === "string" ? s : (s?.nome || s?.sala || ""))
-            .filter(Boolean);
-          const selSala = document.getElementById("sel-sala-global");
-          popularSelect("sel-sala-global", salasNomes, "Escolha a Sala...");
-
-          if (!dadosGlobal?.is_admin && salasNomes.length === 0) {
-            mostrarMensagem("Nenhuma sala vinculada ao seu login.", "erro");
-          }
-
-          const salaPadrao = salasNomes.find(s => String(s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase() === 'bercario') || (salasNomes.length === 1 ? salasNomes[0] : "");
-          if (selSala && salaPadrao) {
-            selSala.value = salaPadrao;
-            aoMudarSala();
-          }
-        } catch {
-          dadosGlobal.salas = [];
-          popularSelect("sel-sala-global", [], "Escolha a Sala...");
-        }
-
-        // ✅ carrega cache de pessoas uma vez (fonte única)
-        try {
-          const { headers } = montarCredenciaisUsuario();
-          const resUsers = await fetch(`${API}/users`, { headers });
-          const users = await tratarResposta(resUsers);
-          cachePessoas = Array.isArray(users) ? users : [];
-        } catch {
-          cachePessoas = [];
-        }
-
-        // Ocultar botões de gestão para usuários sem permissão
-        // Travar e Limpar: apenas admin
-        if (!dadosGlobal?.is_admin) {
-          ["btn-travar-mes", "btn-limpar-mes"].forEach(id => {
-            const el = document.getElementById(id);
-            if (el) el.style.display = "none";
-          });
-        }
-
-        // Cadastro Integrantes: admin ou líder de sala
-        if (!dadosGlobal?.is_admin && !(Array.isArray(dadosGlobal?.salas_lider) && dadosGlobal.salas_lider.length > 0)) {
-          const el = document.getElementById("btn-cadastro-integrantes");
-          if (el) el.style.display = "none";
-        }
-
-      } catch (err) {
-        console.error("Erro ao inicializar:", err);
-        document.getElementById("user-email").innerText = "Erro ao carregar";
-        alert(`Erro ao iniciar sistema: ${err.message}`);
-      }
-    };
-
-    function usuarioPodeGerenciar() {
-      if (dadosGlobal?.is_admin) return true;
-      const salasLider = Array.isArray(dadosGlobal?.salas_lider) ? dadosGlobal.salas_lider : [];
-      return salasLider.length > 0;
-    }
-
-    function abrirGestao() {
-      if (!usuarioPodeGerenciar()) {
-        alert("Somente líeres de sala ou administradores podem acessar o cadastro de integrantes.");
-        return;
-      }
-
-      document.getElementById("modalPessoas").style.display = "flex";
-      limparFormPessoa();
-      atualizarTabelaPessoas();
-    }
-
-    function fecharModal() {
-      document.getElementById("modalPessoas").style.display = "none";
-    }
-
-    function logout() {
-      localStorage.removeItem("auth");
-      window.location.href = "/login";
-    }
-
-    function addLinhaVic(salaPadrao = "", funcPadrao = "") {
-      const container = document.getElementById("lista-vics-cad");
-      const div = document.createElement("div");
-      div.className = "row";
-      div.style.alignItems = "center";
-
-      const salas = Array.isArray(dadosGlobal.todasSalas) ? dadosGlobal.todasSalas : (Array.isArray(dadosGlobal.salas) ? dadosGlobal.salas : []);
-      const opcoesSalas = salas.map(s => {
-        const selected = s === salaPadrao ? "selected" : "";
-        return `<option value="${escapeHtml(s)}" ${selected}>${escapeHtml(s)}</option>`;
-      }).join("");
-
-      div.innerHTML = `
-      <select class="vic-sala field">
-        ${opcoesSalas || `<option value="">Sem salas cadastradas</option>`}
-      </select>
-      <select class="vic-fun field">
-        <option value="Professor" ${funcPadrao === "Professor" ? "selected" : ""}>Professor</option>
-        <option value="Monitor" ${funcPadrao === "Monitor" ? "selected" : ""}>Monitor</option>
-      </select>
-      <button type="button" class="btn btn-danger" style="padding:10px" onclick="this.parentElement.remove()">
-        <i class="fas fa-times"></i>
+    <div class="toolbar-btns" id="toolbar-btns">
+      <button class="btn btn-ghost lider-only" id="btn-gerar" onclick="abrirModalGerar()" style="display:none">
+        <i class="fas fa-wand-magic-sparkles"></i> Gerar Escala
       </button>
-    `;
+      <button class="btn btn-ghost lider-only" onclick="abrirModalIntegrantes()" style="display:none" id="btn-integrantes">
+        <i class="fas fa-users-cog"></i> Integrantes
+      </button>
+      <button class="btn btn-ghost lider-only" onclick="abrirModalCategorias()" style="display:none" id="btn-categorias">
+        <i class="fas fa-tags"></i> Categorias
+      </button>
+      <button class="btn btn-ghost lider-only" onclick="travarMes()" style="display:none" id="btn-travar">
+        <i class="fas fa-lock"></i> Travar Mês
+      </button>
+      <button class="btn btn-accent lider-only" onclick="confirmarLimpar()" style="display:none" id="btn-limpar">
+        <i class="fas fa-eraser"></i> Limpar
+      </button>
+      <button class="btn btn-ghost" onclick="gerarPdf()">
+        <i class="fas fa-file-pdf"></i> PDF
+      </button>
+      <button class="btn btn-danger" onclick="logout()">
+        <i class="fas fa-sign-out-alt"></i> Sair
+      </button>
+    </div>
+  </div>
 
-      container.appendChild(div);
-    }
+  <!-- GRID PRINCIPAL -->
+  <div class="grid-main">
 
-    function formatarVinculos(vinculos) {
-      if (!Array.isArray(vinculos) || vinculos.length === 0) return "";
+    <!-- FORMULÁRIO -->
+    <div class="card" id="card-form">
+      <div class="card-header">
+        <h4><i class="fas fa-edit"></i> <span id="form-titulo">Formulário</span></h4>
+        <button class="btn btn-ghost btn-sm" id="btn-cancelar-esc" onclick="cancelarEdicaoEscala()" style="display:none">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div id="aviso-somente-leitura" style="display:none;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);border-radius:10px;padding:10px 14px;font-size:0.8rem;color:var(--text-muted);margin-bottom:14px;">
+        <i class="fas fa-eye" style="color:var(--blue);margin-right:6px;"></i>Somente líderes podem editar a escala.
+      </div>
+      <div id="form-escala-corpo"></div>
+    </div>
 
-      return vinculos
-        .map(v => {
-          const sala = escapeHtml(v?.sala || "");
-          const funcao = escapeHtml(v?.funcao || "");
-          return `${sala}${funcao ? ` (${funcao})` : ""}`;
-        })
-        .join("<br>");
-    }
+    <!-- TABELA ESCALA -->
+    <div class="card">
+      <div class="card-header">
+        <h4><i class="fas fa-table"></i> Escala do Mês</h4>
+        <input type="text" class="filtro-input" placeholder="🔎 Buscar..." id="filtro-escala" oninput="filtrarTabela()">
+      </div>
+      <div class="scroll-area" id="tabela-escala-wrap"></div>
+    </div>
 
-    function parseDateLocal(data) {
-      if (!data) return null;
-      const value = String(data).trim();
+    <!-- HISTÓRICO -->
+    <div class="card">
+      <div class="card-header">
+        <h4><i class="fas fa-history"></i> Histórico</h4>
+      </div>
+      <div id="historico-wrap">
+        <div class="empty"><i class="fas fa-clock"></i>Selecione um integrante no formulário</div>
+      </div>
+    </div>
 
-      const isoMatch = value.match(/^([0-9]{4})[-/](0[1-9]|1[0-2])[-/](0[1-9]|[12][0-9]|3[01])(?:T.*)?$/);
-      if (isoMatch) {
-        const ano = Number(isoMatch[1]);
-        const mes = Number(isoMatch[2]) - 1;
-        const dia = Number(isoMatch[3]);
-        return new Date(ano, mes, dia);
-      }
+  </div>
+</div>
 
-      const brMatch = value.match(/^(0[1-9]|[12][0-9]|3[01])[\/](0[1-9]|1[0-2])[\/]([0-9]{4})$/);
-      if (brMatch) {
-        const dia = Number(brMatch[1]);
-        const mes = Number(brMatch[2]) - 1;
-        const ano = Number(brMatch[3]);
-        return new Date(ano, mes, dia);
-      }
-
-      const dt = new Date(value);
-      return Number.isNaN(dt.getTime()) ? null : dt;
-    }
-
-    function formatarDataSomente(data) {
-      const dt = parseDateLocal(data);
-      if (!dt) return "";
-
-      const dia = String(dt.getDate()).padStart(2, "0");
-      const mes = String(dt.getMonth() + 1).padStart(2, "0");
-      const ano = dt.getFullYear();
-      return `${dia}/${mes}/${ano}`;
-    }
-
-    function formatarDataInput(data) {
-      const dt = parseDateLocal(data);
-      if (!dt) return "";
-      const ano = dt.getFullYear();
-      const mes = String(dt.getMonth() + 1).padStart(2, "0");
-      const dia = String(dt.getDate()).padStart(2, "0");
-      return `${ano}-${mes}-${dia}`;
-    }
-
-    function obterDiaSemana(data) {
-      const dt = parseDateLocal(data);
-      if (!dt) return "";
-      const dias = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
-      return dias[dt.getDay()] || "";
-    }
-
-    function formatarDiaMes(data) {
-      const dt = parseDateLocal(data);
-      if (!dt) return "";
-
-      const dia = String(dt.getDate()).padStart(2, "0");
-      const mes = String(dt.getMonth() + 1).padStart(2, "0");
-
-      return `${dia}/${mes}`;
-    }
-
-    async function carregarHistoricoSelecionado(campoId) {
-      const mes = document.getElementById("sel-mes-global").value;
-      const historicoEl = document.getElementById("lista-conflitos");
-      historicoEl.innerHTML = "";
-
-      if (!mes || !campoId) {
-        return;
-      }
-
-      const campo = document.getElementById(campoId);
-      if (!campo || !campo.value) {
-        return;
-      }
-
-      const roleMap = {
-        "esc-professor": "Professor",
-        "esc-m1": "Monitor 1",
-        "esc-m2": "Monitor 2",
-        "esc-m3": "Monitor 3",
-        "esc-m4": "Monitor 4"
-      };
-
-      const pessoaId = campo.value;
-      const role = roleMap[campoId] || "";
-      const pessoaNomePorId = (cachePessoas || []).reduce((acc, pessoa) => {
-        const key = String(pessoa?.id || pessoa?.email || "");
-        acc[key] = pessoa?.nome || pessoa?.email || key;
-        return acc;
-      }, {});
-
-      try {
-        const { headers } = montarCredenciaisUsuario();
-        const res = await fetch(`${API}/escala/historico?pessoa_id=${encodeURIComponent(pessoaId)}&mes=${encodeURIComponent(mes)}`, { headers });
-        const lista = await tratarResposta(res);
-        if (!Array.isArray(lista) || lista.length === 0) {
-          historicoEl.innerHTML = "<p>Nenhum histórico encontrado para este integrante.</p>";
-          return;
-        }
-
-        let html = `
+<!-- ═══════════════ MODAL INTEGRANTES ═══════════════ -->
+<div class="modal-overlay" id="modalIntegrantes">
+  <div class="modal">
+    <div class="modal-header">
+      <h2><i class="fas fa-users-cog"></i> Cadastro de Integrantes</h2>
+      <button class="btn btn-ghost btn-sm" onclick="fecharModal('modalIntegrantes')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <!-- FORM CADASTRO -->
+      <div id="form-pessoa-wrap" style="background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:20px;">
+        <div id="form-pessoa-title" style="font-size:0.85rem;font-weight:600;color:var(--text-muted);margin-bottom:14px;">Selecione um integrante para editar</div>
+        <div class="form-row">
+          <div class="form-field">
+            <label>Nome</label>
+            <input type="text" id="cad-nome" placeholder="Nome completo" disabled>
+          </div>
+          <div class="form-field">
+            <label>E-mail</label>
+            <input type="email" id="cad-email" placeholder="email@..." disabled>
+          </div>
+          <div class="form-field" style="max-width:130px;">
+            <label>Senha</label>
+            <input type="password" id="cad-senha" placeholder="••••••" disabled>
+          </div>
+        </div>
+        <div style="margin-bottom:8px;display:flex;align-items:center;gap:12px;">
+          <label style="display:flex;align-items:center;gap:8px;font-size:0.82rem;color:var(--text-muted);cursor:pointer;">
+            <input type="checkbox" id="cad-lider" style="accent-color:var(--blue);width:16px;height:16px;" disabled>
+            É Líder
+          </label>
+        </div>
+        <div class="section-label">Vínculos de Categoria</div>
+        <div id="lista-vinculos-cad"></div>
+        <button class="btn btn-ghost btn-sm" id="btn-add-vinculo" onclick="adicionarLinhaVinculo()" disabled style="margin-top:8px;">
+          <i class="fas fa-plus"></i> Add Categoria
+        </button>
+        <div class="msg-box" id="msg-form-pessoa"></div>
+        <div style="display:flex;gap:8px;margin-top:16px;justify-content:flex-end;">
+          <button class="btn btn-ghost" id="btn-novo-integrante" onclick="novoIntegrante()">
+            <i class="fas fa-plus"></i> Novo
+          </button>
+          <button class="btn btn-primary" id="btn-salvar-pessoa" onclick="salvarPessoa()" disabled>
+            <i class="fas fa-save"></i> Salvar
+          </button>
+        </div>
+      </div>
+      <!-- LISTA -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <span style="font-size:0.82rem;color:var(--text-muted);">Integrantes cadastrados</span>
+        <input type="text" class="filtro-input" id="busca-integrantes" placeholder="🔎 Buscar..." oninput="filtrarIntegrantes()" style="width:180px;">
+      </div>
+      <div style="overflow-x:auto;">
         <table>
-          <thead>
-            <tr>
-              <th>Nome</th>
-              <th>Sala</th>
-              <th>Função</th>
-              <th>Dia</th>
-              <th>Evento</th>
-            </tr>
-          </thead>
-          <tbody>
-      `;
+          <thead><tr><th>Nome / E-mail</th><th>Categorias</th><th>Líder</th><th>Ações</th></tr></thead>
+          <tbody id="tbody-pessoas"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
 
-        lista.forEach(item => {
-          html += `
-          <tr>
-            <td>${escapeHtml(pessoaNomePorId[String(pessoaId)] || pessoaId)}</td>
-            <td>${escapeHtml(item.sala || "")}</td>
-            <td>${escapeHtml(role)}</td>
-            <td>${escapeHtml(formatarDiaMes(item.data || ""))}</td>
-            <td>${escapeHtml(item.evento || "")}</td>
-          </tr>
-        `;
-        });
+<!-- ═══════════════ MODAL CATEGORIAS ═══════════════ -->
+<div class="modal-overlay" id="modalCategorias">
+  <div class="modal" style="max-width:520px;">
+    <div class="modal-header">
+      <h2><i class="fas fa-tags"></i> Gerenciar Categorias</h2>
+      <button class="btn btn-ghost btn-sm" onclick="fecharModal('modalCategorias')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;">
+        <input type="text" class="filtro-input" id="nova-cat-nome" placeholder="Nome da categoria" style="flex:1;min-width:140px;">
+        <select id="nova-cat-tipo" style="background:var(--surface2);border:1.5px solid var(--border);color:var(--text);padding:8px 12px;border-radius:10px;font-family:'Poppins',sans-serif;font-size:0.83rem;">
+          <option value="vocal">Vocal</option>
+          <option value="instrumental">Instrumental</option>
+        </select>
+        <button class="btn btn-primary btn-sm" onclick="criarCategoria()"><i class="fas fa-plus"></i> Criar</button>
+      </div>
+      <div class="msg-box" id="msg-cat"></div>
+      <table>
+        <thead><tr><th>Nome</th><th>Tipo</th><th>Ação</th></tr></thead>
+        <tbody id="tbody-categorias"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
 
-        html += `</tbody></table>`;
-        historicoEl.innerHTML = html;
-      } catch (err) {
-        console.error("Erro ao carregar histórico de pessoa:", err);
-        historicoEl.innerHTML = `<p>Erro ao carregar histórico: ${escapeHtml(err.message)}</p>`;
-      }
-    }
+<!-- ═══════════════ MODAL GERAR ESCALA ═══════════════ -->
+<div class="modal-overlay" id="modalGerar">
+  <div class="modal" style="max-width:480px;">
+    <div class="modal-header">
+      <h2><i class="fas fa-wand-magic-sparkles"></i> Gerar Escala Automática</h2>
+      <button class="btn btn-ghost btn-sm" onclick="fecharModal('modalGerar')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:16px;">
+        O sistema irá montar a escala completa do mês selecionado usando o algoritmo de peso (prioriza quem foi escalado há mais tempo). Cada integrante não será repetido no mesmo dia.
+      </p>
+      <div id="alertas-gerar"></div>
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px;font-size:0.83rem;color:var(--text-muted);">
+        <b style="color:var(--text);">Mês selecionado:</b> <span id="label-mes-gerar"></span>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="fecharModal('modalGerar')">Cancelar</button>
+      <button class="btn btn-success" id="btn-confirmar-gerar" onclick="confirmarGerarEscala()">
+        <i class="fas fa-magic"></i> Gerar Agora
+      </button>
+    </div>
+  </div>
+</div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-    async function atualizarTabelaPessoas() {
-      const tbody = document.getElementById("corpo-tabela-pessoas");
-      tbody.innerHTML = `
-      <tr>
-        <td colspan="4" style="text-align:center; padding:20px;">
-          <i class="fas fa-spinner fa-spin"></i> Atualizando lista...
-        </td>
-      </tr>
-    `;
+<script>
+// ═══════════════════════════════════════════════════
+// ESTADO GLOBAL
+// ═══════════════════════════════════════════════════
+let dadosGlobal = {};
+let cachePessoas = [];
+let cacheCategorias = [];
+let escalaCache = [];
+let modoEdicaoPessoa = false;
+let emailEditando = null;
+let modoEdicaoEscala = false;
+let escalaEditId = null;
+const API = "";
 
-      try {
-        const { headers } = montarCredenciaisUsuario();
-        const res = await fetch(`${API}/users`, { headers });
-        const lista = await tratarResposta(res);
-        cachePessoas = Array.isArray(lista) ? lista : []; // ✅ mantém cache atualizado
+const MESES = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+const EVENTO_LABELS = { dom_manha:"Domingo Manhã", dom_noite:"Domingo Noite", quinta:"Quinta-feira" };
 
-        if (!Array.isArray(lista) || lista.length === 0) {
-          tbody.innerHTML = `
-          <tr>
-            <td colspan="4" style="text-align:center; padding:20px;">
-              Nenhum voluntário cadastrado.
-            </td>
-          </tr>
-        `;
-          return;
-        }
+// ═══════════════════════════════════════════════════
+// UTILS
+// ═══════════════════════════════════════════════════
+function esc(v){ if(v==null)return""; return String(v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+function headers(){ return {"Content-Type":"application/json","Authorization":`Bearer ${dadosGlobal.token}`}; }
+function ehLider(){ return dadosGlobal.is_admin || dadosGlobal.eh_lider; }
 
-        tbody.innerHTML = "";
+async function api(method, path, body){
+  const opts = { method, headers:headers() };
+  if(body) opts.body = JSON.stringify(body);
+  const res = await fetch(API+path, opts);
+  const data = await res.json().catch(()=>({}));
+  if(!res.ok) throw new Error(data.erro || "Erro na requisição");
+  return data;
+}
 
-        lista.forEach(p => {
-          const email = p?.email || p?.id || "";
-          const nome = p?.nome || "";
-          const liderSalaLabel = p?.lider_sala
-            ? `<span style="font-size:0.8rem; background:var(--p-soft); color:var(--p-dark); padding:2px 8px; border-radius:20px;">👑 ${escapeHtml(p.lider_sala)}</span>`
-            : '-';
+function formatarData(d){
+  if(!d)return"";
+  const [ano,mes,dia] = String(d).slice(0,10).split("-");
+  return `${dia}/${mes}/${ano}`;
+}
+function formatarDataInput(d){ return d ? String(d).slice(0,10) : ""; }
+function diaSemana(d){
+  if(!d)return"";
+  const [ano,mes,dia] = String(d).slice(0,10).split("-").map(Number);
+  const dt = new Date(ano, mes-1, dia);
+  return ["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"][dt.getDay()];
+}
+function mesLabel(mesStr){ // "2026-06" → "Junho 2026"
+  const [ano,m] = mesStr.split("-");
+  return `${MESES[Number(m)-1]} ${ano}`;
+}
+function mostrarMsg(id, texto, tipo="sucesso"){
+  const el=document.getElementById(id);
+  if(!el)return;
+  el.className="msg-box "+(tipo==="erro"?"msg-erro":"msg-sucesso");
+  el.textContent=texto;
+  el.style.display="block";
+  setTimeout(()=>{ el.style.display="none"; },3500);
+}
 
-          tbody.innerHTML += `
-          <tr>
-            <td>
-              <b>${escapeHtml(nome)}</b><br>
-              <small>${escapeHtml(email)}</small>
-            </td>
-            <td>${formatarVinculos(p?.vinculos)}</td>
-            <td style="text-align:center">${liderSalaLabel}</td>
-            <td style="text-align:center; white-space:nowrap;">
-              <button
-                type="button"
-                class="btn btn-ghost"
-                onclick="prepararEdicao('${escapeJsString(email)}', '${escapeJsString(nome)}')"
-                title="Editar"
-              >
-                <i class="fas fa-edit"></i>
-              </button>
-            </td>
-          </tr>
-        `;
-        });
+// ═══════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════
+window.onload = async () => {
+  const saved = localStorage.getItem("auth");
+  if(!saved){ location.href="/login"; return; }
+  const auth = JSON.parse(saved);
+  if(!auth?.token){ location.href="/login"; return; }
 
-      } catch (err) {
-        console.error("Erro ao carregar pessoas:", err);
-        tbody.innerHTML = `
-        <tr>
-          <td colspan="4" style="text-align:center; padding:20px;">
-            Erro ao carregar pessoas: ${escapeHtml(err.message)}
-          </td>
-        </tr>
-      `;
-      }
-    }
+  dadosGlobal = { ...auth.user, token: auth.token };
+  document.getElementById("user-nome").textContent = dadosGlobal.nome || dadosGlobal.email;
 
-    async function processarCadastro() {
-      const btn = document.getElementById("btn-salvar-pessoa");
-      const nome = document.getElementById("cad-nome").value.trim();
-      const email = document.getElementById("cad-email").value.trim();
-
-      const vinculos = [];
-      document.querySelectorAll("#lista-vics-cad .row").forEach(r => {
-  const salaEl = r.querySelector(".vic-sala");
-  const funcaoEl = r.querySelector(".vic-fun");
-
-  if (salaEl && funcaoEl) {
-    const vic = {
-      sala: salaEl.value,
-      funcao: funcaoEl.value
-    };
-    if (r.dataset.vicId) vic.id = Number(r.dataset.vicId); // ← NOVO
-    vinculos.push(vic);
+  // Mostrar botões de líder
+  if(ehLider()){
+    document.querySelectorAll(".lider-only").forEach(el=>el.style.display="");
   }
-});
 
-      if (!nome || !email) {
-        mostrarMensagem("Nome e e-mail são obrigatórios.", "erro");
-        return;
-      }
+  // Popular select de meses — 6 meses para frente e trás
+  const selMes = document.getElementById("sel-mes");
+  const hoje = new Date();
+  for(let i=-3; i<=6; i++){
+    const d = new Date(hoje.getFullYear(), hoje.getMonth()+i, 1);
+    const val = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`;
+    const opt = document.createElement("option");
+    opt.value=val; opt.textContent=mesLabel(val);
+    if(i===0) opt.selected=true;
+    selMes.appendChild(opt);
+  }
 
-      const dados = {
-        nome,
-        email,
-        vinculos
-      };
+  await carregarCategorias();
+  await carregarPessoas();
+  construirFormEscala();
+  await carregarEscala();
 
-      btn.disabled = true;
-      btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${modoEdicao ? "Atualizando..." : "Salvando..."}`;
-
-      try {
-        const endpoint = modoEdicao ? `${API}/users/${encodeURIComponent(email)}` : `${API}/users`;
-        const metodo = modoEdicao ? "PUT" : "POST";
-
-        const { headers } = montarCredenciaisUsuario();
-        const res = await fetch(endpoint, {
-          method: metodo,
-          headers,
-          body: JSON.stringify(dados)
-        });
-
-        await tratarResposta(res);
-
-        mostrarMensagem("Cadastro salvo com sucesso!");
-        limparFormPessoa();
-        await atualizarTabelaPessoas();
-
-      } catch (err) {
-        console.error("Erro ao salvar pessoa:", err);
-        mostrarMensagem(`Erro ao salvar: ${err.message}`, "erro");
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fas fa-user-check"></i> Salvar Cadastro';
-      }
+  // Config (travamento)
+  try{
+    const cfg = await api("GET","/config");
+    if(cfg?.travado && cfg?.mes_atual){
+      selMes.value = cfg.mes_atual;
+      selMes.disabled = true;
     }
+  }catch{}
+};
 
-    async function prepararEdicao(email, nome) {
-      // Busca dados completos da pessoa no cache
-      const pessoa = cachePessoas.find(p => (p?.email || p?.id) === email);
+// ═══════════════════════════════════════════════════
+// CATEGORIAS
+// ═══════════════════════════════════════════════════
+async function carregarCategorias(){
+  try{ cacheCategorias = await api("GET","/categorias"); }
+  catch{ cacheCategorias=[]; }
+}
 
-      document.getElementById("cad-nome").value = nome || "";
-      document.getElementById("cad-email").value = email || "";
-      document.getElementById("cad-email").disabled = true;
-      document.getElementById("form-title").innerText = "Editando: " + (nome || "");
-      document.querySelector(".modal-content").scrollTop = 0;
-      modoEdicao = true;
+async function abrirModalCategorias(){
+  document.getElementById("modalCategorias").classList.add("open");
+  renderizarTabelaCategorias();
+}
 
-      // habilita o formulário para edição quando chamado pelo botão Edit
-      habilitarFormPessoaParaEdicao();
+function renderizarTabelaCategorias(){
+  const tbody = document.getElementById("tbody-categorias");
+  if(!cacheCategorias.length){
+    tbody.innerHTML=`<tr><td colspan="3" class="empty"><i class="fas fa-tags"></i>Nenhuma categoria</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = cacheCategorias.map(c=>`
+    <tr>
+      <td><b>${esc(c.nome)}</b></td>
+      <td><span class="badge ${c.tipo==='vocal'?'badge-vocal':'badge-instr'}">${esc(c.tipo)}</span></td>
+      <td><button class="btn btn-danger btn-sm" onclick="excluirCategoria(${c.id},'${esc(c.nome)}')"><i class="fas fa-trash"></i></button></td>
+    </tr>
+  `).join("");
+}
 
-      const container = document.getElementById("lista-vics-cad");
-      container.innerHTML = "";
+async function criarCategoria(){
+  const nome = document.getElementById("nova-cat-nome").value.trim();
+  const tipo = document.getElementById("nova-cat-tipo").value;
+  if(!nome){ mostrarMsg("msg-cat","Informe o nome","erro"); return; }
+  try{
+    const nova = await api("POST","/categorias",{nome,tipo});
+    cacheCategorias.push(nova);
+    document.getElementById("nova-cat-nome").value="";
+    renderizarTabelaCategorias();
+    mostrarMsg("msg-cat","Categoria criada!");
+    construirFormEscala();
+  }catch(err){ mostrarMsg("msg-cat",err.message,"erro"); }
+}
 
-      try {
-        let vinculos = [];
-        if (pessoa && Array.isArray(pessoa.vinculos) && pessoa.vinculos.length > 0) {
-          vinculos = pessoa.vinculos;
-        } else {
-          // fallback: consulta vínculos via API
-          const { headers } = montarCredenciaisUsuario();
-          const respVinculos = await fetch(`${API}/vinculos/pessoa/${encodeURIComponent(email)}`, { headers });
-          const listaVinculos = await tratarResposta(respVinculos);
-          vinculos = Array.isArray(listaVinculos) ? listaVinculos : [];
-        }
+async function excluirCategoria(id,nome){
+  if(!confirm(`Excluir categoria "${nome}"?`))return;
+  try{
+    await api("DELETE",`/categorias/${id}`);
+    cacheCategorias = cacheCategorias.filter(c=>c.id!==id);
+    renderizarTabelaCategorias();
+    construirFormEscala();
+  }catch(err){ alert(err.message); }
+}
 
-        if (vinculos.length === 0) {
-          addLinhaVic();
-        } else {
-          vinculos.forEach(v => addLinhaVic(v?.sala || "", v?.funcao || "", v?.id || null));
-        }
+// ═══════════════════════════════════════════════════
+// PESSOAS
+// ═══════════════════════════════════════════════════
+async function carregarPessoas(){
+  try{ cachePessoas = await api("GET","/users"); }
+  catch{ cachePessoas=[]; }
+}
 
-      } catch (err) {
-        console.error("Erro ao carregar vínculos:", err);
-        container.innerHTML = "";
-        addLinhaVic();
-        mostrarMensagem(`Erro ao carregar vínculos: ${err.message}`, "erro");
-      }
-    }
+function nomePorId(id){
+  const p = cachePessoas.find(x=>x.id==id);
+  return p?.nome || p?.email || String(id);
+}
 
-    async function deletarPessoa(email, btn) {
-      if (!email) {
-        alert("E-mail inválido para exclusão.");
-        return;
-      }
+async function abrirModalIntegrantes(){
+  document.getElementById("modalIntegrantes").classList.add("open");
+  limparFormPessoa();
+  await carregarPessoas();
+  renderizarTabelaPessoas();
+}
 
-      if (!confirm("Deseja realmente excluir " + email + "?")) return;
+function renderizarTabelaPessoas(){
+  const tbody = document.getElementById("tbody-pessoas");
+  const filtro = document.getElementById("busca-integrantes").value.toLowerCase();
+  const lista = cachePessoas.filter(p=>
+    (p.nome||"").toLowerCase().includes(filtro)||(p.email||"").toLowerCase().includes(filtro)
+  );
+  if(!lista.length){
+    tbody.innerHTML=`<tr><td colspan="4" class="empty">Nenhum integrante</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = lista.map(p=>{
+    const cats = (p.vinculos||[]).map(v=>`<span class="badge ${v.tipo==='vocal'?'badge-vocal':'badge-instr'}">${esc(v.categoria_nome)}</span>`).join(" ");
+    const lider = p.eh_lider?`<span class="badge badge-lider">Líder</span>`:"-";
+    return `<tr>
+      <td><b>${esc(p.nome)}</b><br><small style="color:var(--text-muted)">${esc(p.email)}</small></td>
+      <td>${cats||"<small style='color:var(--text-muted)'>Nenhum</small>"}</td>
+      <td>${lider}</td>
+      <td>
+        <button class="btn btn-ghost btn-sm" onclick="prepararEdicaoPessoa('${esc(p.email)}')"><i class="fas fa-edit"></i></button>
+        <button class="btn btn-danger btn-sm" onclick="excluirPessoa('${esc(p.email)}')"><i class="fas fa-trash"></i></button>
+      </td>
+    </tr>`;
+  }).join("");
+}
 
-      const htmlOriginal = btn.innerHTML;
-      btn.disabled = true;
-      btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>';
+function filtrarIntegrantes(){ renderizarTabelaPessoas(); }
 
-      try {
-        const { headers } = montarCredenciaisUsuario();
-        const res = await fetch(`${API}/users/${encodeURIComponent(email)}`, {
-          method: "DELETE",
-          headers
-        });
+function limparFormPessoa(){
+  document.getElementById("cad-nome").value="";
+  document.getElementById("cad-email").value="";
+  document.getElementById("cad-senha").value="";
+  document.getElementById("cad-lider").checked=false;
+  document.getElementById("lista-vinculos-cad").innerHTML="";
+  document.getElementById("form-pessoa-title").textContent="Selecione um integrante para editar";
+  ["cad-nome","cad-email","cad-senha","cad-lider","btn-add-vinculo","btn-salvar-pessoa"]
+    .forEach(id=>{ const el=document.getElementById(id); if(el) el.disabled=true; });
+  modoEdicaoPessoa=false; emailEditando=null;
+}
 
-        await tratarResposta(res);
-        await atualizarTabelaPessoas();
-        mostrarMensagem("Voluntário excluído com sucesso!");
+function novoIntegrante(){
+  limparFormPessoa();
+  document.getElementById("form-pessoa-title").textContent="Novo Integrante";
+  ["cad-nome","cad-email","cad-senha","cad-lider","btn-add-vinculo","btn-salvar-pessoa"]
+    .forEach(id=>{ const el=document.getElementById(id); if(el) el.disabled=false; });
+  document.getElementById("cad-email").disabled=false;
+  modoEdicaoPessoa=false; emailEditando=null;
+  adicionarLinhaVinculo();
+}
 
-      } catch (err) {
-        console.error("Erro ao excluir pessoa:", err);
-        alert(`Erro ao excluir: ${err.message}`);
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = htmlOriginal;
-      }
-    }
+function prepararEdicaoPessoa(email){
+  const p = cachePessoas.find(x=>x.email===email);
+  if(!p)return;
+  document.getElementById("form-pessoa-title").textContent=`Editando: ${p.nome}`;
+  document.getElementById("cad-nome").value=p.nome||"";
+  document.getElementById("cad-email").value=p.email||"";
+  document.getElementById("cad-senha").value="";
+  document.getElementById("cad-lider").checked=!!p.eh_lider;
+  ["cad-nome","cad-senha","cad-lider","btn-add-vinculo","btn-salvar-pessoa"]
+    .forEach(id=>{ const el=document.getElementById(id); if(el) el.disabled=false; });
+  document.getElementById("cad-email").disabled=true;
+  modoEdicaoPessoa=true; emailEditando=email;
+  const cont=document.getElementById("lista-vinculos-cad");
+  cont.innerHTML="";
+  (p.vinculos||[]).forEach(v=>adicionarLinhaVinculo(v.categoria_id, v.eh_talkback));
+  document.querySelector(".modal-body")?.scrollTo(0,0);
+}
 
-    function limparFormPessoa() {
-      document.getElementById("cad-nome").value = "";
-      document.getElementById("cad-email").value = "";
-      // mantém o formulário desabilitado por padrão — só habilitar ao editar
-      document.getElementById("cad-nome").disabled = true;
-      document.getElementById("cad-email").disabled = true;
-      document.getElementById("lista-vics-cad").innerHTML = "";
-      document.getElementById("form-title").innerText = "Selecione um integrante para editar";
-      modoEdicao = false;
-      // desabilita botões do form para prevenir criação no modal
-      const btnAddVic = document.getElementById("btn-add-vic");
-      if (btnAddVic) btnAddVic.disabled = true;
-      const btnSalvarPessoa = document.getElementById("btn-salvar-pessoa");
-      if (btnSalvarPessoa) btnSalvarPessoa.disabled = true;
-    }
-
-    function habilitarFormPessoaParaEdicao() {
-      document.getElementById("cad-nome").disabled = false;
-      // email permanece desabilitado para preservar o ID
-      document.getElementById("cad-email").disabled = true;
-      const btnAddVic = document.getElementById("btn-add-vic");
-      if (btnAddVic) btnAddVic.disabled = false;
-      const btnSalvarPessoa = document.getElementById("btn-salvar-pessoa");
-      if (btnSalvarPessoa) btnSalvarPessoa.disabled = false;
-    }
-
-    function aoMudarSala() {
-      const sala = document.getElementById("sel-sala-global").value;
-      const titulo = document.getElementById("titulo-sala");
-      const formEscala = document.getElementById("form-escala");
-
-      if (!sala) {
-        titulo.innerHTML = '<i class="fas fa-edit"></i> Selecione uma sala...';
-        formEscala.style.display = "none";
-        formEscala.innerHTML = "";
-        document.getElementById("tabela-escala").innerHTML = "";
-        document.getElementById("lista-conflitos").innerHTML = "";
-        return;
-      }
-
-      titulo.innerHTML = `<i class="fas fa-door-open"></i> ${escapeHtml(sala)}`;
-      formEscala.style.display = "block";
-      const avisoPermissao = usuarioPodeEditarEscala(sala)
-        ? ""
-        : `
-    <div style="margin-bottom:12px; padding:10px 12px; border-radius:10px; background:#f4f6f8; color:#5f6b76; border:1px solid #d8e0e7;">
-      Somente o líder desta sala pode alterar a escala.
-    </div>
+function adicionarLinhaVinculo(catId="", ehTb=false){
+  const cont=document.getElementById("lista-vinculos-cad");
+  const div=document.createElement("div");
+  div.className="vinculo-row";
+  const opcoesCateg = cacheCategorias.map(c=>
+    `<option value="${c.id}" ${c.id==catId?"selected":""}>${esc(c.nome)} (${c.tipo})</option>`
+  ).join("");
+  div.innerHTML=`
+    <select class="vc-cat">${opcoesCateg||'<option value="">Sem categorias</option>'}</select>
+    <label class="chk-label"><input type="checkbox" class="vc-tb" ${ehTb?"checked":""}>Talkback</label>
+    <button type="button" class="btn btn-danger btn-sm" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
   `;
-     formEscala.innerHTML = `
-  ${avisoPermissao}
-  <div class="row">
-    <div class="field">
-      <label>Data</label>
-      <input type="date" id="esc-data">
-    </div>
+  cont.appendChild(div);
+}
 
-    <div class="field">
-      <label>Evento</label>
-      <input type="text" id="esc-evento" placeholder="Ex: Culto Manhã">
-    </div>
-  </div>
+async function salvarPessoa(){
+  const nome=document.getElementById("cad-nome").value.trim();
+  const email=document.getElementById("cad-email").value.trim();
+  const senha=document.getElementById("cad-senha").value;
+  const eh_lider=document.getElementById("cad-lider").checked;
 
-  <div class="row">
-    <div class="field">
-      <label>Professor</label>
-      <select id="esc-professor" onchange="carregarHistoricoSelecionado(this.id)"></select>
-    </div>
-  </div>
+  const vinculos=[];
+  document.querySelectorAll("#lista-vinculos-cad .vinculo-row").forEach(row=>{
+    const cat=row.querySelector(".vc-cat")?.value;
+    const tb=row.querySelector(".vc-tb")?.checked||false;
+    if(cat) vinculos.push({categoria_id:Number(cat),eh_talkback:tb});
+  });
 
-  <div class="row">
-    <div class="field"><label>Monitor 1</label><select id="esc-m1" onchange="carregarHistoricoSelecionado(this.id)"></select></div>
-    <div class="field"><label>Monitor 2</label><select id="esc-m2" onchange="carregarHistoricoSelecionado(this.id)"></select></div>
-    <div class="field"><label>Monitor 3</label><select id="esc-m3" onchange="carregarHistoricoSelecionado(this.id)"></select></div>
-    <div class="field"><label>Monitor 4</label><select id="esc-m4" onchange="carregarHistoricoSelecionado(this.id)"></select></div>
-  </div>
+  if(!nome||!email){ mostrarMsg("msg-form-pessoa","Nome e e-mail são obrigatórios","erro"); return; }
+  if(!modoEdicaoPessoa && !senha){ mostrarMsg("msg-form-pessoa","Senha obrigatória para novo integrante","erro"); return; }
 
-  <button class="btn btn-primary" onclick="salvarEscala()">
-    <i class="fas fa-save"></i> Salvar Escala
-  </button>
-`;
-
-      if (!usuarioPodeEditarEscala(sala)) {
-        formEscala.querySelectorAll("input, select, button").forEach(el => {
-          el.disabled = true;
-        });
-      }
-
-      document.getElementById("lista-conflitos").innerHTML = "";
-      carregarPessoasSala(sala);
-      carregarEscalaSala();
+  const btn=document.getElementById("btn-salvar-pessoa");
+  btn.disabled=true; btn.innerHTML='<i class="fas fa-spinner fa-spin"></i>';
+  try{
+    const dados={nome,email,eh_lider,vinculos};
+    if(senha) dados.senha=senha;
+    if(modoEdicaoPessoa){
+      await api("PUT",`/users/${encodeURIComponent(emailEditando)}`,dados);
+    }else{
+      await api("POST","/users",dados);
     }
+    mostrarMsg("msg-form-pessoa","Salvo com sucesso!");
+    await carregarPessoas();
+    renderizarTabelaPessoas();
+    construirFormEscala();
+    limparFormPessoa();
+  }catch(err){ mostrarMsg("msg-form-pessoa",err.message,"erro"); }
+  finally{ btn.disabled=false; btn.innerHTML='<i class="fas fa-save"></i> Salvar'; }
+}
 
-    async function carregarPessoasSala(sala) {
-      try {
-        // ✅ usa cache /users, fallback para /users se necessário
-        if (!Array.isArray(cachePessoas) || cachePessoas.length === 0) {
-          const { headers } = montarCredenciaisUsuario();
-          const res = await fetch(`${API}/users`, { headers });
-          const lista = await tratarResposta(res);
-          cachePessoas = Array.isArray(lista) ? lista : [];
-        }
+async function excluirPessoa(email){
+  if(!confirm(`Excluir ${email}?`))return;
+  try{
+    await api("DELETE",`/users/${encodeURIComponent(email)}`);
+    await carregarPessoas();
+    renderizarTabelaPessoas();
+  }catch(err){ alert(err.message); }
+}
 
-        const professores = [];
-        const monitores = [];
-
-        cachePessoas.forEach(p => {
-          const pessoaId = p?.id || p?.email || "";
-          const pessoaNome = p?.nome || p?.email || "Sem nome";
-          const vinculos = Array.isArray(p?.vinculos) ? p.vinculos : [];
-
-          vinculos.forEach(v => {
-            if ((v?.sala || "") !== sala) return;
-            const func = String(v?.funcao || "").toLowerCase();
-
-            if (func.includes("prof")) {
-              professores.push({ valor: pessoaId, nome: pessoaNome });
-            } else if (func.includes("monit")) {
-              monitores.push({ valor: pessoaId, nome: pessoaNome });
-            }
-          });
-        });
-
-        popularSelect("esc-professor", professores, "Selecione o professor");
-        ["esc-m1", "esc-m2", "esc-m3", "esc-m4"].forEach(id => {
-          popularSelect(id, monitores, "Selecione");
-        });
-
-      } catch (err) {
-        console.error("Erro ao carregar pessoas da sala:", err);
-        alert("Erro ao carregar pessoas da sala");
-      }
-    }
-
-    async function carregarEscalaSala() {
-      const mes = document.getElementById("sel-mes-global").value;
-      const sala = document.getElementById("sel-sala-global").value;
-      const tabela = document.getElementById("tabela-escala");
-
-      if (!mes || !sala) {
-        tabela.innerHTML = "";
-        return;
-      }
-
-      try {
-        const { headers } = montarCredenciaisUsuario();
-        const res = await fetch(`${API}/escala?mes=${encodeURIComponent(mes)}&sala=${encodeURIComponent(sala)}`, { headers });
-        const lista = await tratarResposta(res);
-        escalaCache = Array.isArray(lista) ? lista : [];
-
-        if (escalaCache.length === 0) {
-          tabela.innerHTML = "<p>Nenhuma escala salva para essa sala/mês.</p>";
-          return;
-        }
-
-        const pessoaNomePorId = (cachePessoas || []).reduce((acc, pessoa) => {
-          const key = String(pessoa?.id || pessoa?.email || "");
-          acc[key] = pessoa?.nome || pessoa?.email || key;
-          return acc;
-        }, {});
-
-        let html = `
-        <table>
-          <thead>
-            <tr>
-              <th>Data</th>
-              <th>Dia</th>
-              <th>Evento</th>
-              <th>Professor</th>
-              <th>Monitores</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-      `;
-
-        lista.forEach(item => {
-          const prof = pessoaNomePorId[String(item.professor_id)] || item.professor_id || "--";
-          const m1 = pessoaNomePorId[String(item.monitor1_id)] || item.monitor1_id || "-";
-          const m2 = pessoaNomePorId[String(item.monitor2_id)] || item.monitor2_id || "-";
-          const m3 = pessoaNomePorId[String(item.monitor3_id)] || item.monitor3_id || "-";
-          const m4 = pessoaNomePorId[String(item.monitor4_id)] || item.monitor4_id || "-";
-          const dataFormatada = formatarDataSomente(item.data || "");
-          const diaSemana = escapeHtml(item.dia_semana || obterDiaSemana(item.data || ""));
-
-          const acoes = usuarioPodeEditarEscala(sala)
-            ? `<div class="escala-acoes"><button class="btn btn-ghost" title="Editar" onclick="prepararEdicaoEscala(${item.id})"><i class="fas fa-edit"></i></button><button class="btn btn-danger" title="Excluir" onclick="deletarEscala(${item.id})"><i class="fas fa-trash-alt"></i></button></div>`
-            : "-";
-
-          html += `
-          <tr>
-            <td>${escapeHtml(dataFormatada)}</td>
-            <td>${diaSemana}</td>
-            <td>${escapeHtml(item.evento || "")}</td>
-            <td>${escapeHtml(prof)}</td>
-            <td>${escapeHtml(`${m1} / ${m2} / ${m3} / ${m4}`)}</td>
-            <td>${acoes}</td>
-          </tr>
-        `;
-        });
-
-        html += `</tbody></table>`;
-        tabela.innerHTML = html;
-
-      } catch (err) {
-        console.error("Erro ao carregar escalas da sala:", err);
-        tabela.innerHTML = `<p>Erro ao carregar escalas: ${escapeHtml(err.message)}</p>`;
-      }
-    }
-
-    function prepararEdicaoEscala(escalaId) {
-      const sala = document.getElementById("sel-sala-global")?.value || "";
-      if (!usuarioPodeEditarEscala(sala)) {
-        alert("Somente o líder desta sala pode editar escala.");
-        return;
-      }
-
-      const escala = escalaCache.find(e => e.id === escalaId);
-      if (!escala) {
-        alert("Escala não encontrada no cache.");
-        return;
-      }
-
-      modoEscalaEdicao = true;
-      escalaEditId = escala.id;
-
-      document.getElementById("esc-data").value = formatarDataInput(escala.data || "");
-      document.getElementById("esc-evento").value = escala.evento || "";
-      document.getElementById("esc-professor").value = escala.professor_id || "";
-      document.getElementById("esc-m1").value = escala.monitor1_id || "";
-      document.getElementById("esc-m2").value = escala.monitor2_id || "";
-      document.getElementById("esc-m3").value = escala.monitor3_id || "";
-      document.getElementById("esc-m4").value = escala.monitor4_id || "";
-
-      const btnSalvar = document.querySelector("button[onclick='salvarEscala()']");
-      if (btnSalvar) btnSalvar.innerHTML = '<i class="fas fa-save"></i> Atualizar Escala';
-
-      carregarHistoricoSelecionado();
-    }
-
-    async function deletarEscala(id) {
-      const sala = document.getElementById("sel-sala-global")?.value || "";
-      if (!usuarioPodeEditarEscala(sala)) {
-        alert("Somente o líder desta sala pode excluir escala.");
-        return;
-      }
-
-      if (!confirm("Confirma exclusão desta escala?")) return;
-
-      try {
-        const { headers } = montarCredenciaisUsuario();
-        const res = await fetch(`${API}/escala/${id}`, {
-          method: "DELETE",
-          headers,
-          body: JSON.stringify({ sala })
-        });
-
-        await tratarResposta(res);
-        alert("Escala excluída com sucesso.");
-        carregarEscalaSala();
-
-      } catch (err) {
-        alert("Erro ao excluir escala: " + err.message);
-      }
-    }
-
-    async function confirmarLimpar() {
-      const mes = document.getElementById("sel-mes-global").value;
-
-      if (!mes) {
-        alert("Selecione o mês.");
-        return;
-      }
-
-      if (!confirm("Deseja realmente limpar toda a escala e destravar o mês?")) {
-        return;
-      }
-
-      const { usuario, headers } = montarCredenciaisUsuario();
-      if (!usuario) {
-        alert("Usuário não carregado. Recarregue a página.");
-        return;
-      }
-
-      try {
-        const res = await fetch(`${API}/config/limpar`, {
-          method: "DELETE",
-          headers,
-          body: JSON.stringify({ mes, usuario, user_id: usuario, email: dadosGlobal?.email || "" })
-        });
-
-        await tratarResposta(res);
-
-        document.getElementById("sel-mes-global").disabled = false;
-        document.getElementById("sel-sala-global").value = "";
-        document.getElementById("titulo-sala").innerHTML = '<i class="fas fa-edit"></i> Selecione uma sala...';
-        document.getElementById("form-escala").style.display = "none";
-        document.getElementById("form-escala").innerHTML = "";
-        document.getElementById("lista-conflitos").innerHTML = "";
-        const tabela = document.getElementById("tabela-escala");
-        if (tabela) tabela.innerHTML = "";
-
-        alert("Escala limpa com sucesso.");
-      } catch (err) {
-        alert(`Erro ao limpar mês: ${err.message}`);
-      }
-    }
-
-    async function travarMes() {
-      const mes = document.getElementById("sel-mes-global").value;
-
-      if (!mes) {
-        alert("Selecione o mês antes de travar.");
-        return;
-      }
-
-      const { usuario, headers } = montarCredenciaisUsuario();
-      if (!usuario) {
-        alert("Usuário não carregado. Recarregue a página.");
-        return;
-      }
-
-      try {
-        const res = await fetch(`${API}/config/travar`, {
-          method: "POST",
-          headers,
-          body: JSON.stringify({ mes, usuario, user_id: usuario, email: dadosGlobal?.email || "" })
-        });
-
-        await tratarResposta(res);
-        document.getElementById("sel-mes-global").disabled = true;
-        document.getElementById("sel-mes-global").value = mes;
-        carregarEscalaSala();
-        alert("Mês travado com sucesso.");
-      } catch (err) {
-        alert(`Erro ao travar mês: ${err.message}`);
-      }
-    }
-
-    async function salvarEscala() {
-      const mes = document.getElementById("sel-mes-global").value;
-      const sala = document.getElementById("sel-sala-global").value;
-
-      if (!usuarioPodeEditarEscala(sala)) {
-        alert("Somente o líder desta sala pode alterar a escala.");
-        return;
-      }
-
-      if (!mes || !sala) {
-        alert("Selecione mês e sala para salvar a escala.");
-        return;
-      }
-
-      const dataValor = document.getElementById("esc-data").value;
-      const dados = {
-        mes: Number(mes),
-        sala,
-        data: dataValor,
-        dia_semana: obterDiaSemana(dataValor),
-        evento: document.getElementById("esc-evento").value,
-        professor_id: document.getElementById("esc-professor").value,
-        monitor1_id: document.getElementById("esc-m1").value || null,
-        monitor2_id: document.getElementById("esc-m2").value || null,
-        monitor3_id: document.getElementById("esc-m3").value || null,
-        monitor4_id: document.getElementById("esc-m4").value || null
-      };
-
-      try {
-        const { headers } = montarCredenciaisUsuario();
-
-        const endpoint = modoEscalaEdicao ? `${API}/escala/${escalaEditId}` : `${API}/escala`;
-        const metodo = modoEscalaEdicao ? "PUT" : "POST";
-
-        const res = await fetch(endpoint, {
-          method: metodo,
-          headers,
-          body: JSON.stringify(dados)
-        });
-
-        await tratarResposta(res);
-
-        if (modoEscalaEdicao) {
-          alert("Escala atualizada com sucesso!");
-        } else {
-          alert("Escala salva com sucesso!");
-        }
-
-        modoEscalaEdicao = false;
-        escalaEditId = null;
-        const btnSalvar = document.querySelector("button[onclick='salvarEscala()']");
-        if (btnSalvar) btnSalvar.innerHTML = '<i class="fas fa-save"></i> Salvar Escala';
-        carregarEscalaSala();
-        carregarHistoricoSelecionado();
-
-      } catch (err) {
-        alert("Erro: " + err.message);
-      }
-    }
-
-async function gerarPdfSala() {
-  const sala = document.getElementById("sel-sala-global").value;
-  const mes = document.getElementById("sel-mes-global").value;
-
-  if (!sala) { alert("Selecione uma sala para gerar o PDF."); return; }
-  if (!mes) { alert("Selecione o mês para gerar o PDF."); return; }
-
-  await carregarEscalaSala();
-
-  if (!escalaCache || escalaCache.length === 0) {
-    alert("Nenhuma escala encontrada para gerar o PDF.");
+// ═══════════════════════════════════════════════════
+// FORMULÁRIO DE ESCALA
+// ═══════════════════════════════════════════════════
+function construirFormEscala(){
+  const corpo = document.getElementById("form-escala-corpo");
+  if(!ehLider()){
+    document.getElementById("aviso-somente-leitura").style.display="block";
+    corpo.innerHTML="";
     return;
   }
 
-  const mesNome = document.getElementById("sel-mes-global").selectedOptions[0]?.text || mes;
+  const vocais = cacheCategorias.filter(c=>c.tipo==="vocal");
+  const instrumentais = cacheCategorias.filter(c=>c.tipo==="instrumental");
 
-  const pessoaNomePorId = (cachePessoas || []).reduce((acc, pessoa) => {
-    const key = String(pessoa?.id || pessoa?.email || "");
-    acc[key] = pessoa?.nome || pessoa?.email || key;
-    return acc;
-  }, {});
+  let html=`
+    <div class="form-row">
+      <div class="form-field">
+        <label>Data</label>
+        <input type="date" id="esc-data">
+      </div>
+      <div class="form-field">
+        <label>Evento</label>
+        <select id="esc-evento">
+          <option value="dom_manha">Domingo Manhã</option>
+          <option value="dom_noite">Domingo Noite</option>
+          <option value="quinta">Quinta-feira</option>
+        </select>
+      </div>
+    </div>`;
 
-  const eventos = escalaCache.map(item => ({
-    data: formatarDataSomente(item.data),
-    dia: item.dia_semana || obterDiaSemana(item.data),
-    evento: item.evento || "",
-    professor: pessoaNomePorId[String(item.professor_id)] || item.professor_id || "",
-    monitores: [item.monitor1_id, item.monitor2_id, item.monitor3_id, item.monitor4_id]
-      .filter(Boolean)
-      .map(id => pessoaNomePorId[String(id)] || id)
-      .join(" / ") || "-"
-  }));
-
-  // Cria iframe oculta apontando para o template
-  const iframe = document.createElement("iframe");
-  iframe.src = "pdf.html";
-  iframe.style.cssText = "position:fixed; left:-9999px; top:0; width:1200px; height:900px; border:none;";
-  document.body.appendChild(iframe);
-
-  await new Promise(resolve => iframe.addEventListener("load", resolve));
-
-  // Injeta os dados no template via renderPdfTemplate
-  const win = iframe.contentWindow;
-  win.renderPdfTemplate({
-    sala,
-    mes: mesNome,
-    logoLeft: "logo-esq.png",
-    logoRight: "logo-dir.png",
-    eventos
-  });
-
-  // Aguarda __PDF_READY__
-  await new Promise(resolve => {
-    const check = setInterval(() => {
-      if (win.__PDF_READY__) {
-        clearInterval(check);
-        resolve();
-      }
-    }, 50);
-  });
-
-  // Aguarda imagens carregarem
-  const imagens = iframe.contentDocument.querySelectorAll("img");
-  await Promise.all(Array.from(imagens).map(img =>
-    new Promise(res => {
-      if (img.complete && img.naturalWidth > 0) return res();
-      img.onload = res;
-      img.onerror = res;
-    })
-  ));
-
-  // Ajusta iframe para a altura real do conteúdo (evita capturar espaço em branco)
-  const bodyEl = iframe.contentDocument.body;
-  const contentHeight = bodyEl.scrollHeight;
-  iframe.style.height = contentHeight + "px";
-
-  // Pequena pausa para garantir renderização após resize
-  await new Promise(res => setTimeout(res, 400));
-
-  try {
-    const { jsPDF } = window.jspdf;
-
-    // scale:3 para alta resolução; height = scrollHeight real do conteúdo
-    const canvas = await html2canvas(bodyEl, {
-      scale: 3,
-      useCORS: true,
-      backgroundColor: "#ffffff",
-      logging: false,
-      width: 1122,
-      height: contentHeight,
-      windowWidth: 1122,
-      windowHeight: contentHeight
+  if(vocais.length){
+    html+=`<div class="esc-secao">
+      <div class="esc-secao-title vocal"><i class="fas fa-microphone"></i> Vocal</div>`;
+    vocais.forEach(c=>{
+      const pessoas = cachePessoas.filter(p=>(p.vinculos||[]).some(v=>v.categoria_id==c.id));
+      const opts = pessoas.map(p=>`<option value="${p.id}">${esc(p.nome)}</option>`).join("");
+      html+=`<div class="form-field">
+        <label>${esc(c.nome)}</label>
+        <select id="esc-cat-${c.id}" onchange="carregarHistorico(this.value)">
+          <option value="">— Nenhum —</option>${opts}
+        </select>
+      </div>`;
     });
+    html+=`</div>`;
+  }
 
-    // JPEG 0.95 oferece qualidade visual igual ao PNG mas menor tamanho
-    const imgData = canvas.toDataURL("image/jpeg", 0.95);
-    const pdf = new jsPDF({ orientation: "landscape", unit: "mm", format: "a4" });
+  if(instrumentais.length){
+    html+=`<div class="esc-secao">
+      <div class="esc-secao-title instrumental"><i class="fas fa-guitar"></i> Instrumental</div>`;
+    instrumentais.forEach(c=>{
+      const pessoas = cachePessoas.filter(p=>(p.vinculos||[]).some(v=>v.categoria_id==c.id));
+      const opts = pessoas.map(p=>`<option value="${p.id}">${esc(p.nome)}</option>`).join("");
+      html+=`<div class="form-field">
+        <label>${esc(c.nome)}</label>
+        <select id="esc-cat-${c.id}" onchange="carregarHistorico(this.value)">
+          <option value="">— Nenhum —</option>${opts}
+        </select>
+      </div>`;
+    });
+    // Talkback — seleciona entre instrumentais
+    const pessoasInstr = cachePessoas.filter(p=>(p.vinculos||[]).some(v=>{
+      const cat=cacheCategorias.find(c=>c.id==v.categoria_id);
+      return cat?.tipo==="instrumental";
+    }));
+    const optsTb = pessoasInstr.map(p=>`<option value="${p.id}">${esc(p.nome)}</option>`).join("");
+    html+=`<div class="form-field">
+      <label><i class="fas fa-headphones" style="color:var(--accent)"></i> Talkback</label>
+      <select id="esc-talkback"><option value="">— Nenhum —</option>${optsTb}</select>
+    </div></div>`;
+  }
 
-    const pdfW = pdf.internal.pageSize.getWidth();   // 297mm
-    const pdfH = pdf.internal.pageSize.getHeight();  // 210mm
+  html+=`<button class="btn btn-primary" style="width:100%;margin-top:8px;" onclick="salvarEscala()">
+    <i class="fas fa-save"></i> <span id="btn-salvar-esc-label">Salvar Escala</span>
+  </button>`;
+  corpo.innerHTML=html;
+}
 
-    // Altura proporcional da imagem inteira no PDF
-    const imgH = pdfW * (canvas.height / canvas.width);
+function cancelarEdicaoEscala(){
+  modoEdicaoEscala=false; escalaEditId=null;
+  document.getElementById("form-titulo").textContent="Formulário";
+  document.getElementById("btn-cancelar-esc").style.display="none";
+  construirFormEscala();
+}
 
-    if (imgH <= pdfH) {
-      // Cabe em uma unica pagina
-      pdf.addImage(imgData, "JPEG", 0, 0, pdfW, imgH);
-    } else {
-      // Multiplas paginas: fatiar o canvas corretamente
-      const pageHeightPx = Math.floor(canvas.width * (pdfH / pdfW));
-      let yOffset = 0;
+// ═══════════════════════════════════════════════════
+// ESCALA
+// ═══════════════════════════════════════════════════
+async function aoMudarMes(){
+  construirFormEscala();
+  await carregarEscala();
+}
 
-      while (yOffset < canvas.height) {
-        const sliceH = Math.min(pageHeightPx, canvas.height - yOffset);
-
-        // Ignora fatia residual insignificante (evita pagina em branco)
-        if (sliceH < 10) break;
-
-        const pageCanvas = document.createElement("canvas");
-        pageCanvas.width = canvas.width;
-        pageCanvas.height = sliceH;
-        pageCanvas.getContext("2d").drawImage(canvas, 0, -yOffset);
-
-        // Altura proporcional real desta fatia em mm (evita espaco em branco no final)
-        const sliceHmm = pdfW * (sliceH / canvas.width);
-        pdf.addImage(pageCanvas.toDataURL("image/jpeg", 0.95), "JPEG", 0, 0, pdfW, sliceHmm);
-
-        yOffset += sliceH;
-
-        // Adiciona nova pagina apenas se houver conteudo suficiente restante
-        if (canvas.height - yOffset > 10) pdf.addPage();
-      }
-    }
-
-    pdf.save(`Escala_${sala}_${mesNome}.pdf`);
-
-  } catch (err) {
-    console.error("Erro ao gerar PDF:", err);
-    alert("Erro ao gerar PDF: " + err.message);
-  } finally {
-    document.body.removeChild(iframe);
+async function carregarEscala(){
+  const mes = document.getElementById("sel-mes").value;
+  try{
+    const lista = await api("GET",`/escala?mes=${encodeURIComponent(mes)}`);
+    escalaCache = Array.isArray(lista)?lista:[];
+    renderizarTabelaEscala();
+  }catch(err){
+    document.getElementById("tabela-escala-wrap").innerHTML=`<div class="empty">${esc(err.message)}</div>`;
   }
 }
 
-    window.addEventListener("click", function (event) {
-      const modal = document.getElementById("modalPessoas");
-      if (event.target === modal) {
-        fecharModal();
-      }
+function renderizarTabelaEscala(){
+  const wrap=document.getElementById("tabela-escala-wrap");
+  const filtro=document.getElementById("filtro-escala").value.toLowerCase();
+  const lista=escalaCache.filter(e=>{
+    const txt=`${e.data} ${EVENTO_LABELS[e.evento]||e.evento} ${nomePorId(e.ministro_id)} ${(e.backs||[]).map(nomePorId).join(" ")}`.toLowerCase();
+    return txt.includes(filtro);
+  });
+
+  if(!lista.length){
+    wrap.innerHTML=`<div class="empty"><i class="fas fa-calendar-times"></i>Nenhuma escala para este mês</div>`;
+    return;
+  }
+
+  const podeEditar=ehLider();
+
+  let html=`<table><thead><tr>
+    <th>Data</th><th>Evento</th><th>Ministro</th><th>Backs</th><th>Instrumental</th><th>Talkback</th>
+    ${podeEditar?"<th>Ações</th>":""}
+  </tr></thead><tbody>`;
+
+  lista.forEach(e=>{
+    const instr=Object.entries(e.instrumental||{}).map(([catId,pesId])=>{
+      const cat=cacheCategorias.find(c=>c.id==catId);
+      return `<span style="font-size:0.75rem;color:var(--text-muted)">${esc(cat?.nome||catId)}:</span> ${esc(nomePorId(pesId))}`;
+    }).join("<br>");
+
+    const backs=(e.backs||[]).map(id=>esc(nomePorId(id))).join(", ")||"-";
+    const evClass=e.evento==="dom_manha"?"ev-dom-manha":e.evento==="dom_noite"?"ev-dom-noite":"ev-quinta";
+    const acoes=podeEditar?`<td>
+      <button class="btn btn-ghost btn-sm" onclick="prepararEdicaoEscala(${e.id})" title="Editar"><i class="fas fa-edit"></i></button>
+      <button class="btn btn-danger btn-sm" onclick="deletarEscala(${e.id})" title="Excluir"><i class="fas fa-trash"></i></button>
+    </td>`:"";
+
+    html+=`<tr>
+      <td><b>${formatarData(e.data)}</b><br><small style="color:var(--text-muted)">${diaSemana(e.data)}</small></td>
+      <td><span class="${evClass}">${esc(EVENTO_LABELS[e.evento]||e.evento)}</span></td>
+      <td>${esc(nomePorId(e.ministro_id)||"-")}</td>
+      <td style="font-size:0.8rem">${backs}</td>
+      <td style="font-size:0.8rem">${instr||"-"}</td>
+      <td>${e.talkback_id?`<span class="badge badge-talkback">${esc(nomePorId(e.talkback_id))}</span>`:"-"}</td>
+      ${acoes}
+    </tr>`;
+  });
+  html+=`</tbody></table>`;
+  wrap.innerHTML=html;
+}
+
+function filtrarTabela(){ renderizarTabelaEscala(); }
+
+async function salvarEscala(){
+  const mes=document.getElementById("sel-mes").value;
+  const data=document.getElementById("esc-data")?.value;
+  const evento=document.getElementById("esc-evento")?.value;
+  if(!data||!evento){ alert("Preencha data e evento."); return; }
+
+  // Coletar vocal (ministro = 1ª categoria vocal, backs = demais)
+  const vocais=cacheCategorias.filter(c=>c.tipo==="vocal");
+  let ministro_id=null;
+  const backs=[];
+  vocais.forEach((c,i)=>{
+    const val=document.getElementById(`esc-cat-${c.id}`)?.value;
+    if(!val)return;
+    if(i===0) ministro_id=Number(val);
+    else backs.push(Number(val));
+  });
+
+  // Coletar instrumental
+  const instrumental={};
+  cacheCategorias.filter(c=>c.tipo==="instrumental").forEach(c=>{
+    const val=document.getElementById(`esc-cat-${c.id}`)?.value;
+    if(val) instrumental[c.id]=Number(val);
+  });
+
+  const talkback_id=document.getElementById("esc-talkback")?.value||null;
+
+  const dados={mes, data, evento, ministro_id, backs, instrumental, talkback_id:talkback_id?Number(talkback_id):null};
+
+  try{
+    if(modoEdicaoEscala){
+      await api("PUT",`/escala/${escalaEditId}`,dados);
+      alert("Escala atualizada!");
+    }else{
+      await api("POST","/escala",dados);
+      alert("Escala salva!");
+    }
+    cancelarEdicaoEscala();
+    await carregarEscala();
+  }catch(err){ alert(err.message); }
+}
+
+function prepararEdicaoEscala(id){
+  const e=escalaCache.find(x=>x.id===id);
+  if(!e){alert("Escala não encontrada.");return;}
+  modoEdicaoEscala=true; escalaEditId=id;
+  document.getElementById("form-titulo").textContent="Editando Escala";
+  document.getElementById("btn-cancelar-esc").style.display="";
+
+  setTimeout(()=>{
+    document.getElementById("esc-data").value=formatarDataInput(e.data);
+    document.getElementById("esc-evento").value=e.evento;
+
+    const vocais=cacheCategorias.filter(c=>c.tipo==="vocal");
+    vocais.forEach((c,i)=>{
+      const el=document.getElementById(`esc-cat-${c.id}`);
+      if(!el)return;
+      if(i===0) el.value=e.ministro_id||"";
+      else el.value=(e.backs||[])[i-1]||"";
     });
 
-    function filtrarTabela() {
-      const filtro = document.getElementById("filtro-geral").value.toLowerCase();
+    cacheCategorias.filter(c=>c.tipo==="instrumental").forEach(c=>{
+      const el=document.getElementById(`esc-cat-${c.id}`);
+      if(el) el.value=(e.instrumental||{})[c.id]||"";
+    });
 
-      const linhas = document.querySelectorAll("#tabela-escala tbody tr");
+    const tbEl=document.getElementById("esc-talkback");
+    if(tbEl) tbEl.value=e.talkback_id||"";
+  },50);
+}
 
-      linhas.forEach(linha => {
-        const textoLinha = linha.innerText.toLowerCase();
+async function deletarEscala(id){
+  if(!confirm("Excluir esta escala?"))return;
+  try{
+    await api("DELETE",`/escala/${id}`);
+    await carregarEscala();
+  }catch(err){ alert(err.message); }
+}
 
-        if (textoLinha.includes(filtro)) {
-          linha.style.display = "";
-        } else {
-          linha.style.display = "none";
-        }
-      });
+// ═══════════════════════════════════════════════════
+// HISTÓRICO
+// ═══════════════════════════════════════════════════
+async function carregarHistorico(pessoaId){
+  if(!pessoaId){ document.getElementById("historico-wrap").innerHTML=`<div class="empty"><i class="fas fa-clock"></i>Selecione um integrante</div>`; return; }
+  const mes=document.getElementById("sel-mes").value;
+  try{
+    const lista=await api("GET",`/escala/historico?pessoa_id=${pessoaId}&mes=${encodeURIComponent(mes)}`);
+    const p=cachePessoas.find(x=>x.id==pessoaId);
+    if(!lista.length){
+      document.getElementById("historico-wrap").innerHTML=`<div class="empty"><i class="fas fa-calendar-check"></i>${esc(p?.nome||pessoaId)} não está escalado este mês</div>`;
+      return;
     }
+    document.getElementById("historico-wrap").innerHTML=`
+      <div style="font-size:0.78rem;color:var(--text-muted);margin-bottom:10px;"><i class="fas fa-user" style="color:var(--blue);margin-right:4px;"></i>${esc(p?.nome||pessoaId)}</div>
+      ${lista.map(h=>`<div class="hist-item">
+        <div class="data">${formatarData(h.data)} · ${diaSemana(h.data)}</div>
+        <div class="evento">${esc(EVENTO_LABELS[h.evento]||h.evento)} <span style="color:var(--text-muted);font-size:0.75rem">· ${esc(h.funcao)}</span></div>
+      </div>`).join("")}`;
+  }catch(err){
+    document.getElementById("historico-wrap").innerHTML=`<div class="empty">${esc(err.message)}</div>`;
+  }
+}
 
+// ═══════════════════════════════════════════════════
+// GERAR ESCALA AUTOMÁTICA
+// ═══════════════════════════════════════════════════
+function abrirModalGerar(){
+  const mes=document.getElementById("sel-mes").value;
+  document.getElementById("label-mes-gerar").textContent=mesLabel(mes);
+  document.getElementById("alertas-gerar").innerHTML="";
+  document.getElementById("modalGerar").classList.add("open");
+}
 
-
-    // ── FILTRO DA TABELA DE INTEGRANTES (modal) ────────────────────
-    function filtrarTabelaIntegrantes() {
-      const filtro = document.getElementById("busca-integrantes")?.value?.toLowerCase() || "";
-      const linhas = document.querySelectorAll("#corpo-tabela-pessoas tr");
-      linhas.forEach(linha => {
-        const texto = linha.innerText.toLowerCase();
-        linha.style.display = texto.includes(filtro) ? "" : "none";
-      });
+async function confirmarGerarEscala(){
+  const mes=document.getElementById("sel-mes").value;
+  const btn=document.getElementById("btn-confirmar-gerar");
+  btn.disabled=true; btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Gerando...';
+  try{
+    const res=await api("POST","/escala/gerar",{mes});
+    if(res.alertas?.length){
+      const ul=res.alertas.map(a=>`<li>${esc(a.categoria)}: ${a.disponiveis} disponíveis, ${a.necessario} necessários</li>`).join("");
+      document.getElementById("alertas-gerar").innerHTML=`
+        <div class="alerta-box">
+          <div class="alerta-title"><i class="fas fa-exclamation-triangle"></i> Equipe curta — alguns integrantes foram repetidos</div>
+          <ul>${ul}</ul>
+        </div>`;
     }
+    fecharModal("modalGerar");
+    await carregarEscala();
+    alert(`Escala gerada! ${res.escala?.length||0} eventos criados.`);
+  }catch(err){ alert("Erro ao gerar: "+err.message); }
+  finally{ btn.disabled=false; btn.innerHTML='<i class="fas fa-magic"></i> Gerar Agora'; }
+}
 
-  </script>
+// ═══════════════════════════════════════════════════
+// CONFIG
+// ═══════════════════════════════════════════════════
+async function travarMes(){
+  const mes=document.getElementById("sel-mes").value;
+  if(!confirm(`Travar o mês ${mesLabel(mes)}?`))return;
+  try{
+    await api("POST","/config/travar",{mes});
+    document.getElementById("sel-mes").disabled=true;
+    alert("Mês travado.");
+  }catch(err){ alert(err.message); }
+}
+
+async function confirmarLimpar(){
+  const mes=document.getElementById("sel-mes").value;
+  if(!confirm(`Limpar toda a escala de ${mesLabel(mes)} e destravar?`))return;
+  try{
+    await api("DELETE","/config/limpar",{mes});
+    document.getElementById("sel-mes").disabled=false;
+    await carregarEscala();
+    alert("Escala limpa.");
+  }catch(err){ alert(err.message); }
+}
+
+// ═══════════════════════════════════════════════════
+// PDF
+// ═══════════════════════════════════════════════════
+async function gerarPdf(){
+  const mes=document.getElementById("sel-mes").value;
+  if(!escalaCache.length){ alert("Nenhuma escala para gerar PDF."); return; }
+
+  const iframe=document.createElement("iframe");
+  iframe.src="pdf.html";
+  iframe.style.cssText="position:fixed;left:-9999px;top:0;width:1200px;height:900px;border:none;";
+  document.body.appendChild(iframe);
+  await new Promise(r=>iframe.addEventListener("load",r));
+
+  const eventos=escalaCache.map(e=>{
+    const instr=Object.entries(e.instrumental||{}).map(([catId,pid])=>{
+      const cat=cacheCategorias.find(c=>c.id==catId);
+      return `${cat?.nome||catId}: ${nomePorId(pid)}`;
+    }).join(" | ");
+    return {
+      data: formatarData(e.data),
+      dia: diaSemana(e.data),
+      evento: EVENTO_LABELS[e.evento]||e.evento,
+      ministro: nomePorId(e.ministro_id)||"-",
+      backs: (e.backs||[]).map(nomePorId).join(", ")||"-",
+      instrumental: instr||"-",
+      talkback: e.talkback_id?nomePorId(e.talkback_id):"-"
+    };
+  });
+
+  const win=iframe.contentWindow;
+  if(typeof win.renderPdfTemplate==="function"){
+    win.renderPdfTemplate({ sala:"Grupo de Música", mes:mesLabel(mes), logoLeft:"logo-esq.png", logoRight:"logo-dir.png", eventos });
+  }
+
+  await new Promise(r=>{ const chk=setInterval(()=>{ if(win.__PDF_READY__){clearInterval(chk);r();} },50); });
+  await new Promise(r=>setTimeout(r,400));
+
+  try{
+    const {jsPDF}=window.jspdf;
+    const canvas=await html2canvas(iframe.contentDocument.body,{scale:2,useCORS:true,backgroundColor:"#fff",logging:false});
+    const pdf=new jsPDF({orientation:"landscape",unit:"mm",format:"a4"});
+    const w=pdf.internal.pageSize.getWidth();
+    const h=w*(canvas.height/canvas.width);
+    pdf.addImage(canvas.toDataURL("image/jpeg",0.92),"JPEG",0,0,w,h);
+    pdf.save(`Escala_${mesLabel(mes)}.pdf`);
+  }finally{ document.body.removeChild(iframe); }
+}
+
+// ═══════════════════════════════════════════════════
+// MODAIS
+// ═══════════════════════════════════════════════════
+function fecharModal(id){ document.getElementById(id).classList.remove("open"); }
+window.addEventListener("click",e=>{
+  document.querySelectorAll(".modal-overlay.open").forEach(m=>{ if(e.target===m) m.classList.remove("open"); });
+});
+
+function logout(){ localStorage.removeItem("auth"); location.href="/login"; }
+</script>
 </body>
-
 </html>

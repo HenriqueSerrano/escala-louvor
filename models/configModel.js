@@ -14,6 +14,5 @@ export const destravarMes = async () => {
 };
 
 export const limparEscala = async () => {
-  await db.query(`DELETE FROM escala`);
   await destravarMes();
 };
