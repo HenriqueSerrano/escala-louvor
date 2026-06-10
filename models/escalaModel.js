@@ -36,39 +36,47 @@ export const excluirEscala = async (id) => {
 };
 
 export const buscarHistorico = async (pessoa_id, mes) => {
-  // Busca as escalas onde a pessoa participa
+  const pid = Number(pessoa_id);
+
   const res = await db.query(
-    `SELECT e.data, e.evento, e.ministro_id, e.talkback_id, e.backs, e.instrumental
+    `SELECT e.id, e.data, e.evento, e.ministro_id, e.talkback_id, e.backs, e.instrumental
      FROM escala e
      WHERE e.mes = $2
        AND (e.ministro_id=$1 OR e.talkback_id=$1 OR $1=ANY(e.backs)
-            OR e.instrumental::text LIKE '%' || $1::text || '%')
+            OR e.instrumental::text LIKE '%"' || $1::text || '"%'
+            OR e.instrumental::text LIKE '%:' || $1::text || ',%'
+            OR e.instrumental::text LIKE '%:' || $1::text || '}%')
      ORDER BY e.data`,
-    [pessoa_id, mes]
+    [pid, mes]
   );
 
-  // Para cada entrada, descobrir a função exata
-  const rows = await Promise.all(res.rows.map(async e => {
-    let funcao = 'Instrumental';
+  const rows = [];
+  for (const e of res.rows) {
+    let funcao = null;
 
-    if (e.ministro_id == pessoa_id) {
+    if (Number(e.ministro_id) === pid) {
       funcao = 'Ministro';
-    } else if (e.talkback_id == pessoa_id) {
+    } else if (Number(e.talkback_id) === pid) {
       funcao = 'Talkback';
-    } else if (e.backs && e.backs.includes(Number(pessoa_id))) {
+    } else if (Array.isArray(e.backs) && e.backs.map(Number).includes(pid)) {
       funcao = 'Backing Vocal';
-    } else if (e.instrumental) {
-      // Descobrir qual categoria (instrumento) essa pessoa está tocando
-      const instrObj = typeof e.instrumental === 'string' ? JSON.parse(e.instrumental) : e.instrumental;
-      const catId = Object.keys(instrObj).find(k => instrObj[k] == pessoa_id);
+    } else {
+      // Procura no JSONB instrumental: { "catId": pessoaId }
+      const instrObj = typeof e.instrumental === 'string'
+        ? JSON.parse(e.instrumental)
+        : (e.instrumental || {});
+
+      const catId = Object.keys(instrObj).find(k => Number(instrObj[k]) === pid);
       if (catId) {
-        const catRes = await db.query(`SELECT nome FROM categorias WHERE id = $1`, [catId]);
-        if (catRes.rows[0]) funcao = catRes.rows[0].nome;
+        const catRes = await db.query(`SELECT nome FROM categorias WHERE id = $1`, [Number(catId)]);
+        funcao = catRes.rows[0]?.nome || 'Instrumental';
       }
     }
 
-    return { data: e.data, evento: e.evento, funcao };
-  }));
+    if (funcao) {
+      rows.push({ data: e.data, evento: e.evento, funcao });
+    }
+  }
 
   return rows;
 };

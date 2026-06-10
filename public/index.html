@@ -63,9 +63,22 @@
 
     /* TABELA */
     table{width:100%;border-collapse:collapse;}
-    th{background:#f8f9fa;color:var(--p-dark);padding:10px 12px;text-align:left;font-size:.77rem;border-bottom:2px solid var(--bg);}
-    td{padding:10px 12px;border-bottom:1px solid #eee;font-size:.86rem;vertical-align:middle;}
+    th{
+      background:#f8f9fa;color:var(--p-dark);padding:10px 14px;
+      text-align:center;font-size:.78rem;border-bottom:2px solid var(--bg);
+      position:sticky;top:0;z-index:2;
+      border-right:1px solid #edf0f3;
+    }
+    th:last-child{border-right:none;}
+    td{
+      padding:11px 14px;border-bottom:1px solid #f0f3f6;
+      font-size:.87rem;vertical-align:middle;
+      text-align:center;
+      border-right:1px solid #f4f6f8;
+    }
+    td:last-child{border-right:none;}
     tr:last-child td{border-bottom:none;}
+    tr:hover td{background:#fafbfc;}
 
     /* BADGES */
     .badge{padding:3px 8px;border-radius:20px;font-size:.68rem;font-weight:600;color:#fff;}
@@ -733,7 +746,7 @@ function abrirModalEscala(id=null){
   preencherSelectsVocal();
   preencherCamposInstrumental();
 
-  // Limpar
+  // Limpar campos
   document.getElementById("esc-data").value="";
   document.getElementById("esc-evento").value="";
   ["esc-ministro","esc-back1","esc-back2","esc-back3","esc-back4"].forEach(bid=>{
@@ -741,7 +754,10 @@ function abrirModalEscala(id=null){
   });
 
   if(id){
-    const e=escalaCache.find(x=>x.id===id);if(!e)return;
+    // usar == para evitar mismatch number/string
+    const e=escalaCache.find(x=>x.id==id);
+    if(!e){ alert("Escala não encontrada no cache. Tente novamente."); return; }
+    // Aguarda renders dos selects antes de setar valores
     setTimeout(()=>{
       document.getElementById("esc-data").value=fmtInput(e.data);
       document.getElementById("esc-evento").value=e.evento||"";
@@ -749,13 +765,17 @@ function abrirModalEscala(id=null){
       (e.backs||[]).forEach((pid,i)=>{
         const el=document.getElementById(`esc-back${i+1}`);if(el)el.value=pid||"";
       });
+      // Resetar todos checkboxes de talkback antes de setar
+      cacheCategorias.filter(c=>c.tipo==="instrumental").forEach(cat=>{
+        const chk=document.getElementById(`esc-tb-${cat.id}`);if(chk)chk.checked=false;
+      });
       Object.entries(e.instrumental||{}).forEach(([catId,pesId])=>{
         const sel=document.getElementById(`esc-instr-${catId}`);if(sel)sel.value=pesId;
         if(pesId==e.talkback_id){
           const chk=document.getElementById(`esc-tb-${catId}`);if(chk)chk.checked=true;
         }
       });
-    },60);
+    },80);
   }
   document.getElementById("modalEscala").classList.add("open");
 }
