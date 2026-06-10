@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - Escala Infantil</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --p-dark: #336699;
+      --p-mid: #4775A3;
+      --p-soft: #d8e3ef;
+      --accent: #C5A059;
+      --bg: #ebf0f5;
+      --white: #ffffff;
+      --radius: 15px;
+      --shadow: 0 10px 25px rgba(0,0,0,0.05);
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, var(--p-dark), var(--p-mid));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .login-card {
+      background: var(--white);
+      padding: 35px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .login-card h2 {
+      margin-bottom: 5px;
+      color: var(--p-dark);
+    }
+
+    .login-card p {
+      margin-bottom: 25px;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .field {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+
+    input,
+    .form-grid select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1.5px solid #d1d9e0;
+      font-family: inherit;
+      font-size: 1rem;
+      color: #333;
+      background: #fff;
+      box-sizing: border-box;
+    }
+
+    input:focus,
+    .form-grid select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(197,160,89,0.1);
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      background: var(--accent);
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn:hover {
+      background: #b48d48;
+    }
+
+    .login-card .btn {
+      width: 100%;
+    }
+
+    .modal .btn {
+      width: auto;
+      min-width: 100px;
+    }
+
+    .modal .btn-ghost {
+      border-radius: 8px;
+      padding: 10px 16px;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--p-dark);
+      border: 1.5px solid var(--p-dark);
+      margin-top: 10px;
+    }
+
+    .btn-ghost:hover {
+      background: rgba(51, 102, 153, 0.1);
+    }
+
+    .logo {
+      margin-bottom: 20px;
+    }
+
+    .logo img {
+      width: 180px;
+    }
+
+    .erro {
+      margin-top: 10px;
+      color: #e74c3c;
+      font-size: 0.85rem;
+      display: none;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-content {
+      width: 100%;
+      max-width: 900px;
+      background: white;
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+      max-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      overflow: hidden;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #e1e4eb;
+    }
+
+    .modal-header .btn {
+      min-width: 80px;
+      padding: 8px 14px;
+      font-size: 0.95rem;
+      margin-top: 0;
+    }
+
+    .gerencia-main {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .gerencia-form {
+      background: #fcfcfc;
+      border: 1px dashed var(--p-soft);
+      padding: 14px;
+      border-radius: 16px;
+      width: 100%;
+      box-sizing: border-box;
+      flex-shrink: 0;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      align-items: end;
+    }
+
+    .form-grid .field {
+      margin-bottom: 0;
+    }
+
+    .form-grid .field-full,
+    .form-grid .button-row {
+      grid-column: 1 / -1;
+    }
+
+    .button-row {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+
+    .button-row .btn {
+      width: auto;
+      min-width: 130px;
+      margin-top: 0;
+      flex: 0 0 auto;
+      padding: 10px 14px;
+    }
+
+    .table-wrapper {
+      border: 1px solid #e1e8f0;
+      border-radius: 14px;
+      background: white;
+      overflow: hidden;
+      height: 360px;
+    }
+
+    .table-scroll {
+      height: 100%;
+      overflow-y: scroll;
+      overflow-x: auto;
+      scrollbar-gutter: stable both-edges;
+    }
+
+    .table-wrapper table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 720px;
+    }
+
+    .table-wrapper th,
+    .table-wrapper td {
+      padding: 10px 8px;
+      border: 1px solid #e1e8f0;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    .table-wrapper th {
+      background: #f5f7fb;
+      color: #30475e;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    .table-wrapper tr:nth-child(odd) {
+      background: #fbfdff;
+    }
+
+    .table-wrapper td {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #22303f;
+    }
+
+    .field input[type="checkbox"] {
+      width: auto;
+      margin-top: 4px;
+    }
+
+    .actions-row .btn {
+      min-width: 72px;
+      padding: 8px 10px;
+      font-size: 0.82rem;
+      margin-top: 0;
+    }
+
+    .actions-row button {
+      margin-right: 6px;
+    }
+
+    @media (max-width: 760px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .button-row {
+        justify-content: stretch;
+      }
+
+      .button-row .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="login-card">
+    <div class="logo">
+      <img src="https://images.sympla.com.br/60f08d41664f2-xs.png" alt="Logo">
+    </div>
+
+    <h2>Bem-vindo</h2>
+    <h3>Escala Departamento Infantil</h3>
+    <p>Verbo da Vida Casa Caiada</p>
+
+    <div class="field">
+      <label>E-mail</label>
+      <input type="email" id="email">
+    </div>
+
+    <div class="field">
+      <label>Senha</label>
+      <input type="password" id="senha">
+    </div>
+
+    <button class="btn" onclick="fazerLogin()">Entrar</button>
+    <button class="btn btn-ghost" onclick="abrirModalGerencia()">Gerenciar</button>
+    <div style="margin-top:12px; color:#666; font-size:0.85rem; text-align:left;">
+      Use login de administrador ou líder para abrir a gestão de logins.
+    </div>
+
+    <div class="erro" id="erro"></div>
+  </div>
+
+  <div id="modalGerencia" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div>
+          <h2 style="margin:0; color:var(--p-dark);">Gerenciar Logins</h2>
+          <p style="margin:6px 0 0; color:#555;">Cadastro e edição de usuários de acesso.</p>
+        </div>
+        <button class="btn btn-ghost" onclick="fecharModalGerencia()">× Fechar</button>
+      </div>
+
+      <div class="gerencia-main">
+        <div class="gerencia-form">
+          <h4 id="form-title-gerencia" style="margin-top:0;">Cadastrar / Editar Usuário</h4>
+
+          <div class="form-grid">
+            <div class="field">
+              <label>Nome</label>
+              <input type="text" id="ger-nome">
+            </div>
+            <div class="field">
+              <label>E-mail</label>
+              <input type="email" id="ger-email">
+            </div>
+            <div class="field">
+              <label>Senha</label>
+              <input type="password" id="ger-senha" placeholder="Senha de acesso">
+            </div>
+            <div class="field">
+              <label for="ger-lider-sala">Líder de Sala</label>
+              <select id="ger-lider-sala" style="width:100%;">
+                <option value="">— Não é líder de sala —</option>
+              </select>
+            </div>
+            <div class="button-row">
+              <button class="btn btn-ghost" onclick="limparFormGerencia()" type="button">Limpar</button>
+              <button class="btn btn-primary" id="btn-salvar-gerencia" onclick="salvarUsuarioGerencia()" type="button">Salvar</button>
+            </div>
+
+          </div>
+
+          <div class="erro" id="msg-gerencia" style="display:none;"></div>
+        </div>
+
+        <div style="width:100%; min-height:0;">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:10px;">
+            <h4 style="margin:0;">Usuários cadastrados</h4>
+            <input
+              type="text"
+              id="busca-usuarios-gerencia"
+              placeholder="🔎 Buscar por nome ou e-mail..."
+              oninput="filtrarTabelaGerencia()"
+              style="flex:1; max-width:280px; padding:7px 12px; border:1.5px solid #d1d9e0; border-radius:8px; font-size:0.88rem;"
+            >
+          </div>
+          <div class="table-wrapper">
+            <div class="table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th>Líder de Sala</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="corpo-usuarios-gerencia">
+                  <tr>
+                    <td colspan="4" style="text-align:center; padding:20px; color:#666;">Nenhum usuário carregado.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+const API = "";
+let gerenciaModoEdicao = false;
+let gerenciaEditEmail = null;
+
+// 🔥 LOGIN (ENTRAR + GERENCIAR)
+async function fazerLogin(abrirModal = false) {
+  const email = document.getElementById("email").value;
+  const senha = document.getElementById("senha").value;
+  const erro = document.getElementById("erro");
+
+  if (erro) {
+    erro.style.display = "none";
+    erro.innerText = "";
+  }
+
+  if (!email || !senha) {
+    alert("Preencha e-mail e senha.");
+    return;
+  }
+
+  try {
+    const res = await fetch("/users/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ email, senha })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      alert(data.erro || "Erro no login");
+      return;
+    }
+
+    // 🔥 salva auth
+    localStorage.setItem("auth", JSON.stringify({
+      token: data.token,
+      user: data.user
+    }));
+
+    // 👉 GERENCIAR
+    if (abrirModal) {
+      if (!data.user.is_admin) {
+        alert("Apenas administradores podem acessar esta área.");
+        return;
+      }
+
+      document.getElementById("modalGerencia").style.display = "flex";
+      carregarUsuariosGerencia();
+      carregarSalasSelectGerencia();
+      return;
+    }
+
+    // 👉 LOGIN NORMAL
+    window.location.href = "/app";
+
+  } catch (e) {
+    console.error("Erro no login:", e);
+    alert("Erro ao conectar com o servidor");
+  }
+}
+
+// 🔥 BOTÕES
+function abrirModalGerencia() {
+  fazerLogin(true);
+}
+
+function fecharModalGerencia() {
+  document.getElementById("modalGerencia").style.display = "none";
+}
+
+// 🔥 LIMPAR FORM
+function limparFormGerencia() {
+  document.getElementById("ger-nome").value = "";
+  document.getElementById("ger-email").value = "";
+  document.getElementById("ger-senha").value = "";
+  document.getElementById("ger-lider-sala").value = "";
+  document.getElementById("form-title-gerencia").innerText = "Cadastrar / Editar Usuário";
+
+  gerenciaModoEdicao = false;
+  gerenciaEditEmail = null;
+}
+
+// 🔥 CARREGAR USUÁRIOS (CORRIGIDO)
+async function carregarUsuariosGerencia() {
+  try {
+    const auth = JSON.parse(localStorage.getItem("auth"));
+
+    const res = await fetch("/users", {
+      headers: {
+        "Authorization": `Bearer ${auth.token}`
+      }
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      console.error(data);
+      return;
+    }
+
+    atualizarTabelaGerencia(data);
+
+  } catch (err) {
+    console.error("Erro ao carregar usuários:", err);
+  }
+}
+
+// 🔥 ATUALIZA TABELA
+function atualizarTabelaGerencia(lista) {
+  const tbody = document.getElementById("corpo-usuarios-gerencia");
+
+  if (!Array.isArray(lista) || lista.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="4" style="text-align:center;">Nenhum usuário encontrado</td>
+      </tr>
+    `;
+    return;
+  }
+
+  tbody.innerHTML = lista.map(user => `
+    <tr>
+      <td>${user.nome}</td>
+      <td>${user.email}</td>
+      <td>${user.lider_sala || "—"}</td>
+      <td>
+        <button class="btn btn-ghost" onclick="prepararEdicaoUsuario('${user.email}')">Editar</button>
+<button class="btn btn-ghost" onclick="deletarUsuarioGerencia('${user.email}')">Excluir</button>
+      </td>
+    </tr>
+  `).join("");
+}
+
+// 🔥 SALVAR
+async function salvarUsuarioGerencia() {
+  const nome = document.getElementById("ger-nome").value.trim();
+  const email = document.getElementById("ger-email").value.trim();
+  const senha = document.getElementById("ger-senha").value.trim();
+  const liderSala = document.getElementById("ger-lider-sala").value.trim();
+
+  if (!nome || !email) {
+    alert("Nome e e-mail são obrigatórios.");
+    return;
+  }
+
+  const dados = { nome, email, lider_sala: liderSala, senha };
+
+  const auth = JSON.parse(localStorage.getItem("auth"));
+
+  const endpoint = gerenciaModoEdicao
+    ? `/users/${gerenciaEditEmail}`
+    : `/users`;
+
+  const method = gerenciaModoEdicao ? "PUT" : "POST";
+
+  try {
+    const res = await fetch(endpoint, {
+      method,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${auth.token}`
+      },
+      body: JSON.stringify(dados)
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      alert(data.erro || "Erro ao salvar usuário");
+      return;
+    }
+
+    alert("Usuário salvo com sucesso");
+
+    limparFormGerencia();
+    carregarUsuariosGerencia();
+
+  } catch (err) {
+    console.error(err);
+    alert("Erro ao conectar com o servidor");
+  }
+}
+
+// 🔥 EDITAR
+function prepararEdicaoUsuario(email) {
+  const auth = JSON.parse(localStorage.getItem("auth"));
+
+  fetch("/users", {
+    headers: {
+      Authorization: `Bearer ${auth.token}`
+    }
+  })
+    .then(res => res.json())
+    .then(lista => {
+      const user = lista.find(u => u.email === email);
+
+      if (!user) {
+        alert("Usuário não encontrado");
+        return;
+      }
+
+      document.getElementById("ger-nome").value = user.nome;
+      document.getElementById("ger-email").value = user.email;
+      document.getElementById("ger-lider-sala").value = user.lider_sala || "";
+      document.getElementById("ger-senha").value = "";
+
+      gerenciaModoEdicao = true;
+      gerenciaEditEmail = email;
+
+      document.getElementById("form-title-gerencia").innerText =
+        "Editando: " + email;
+    });
+}
+
+// 🔥 DELETAR
+async function deletarUsuarioGerencia(email) {
+  if (!confirm("Deseja excluir " + email + "?")) return;
+
+  const auth = JSON.parse(localStorage.getItem("auth"));
+
+  await fetch(`/users/${email}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${auth.token}`
+    }
+  });
+
+  carregarUsuariosGerencia();
+}
+
+// 🔥 CARREGAR SALAS NO SELECT DE LIDER
+async function carregarSalasSelectGerencia() {
+  try {
+    const res = await fetch("/salas");
+    const salas = await res.json();
+    const sel = document.getElementById("ger-lider-sala");
+    if (!sel) return;
+    // Mantém a opção "Não é líder" e adiciona as salas
+    const opts = salas.map(s => {
+      const nome = typeof s === "string" ? s : s.nome;
+      return `<option value="${nome}">${nome}</option>`;
+    }).join("");
+    sel.innerHTML = `<option value="">— Não é líder de sala —</option>${opts}`;
+  } catch (err) {
+    console.error("Erro ao carregar salas:", err);
+  }
+}
+
+// 🔥 FILTRO DA TABELA DE USUÁRIOS
+function filtrarTabelaGerencia() {
+  const filtro = document.getElementById("busca-usuarios-gerencia")?.value?.toLowerCase() || "";
+  const linhas = document.querySelectorAll("#corpo-usuarios-gerencia tr");
+  linhas.forEach(linha => {
+    const texto = linha.innerText.toLowerCase();
+    linha.style.display = texto.includes(filtro) ? "" : "none";
+  });
+}
+
+// 🔥 FECHAR AO CLICAR FORA
+window.addEventListener("click", function (event) {
+  const modal = document.getElementById("modalGerencia");
+  if (event.target === modal) {
+    fecharModalGerencia();
+  }
+});
+</script>
+
+</body>
+</html>

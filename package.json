@@ -1,0 +1,19 @@
+{
+  "name": "escala-di",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node --watch index.js",
+    "start": "node index.js",
+    "postinstall": "npx puppeteer browsers install chrome"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^16.4.0",
+    "express": "^4.22.1",
+    "pg": "^8.11.3",
+    "puppeteer": "^24.40.0",
+    "puppeteer-core": "^24.40.0"
+  }
+}

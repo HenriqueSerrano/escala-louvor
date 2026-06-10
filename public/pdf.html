@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Escala Departamento Infantil</title>
+
+<style>
+:root{
+  --primary:#336699;
+  --muted:#6b7280;
+  --line:#e5e7eb;
+}
+
+@page { size: A4 landscape; margin: 12mm; }
+
+body{
+  font-family: Arial, sans-serif;
+  color:#140d0d;
+  margin:0;
+  padding: 12px;
+  font-size:11px;
+  background:#fff;
+}
+
+.pdf-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:4px;
+}
+
+.pdf-logo{
+  width:170px;
+  height:70px;
+  object-fit:contain;
+}
+
+/* Se a logo falhar, esconde sem quebrar layout */
+.pdf-logo[data-erro="1"]{
+  visibility: hidden;
+}
+
+.pdf-title{
+  text-align:center;
+  flex:1;
+}
+
+.pdf-title h1{
+  font-size:22px;
+  font-weight:bold;
+  color:#336699;
+  margin: 0 0 4px 0;
+}
+
+.pdf-title p{
+  font-size:14px;
+  margin: 0;
+}
+
+.meta-row{
+  display:flex;
+  justify-content:center;
+  gap:40px;
+  margin:6px 0 10px;
+  font-size:14px;
+}
+
+.meta-item{
+  font-weight:bold;
+  padding:6px 14px;
+  border:1px solid #d1d5db;
+  border-radius:6px;
+  background:#f1f5f9;
+  color: #336699;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:12px;
+  text-align:center;
+}
+
+thead th{
+  background:#336699 !important;
+  color:#fff !important;
+  padding:8px;
+  text-align:center;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+tbody td{
+  padding:8px;
+  border-bottom:1px solid var(--line);
+  text-align:center;
+}
+
+tbody tr:nth-child(even) td{
+  background:#f9fafb;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.linha-semana td{
+  font-weight:bold;
+  padding:4px 6px;
+  font-size:13px;
+  text-align:center;
+  text-transform:uppercase;
+  background:#e2e8f0 !important;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+
+.top-info{
+  text-align:right;
+  font-size:10px;
+  color:#6b7280;
+  margin-bottom:8px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="pdf-header">
+  <img class="pdf-logo" id="logo-left" alt="Logo esquerda">
+
+  <div class="pdf-title">
+    <h1>Escala Departamento Infantil</h1>
+    <p>Verbo da Vida Casa Caiada</p>
+  </div>
+
+  <img class="pdf-logo" id="logo-right" alt="Logo direita">
+</div>
+
+<div class="meta-row">
+  <div class="meta-item">Sala: <span id="sala"></span></div>
+  <div class="meta-item">Mês: <span id="mes"></span></div>
+</div>
+
+<div class="top-info">
+  Gerado em: <span id="data-geracao"></span>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>DATA</th>
+      <th>DIA DA SEMANA</th>
+      <th>EVENTO</th>
+      <th>PROFESSOR</th>
+      <th>MONITORES</th>
+    </tr>
+  </thead>
+  <tbody id="tbody"></tbody>
+</table>
+
+
+
+<script>
+window.__PDF_READY__ = false;
+
+function escapeHtml(valor) {
+  if (valor === null || valor === undefined) return "";
+  return String(valor)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function param(nome) {
+  return new URLSearchParams(window.location.search).get(nome) || "";
+}
+
+function obterPayload() {
+  // Prioridade 1: dados injetados via iframe (window.PDF_PAYLOAD)
+  if (window.PDF_PAYLOAD && typeof window.PDF_PAYLOAD === "object") {
+    return window.PDF_PAYLOAD;
+  }
+  // Prioridade 2: dados via query string (abertura direta)
+  let eventos = [];
+  try {
+    eventos = JSON.parse(decodeURIComponent(param("dados") || "[]"));
+  } catch {
+    eventos = [];
+  }
+  return {
+    sala: param("sala"),
+    mes: param("mes"),
+    logoLeft: param("logo_left") || "logo-esq.png",
+    logoRight: param("logo_right") || "logo-dir.png",
+    eventos
+  };
+}
+
+function aplicarLogo(id, url) {
+  const el = document.getElementById(id);
+  if (!url) {
+    el.style.visibility = "hidden";
+    return;
+  }
+  el.style.visibility = "";
+  el.src = url;
+  el.onerror = () => {
+    // Se falhar (ex: logo local não existe), tenta não mostrar sem quebrar layout
+    el.style.visibility = "hidden";
+    el.setAttribute("data-erro", "1");
+  };
+}
+
+function semanaMes(dataStr) {
+  const [d, m, y] = String(dataStr || "").split("/").map(Number);
+  const inicio = new Date(y, m - 1, 1);
+  return Math.ceil((d + inicio.getDay()) / 7);
+}
+
+function renderPdfTemplate(payload) {
+  const dados = payload || {};
+  const eventos = Array.isArray(dados.eventos) ? [...dados.eventos] : [];
+  const tbody = document.getElementById("tbody");
+
+  document.getElementById("sala").innerText = dados.sala || "";
+  document.getElementById("mes").innerText = dados.mes || "";
+  document.getElementById("data-geracao").innerText = new Date().toLocaleDateString("pt-BR");
+
+  // Logos: usa o que vier no payload, senão tenta locais, senão esconde
+  aplicarLogo("logo-left",  dados.logoLeft  || "logo-esq.png");
+  aplicarLogo("logo-right", dados.logoRight || "logo-dir.png");
+
+  eventos.sort((a, b) => {
+    const [d1, m1, y1] = String(a?.data || "").split("/");
+    const [d2, m2, y2] = String(b?.data || "").split("/");
+    return new Date(y1, m1 - 1, d1) - new Date(y2, m2 - 1, d2);
+  });
+
+  tbody.innerHTML = "";
+
+  if (eventos.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:20px;">Nenhuma escala encontrada.</td></tr>`;
+    window.__PDF_READY__ = true;
+    return;
+  }
+
+  const semanas = {};
+  eventos.forEach((ev) => {
+    const semana = semanaMes(ev.data);
+    if (!semanas[semana]) semanas[semana] = [];
+    semanas[semana].push(ev);
+  });
+
+  Object.keys(semanas)
+    .sort((a, b) => Number(a) - Number(b))
+    .forEach((semana) => {
+      const trSemana = document.createElement("tr");
+      trSemana.className = "linha-semana";
+      trSemana.innerHTML = `<td colspan="5">Semana ${escapeHtml(semana)}</td>`;
+      tbody.appendChild(trSemana);
+
+      semanas[semana].forEach((ev) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${escapeHtml(ev?.data || "")}</td>
+          <td>${escapeHtml(ev?.dia || "")}</td>
+          <td>${escapeHtml(ev?.evento || "")}</td>
+          <td>${escapeHtml(ev?.professor || "")}</td>
+          <td>${escapeHtml(ev?.monitores || "")}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    });
+
+  window.__PDF_READY__ = true;
+}
+
+window.renderPdfTemplate = renderPdfTemplate;
+
+window.addEventListener("DOMContentLoaded", () => {
+  renderPdfTemplate(obterPayload());
+});
+</script>
+
+</body>
+</html>
