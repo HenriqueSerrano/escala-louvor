@@ -10,6 +10,8 @@
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#0a0f1e 0%,#0d1b3e 50%,#0a1628 100%);min-height:100vh;display:flex;align-items:center;justify-content:center;}
     .login-box{background:rgba(255,255,255,0.04);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:48px 40px;width:100%;max-width:400px;box-shadow:0 25px 60px rgba(0,0,0,0.5);}
+    .logo {margin-bottom: 20px;}
+    .logo img {width: 180px;}
     .logo-area{text-align:center;margin-bottom:36px;}
     .logo-area .icon{width:64px;height:64px;background:linear-gradient(135deg,#1a56db,#3b82f6);border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;box-shadow:0 8px 24px rgba(59,130,246,0.4);}
     .logo-area .icon i{color:#fff;font-size:28px;}
@@ -31,8 +33,10 @@
 <body>
   <div class="login-box">
     <div class="logo-area">
-      <div class="icon"><i class="fas fa-music"></i></div>
-      <h1>EscalaLouvor</h1>
+    <div class="logo">
+       <img class="logo" id="logo-esq" alt="logo">
+    </div>
+      <h1>Grupo de Música</h1>
       <p>Verbo da Vida Casa Caiada</p>
     </div>
     <div class="field">
