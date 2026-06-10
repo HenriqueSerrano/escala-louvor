@@ -817,24 +817,35 @@ async function salvarEscala(){
 
   const dados={mes,data,evento,ministro_id:ministro_id?Number(ministro_id):null,backs,instrumental,talkback_id};
   const btn=document.getElementById("btn-salvar-escala");
-  btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i>';
+  const eraEdicao=modoEdicaoEscala; // guardar antes do try
+  btn.disabled=true;
+  btn.querySelector("span").textContent=eraEdicao?"Atualizando...":"Salvando...";
+
   try{
-    if(modoEdicaoEscala) await api("PUT",`/escala/${escalaEditId}`,dados);
+    if(eraEdicao) await api("PUT",`/escala/${escalaEditId}`,dados);
     else await api("POST","/escala",dados);
-    mostrarMsg("msg-escala",modoEdicaoEscala?"Escala atualizada!":"Escala salva!");
+
     await carregarEscala();
-    // Limpa e fica aberto
-    modoEdicaoEscala=false;escalaEditId=null;
-    document.getElementById("modal-esc-titulo").textContent="Nova Escala";
-    document.getElementById("btn-esc-label").textContent="Salvar Escala";
-    document.getElementById("esc-data").value="";
-    document.getElementById("esc-evento").value="";
-    ["esc-ministro","esc-back1","esc-back2","esc-back3","esc-back4"].forEach(bid=>{
-      const el=document.getElementById(bid);if(el)el.value="";
-    });
-    preencherCamposInstrumental();
+
+    if(eraEdicao){
+      // Edição: fecha o modal
+      document.getElementById("modalEscala").classList.remove("open");
+      modoEdicaoEscala=false;escalaEditId=null;
+    } else {
+      // Novo: mantém aberto e limpa o form
+      mostrarMsg("msg-escala","Escala salva!");
+      document.getElementById("esc-data").value="";
+      document.getElementById("esc-evento").value="";
+      ["esc-ministro","esc-back1","esc-back2","esc-back3","esc-back4"].forEach(bid=>{
+        const el=document.getElementById(bid);if(el)el.value="";
+      });
+      preencherCamposInstrumental();
+    }
   }catch(err){mostrarMsg("msg-escala",err.message,"erro");}
-  finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-save"></i> <span id="btn-esc-label">Salvar Escala</span>';}
+  finally{
+    btn.disabled=false;
+    btn.querySelector("span").textContent=modoEdicaoEscala?"Atualizar":"Salvar Escala";
+  }
 }
 
 // ═══════════════════════════
