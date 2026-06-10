@@ -36,21 +36,41 @@ export const excluirEscala = async (id) => {
 };
 
 export const buscarHistorico = async (pessoa_id, mes) => {
+  // Busca as escalas onde a pessoa participa
   const res = await db.query(
-    `SELECT data, evento, turno,
-       CASE WHEN ministro_id = $1 THEN 'Ministro'
-            WHEN talkback_id = $1 THEN 'Talkback'
-            WHEN $1 = ANY(backs) THEN 'Backing Vocal'
-            ELSE 'Instrumental'
-       END as funcao
-     FROM escala
-     WHERE mes = $2
-       AND (ministro_id=$1 OR talkback_id=$1 OR $1=ANY(backs)
-            OR instrumental::text LIKE '%' || $1::text || '%')
-     ORDER BY data`,
+    `SELECT e.data, e.evento, e.ministro_id, e.talkback_id, e.backs, e.instrumental
+     FROM escala e
+     WHERE e.mes = $2
+       AND (e.ministro_id=$1 OR e.talkback_id=$1 OR $1=ANY(e.backs)
+            OR e.instrumental::text LIKE '%' || $1::text || '%')
+     ORDER BY e.data`,
     [pessoa_id, mes]
   );
-  return res.rows;
+
+  // Para cada entrada, descobrir a função exata
+  const rows = await Promise.all(res.rows.map(async e => {
+    let funcao = 'Instrumental';
+
+    if (e.ministro_id == pessoa_id) {
+      funcao = 'Ministro';
+    } else if (e.talkback_id == pessoa_id) {
+      funcao = 'Talkback';
+    } else if (e.backs && e.backs.includes(Number(pessoa_id))) {
+      funcao = 'Backing Vocal';
+    } else if (e.instrumental) {
+      // Descobrir qual categoria (instrumento) essa pessoa está tocando
+      const instrObj = typeof e.instrumental === 'string' ? JSON.parse(e.instrumental) : e.instrumental;
+      const catId = Object.keys(instrObj).find(k => instrObj[k] == pessoa_id);
+      if (catId) {
+        const catRes = await db.query(`SELECT nome FROM categorias WHERE id = $1`, [catId]);
+        if (catRes.rows[0]) funcao = catRes.rows[0].nome;
+      }
+    }
+
+    return { data: e.data, evento: e.evento, funcao };
+  }));
+
+  return rows;
 };
 
 export const limparEscalaDoMes = async (mes) => {

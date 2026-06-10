@@ -15,7 +15,7 @@
     }
     *{box-sizing:border-box;margin:0;padding:0;}
     body{font-family:'Poppins',sans-serif;background:var(--bg);color:#333;}
- 
+
     /* HEADER */
     .header{background:linear-gradient(135deg,var(--p-dark),var(--p-mid));color:#fff;padding:20px 40px;
       display:flex;align-items:center;justify-content:space-between;position:relative;box-shadow:0 4px 12px rgba(0,0,0,0.15);}
@@ -27,18 +27,18 @@
     .header-center h1{font-size:1.6rem;text-transform:uppercase;letter-spacing:1px;margin:0;}
     .header-center h3{font-weight:300;font-size:1rem;opacity:.9;margin:3px 0 0;}
     .header-center .user-info{font-size:.75rem;margin-top:5px;opacity:.75;}
- 
+
     /* CONTAINER */
     .container{max-width:1600px;margin:22px auto;padding:0 20px;}
- 
+
     /* CARD */
     .card{background:var(--white);border-radius:var(--radius);padding:18px;
       box-shadow:var(--shadow);border:1px solid rgba(0,0,0,0.04);}
- 
+
     /* TOOLBAR */
     .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;}
     .toolbar .field label{display:block;font-size:.77rem;font-weight:600;color:var(--p-dark);margin-bottom:4px;}
- 
+
     /* BUTTONS */
     .btn{padding:10px 16px;border-radius:10px;border:none;cursor:pointer;font-weight:600;
       display:inline-flex;align-items:center;gap:7px;transition:.2s;
@@ -53,32 +53,32 @@
     .btn-danger{background:#e74c3c;color:#fff;}
     .btn-success{background:#27ae60;color:#fff;}
     .btn-sm{padding:6px 11px;font-size:.79rem;}
- 
+
     /* INPUTS */
     select,input,textarea{width:100%;padding:10px 12px;border-radius:9px;
       border:1.5px solid #d1d9e0;font-family:'Poppins',sans-serif;
       transition:.2s;background:#fff;font-size:.86rem;color:#333;}
     select:focus,input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(197,160,89,.12);}
     input:disabled,select:disabled{background:#f0f2f5;color:#aab;border-color:#e0e4ea;cursor:not-allowed;}
- 
+
     /* TABELA */
     table{width:100%;border-collapse:collapse;}
     th{background:#f8f9fa;color:var(--p-dark);padding:10px 12px;text-align:left;font-size:.77rem;border-bottom:2px solid var(--bg);}
     td{padding:10px 12px;border-bottom:1px solid #eee;font-size:.86rem;vertical-align:middle;}
     tr:last-child td{border-bottom:none;}
- 
+
     /* BADGES */
     .badge{padding:3px 8px;border-radius:20px;font-size:.68rem;font-weight:600;color:#fff;}
     .badge-vocal{background:#8b5cf6;}
     .badge-instr{background:var(--p-soft);}
     .badge-lider{background:var(--accent);color:#333;}
     .badge-talkback{background:var(--accent);}
- 
+
     /* MSGS */
     .msg-box{margin-top:10px;padding:9px 12px;border-radius:9px;font-size:.85rem;display:none;}
     .msg-erro{background:#fdeaea;color:#a93226;border:1px solid #f5c6cb;}
     .msg-sucesso{background:#eafaf1;color:#1e8449;border:1px solid #b7e1cd;}
- 
+
     /* ── MODAL BASE ── */
     .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);
       z-index:1000;align-items:center;justify-content:center;backdrop-filter:blur(4px);}
@@ -90,14 +90,14 @@
     .modal-md{max-width:700px;max-height:88vh;}
     .modal-lg{max-width:960px;max-height:90vh;height:90vh;}
     .modal-xl{max-width:1140px;max-height:90vh;height:90vh;}
- 
+
     .modal-header{padding:16px 22px;border-bottom:1px solid #eee;
       display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
     .modal-header h2{font-size:.97rem;font-weight:600;color:var(--p-dark);display:flex;align-items:center;gap:8px;}
     .modal-header h2 i{color:var(--accent);}
     .modal-footer{padding:13px 22px;border-top:1px solid #eee;
       display:flex;justify-content:flex-end;gap:10px;flex-shrink:0;background:#fafafa;}
- 
+
     /* ── MODAL ESCALA — 2 colunas ── */
     .modal-escala-body{
       display:grid;grid-template-columns:1fr 260px;
@@ -124,29 +124,29 @@
     .hist-item{padding:9px 11px;border-radius:9px;background:#f8fafc;border:1px solid #e5eaf0;}
     .hist-item .hdata{font-size:.7rem;color:#999;}
     .hist-item .hev{font-size:.81rem;font-weight:500;color:var(--p-dark);margin-top:1px;}
- 
+
     /* SEÇÕES */
     .esc-secao{background:#f8fafc;border:1px solid #e2e8f0;border-radius:11px;padding:14px 15px;margin-bottom:14px;}
     .esc-secao-title{font-size:.75rem;font-weight:700;text-transform:uppercase;
       letter-spacing:.07em;margin-bottom:12px;display:flex;align-items:center;gap:6px;}
     .esc-secao-title.vocal{color:#8b5cf6;}
     .esc-secao-title.instrumental{color:var(--p-soft);}
- 
+
     /* FORM FIELDS */
     .frow{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;}
     .frow .field{flex:1;min-width:120px;}
     .field label{display:block;font-size:.75rem;font-weight:600;color:var(--p-dark);margin-bottom:5px;}
- 
+
     /* INSTRUMENTAL ROWS */
     .instr-row{display:flex;align-items:flex-end;gap:9px;margin-bottom:10px;}
     .instr-row .field{flex:1;margin:0;}
     .chk-tb{display:flex;align-items:center;gap:5px;font-size:.73rem;color:#777;
       white-space:nowrap;padding-bottom:10px;cursor:pointer;}
     .chk-tb input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;}
- 
+
     /* ── MODAL INTEGRANTES ── */
     .modal-pessoa-body{display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden;}
- 
+
     /* Formulário compacto — fixo */
     .pessoa-form-wrap{
       flex-shrink:0;padding:16px 22px;border-bottom:2px solid #e8edf2;
@@ -157,7 +157,7 @@
     .pessoa-lider-row{display:flex;align-items:center;gap:16px;margin-bottom:10px;flex-wrap:wrap;}
     .chk-lider{display:flex;align-items:center;gap:7px;font-size:.84rem;cursor:pointer;}
     .chk-lider input{accent-color:var(--accent);width:15px;height:15px;}
- 
+
     /* Vínculos inline */
     .vinculos-wrap{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin-bottom:0;}
     .vinc-pill{display:flex;align-items:center;gap:5px;background:#eaf0f8;
@@ -166,36 +166,36 @@
       color:var(--p-dark);width:auto;max-width:180px;}
     .vinc-pill select:focus{outline:none;box-shadow:none;}
     .vinc-pill button{background:none;border:none;cursor:pointer;color:#e74c3c;padding:0;font-size:.8rem;}
- 
+
     /* Tabela integrantes — área scrollável */
     .pessoa-table-wrap{flex:1;overflow-y:auto;padding:0 22px 16px;min-height:0;}
     .pessoa-table-wrap::-webkit-scrollbar{width:5px;}
     .pessoa-table-wrap::-webkit-scrollbar-thumb{background:#d1d9e0;border-radius:4px;}
     .pessoa-table-header{display:flex;align-items:center;justify-content:space-between;
       padding:12px 0 8px;position:sticky;top:0;background:#fff;z-index:2;}
- 
+
     /* FILTRO */
     .filtro-input{padding:8px 12px;border-radius:8px;border:1px solid #d1d9e0;
       font-size:.82rem;font-family:'Poppins',sans-serif;}
- 
+
     /* SCROLL na tabela principal */
     .scroll-area{max-height:calc(100vh - 340px);overflow-y:auto;padding-right:4px;}
     .scroll-area::-webkit-scrollbar{width:5px;}
     .scroll-area::-webkit-scrollbar-thumb{background:#d1d9e0;border-radius:4px;}
- 
+
     /* EMPTY */
     .empty{text-align:center;padding:28px;color:#bbb;font-size:.85rem;}
     .empty i{font-size:1.8rem;display:block;margin-bottom:8px;opacity:.3;}
- 
+
     /* ALERTA */
     .alerta-box{background:#fff8e1;border:1px solid #f0c040;border-radius:9px;
       padding:11px 14px;margin-bottom:12px;font-size:.82rem;color:#856404;}
- 
+
     /* EDIÇÃO INLINE na tabela de escala */
     .row-editing td{background:#fffbf0 !important;}
     .inline-input{padding:5px 8px;border-radius:7px;border:1.5px solid var(--accent);
       font-size:.82rem;font-family:'Poppins',sans-serif;width:100%;}
- 
+
     @media(max-width:860px){
       .modal-escala-body{grid-template-columns:1fr;}
       .modal-escala-hist{border-left:none;border-top:1px solid #eee;}
@@ -207,7 +207,7 @@
   </style>
 </head>
 <body>
- 
+
 <!-- HEADER -->
 <div class="header">
   <div class="logo-box"><img src="logo-esq.png" alt="" onerror="this.style.display='none'"></div>
@@ -218,9 +218,9 @@
   </div>
   <div class="logo-box"><img src="logo-dir.png" alt="" onerror="this.style.display='none'"></div>
 </div>
- 
+
 <div class="container">
- 
+
   <!-- TOOLBAR -->
   <div class="card" style="border-top:4px solid var(--accent);margin-bottom:20px;">
     <div class="toolbar">
@@ -240,7 +240,7 @@
       </div>
     </div>
   </div>
- 
+
   <!-- TABELA ESCALA (ocupa toda largura) -->
   <div class="card" style="border-top:4px solid var(--accent);">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
@@ -252,20 +252,20 @@
     </div>
   </div>
 </div>
- 
+
 <!-- ══════════════════════════════════════
      MODAL ESCALA (Nova / Editar)
 ══════════════════════════════════════ -->
 <div class="modal-overlay" id="modalEscala">
   <div class="modal modal-xl">
- 
+
     <div class="modal-header">
       <h2><i class="fas fa-edit"></i> <span id="modal-esc-titulo">Nova Escala</span></h2>
       <button class="btn btn-ghost btn-sm" onclick="fecharModalEscala()"><i class="fas fa-times"></i> Fechar</button>
     </div>
- 
+
     <div class="modal-escala-body">
- 
+
       <!-- COLUNA FORM -->
       <div class="modal-escala-form">
         <div class="frow" style="margin-bottom:14px;">
@@ -278,7 +278,7 @@
             <input type="text" id="esc-evento" placeholder="Ex: Domingo Manhã, Quinta Noite, Culto Casais...">
           </div>
         </div>
- 
+
         <!-- VOCAL -->
         <div class="esc-secao">
           <div class="esc-secao-title vocal"><i class="fas fa-microphone"></i> Vocal</div>
@@ -293,16 +293,16 @@
             <div class="field"><label>Backing 4</label><select id="esc-back4" onchange="verHistorico(this.value)"><option value="">— Nenhum —</option></select></div>
           </div>
         </div>
- 
+
         <!-- INSTRUMENTAL -->
         <div class="esc-secao">
           <div class="esc-secao-title instrumental"><i class="fas fa-guitar"></i> Instrumental</div>
           <div id="instrumental-campos"></div>
         </div>
- 
+
         <div class="msg-box" id="msg-escala"></div>
       </div>
- 
+
       <!-- COLUNA HISTÓRICO -->
       <div class="modal-escala-hist">
         <div class="hist-col-title"><i class="fas fa-history"></i> Histórico do Integrante</div>
@@ -310,9 +310,9 @@
           <div style="font-size:.82rem;color:#bbb;text-align:center;padding:20px 0;">Selecione alguém ao lado</div>
         </div>
       </div>
- 
+
     </div><!-- /modal-escala-body -->
- 
+
     <div class="modal-footer">
       <button class="btn btn-ghost" onclick="fecharModalEscala()">Cancelar</button>
       <button class="btn btn-primary" id="btn-salvar-escala" onclick="salvarEscala()">
@@ -321,7 +321,7 @@
     </div>
   </div>
 </div>
- 
+
 <!-- ══════════════════════════════════════
      MODAL INTEGRANTES
 ══════════════════════════════════════ -->
@@ -331,9 +331,9 @@
       <h2><i class="fas fa-users-cog"></i> Cadastro de Integrantes</h2>
       <button class="btn btn-ghost btn-sm" onclick="fecharModal('modalIntegrantes')"><i class="fas fa-times"></i></button>
     </div>
- 
+
     <div class="modal-pessoa-body">
- 
+
       <!-- FORMULÁRIO FIXO COMPACTO -->
       <div class="pessoa-form-wrap" id="pessoa-form-wrap">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:8px;flex-wrap:wrap;">
@@ -345,7 +345,7 @@
             <button class="btn btn-primary btn-sm" id="btn-salvar-pessoa" onclick="salvarPessoa()" disabled><i class="fas fa-save"></i> Salvar</button>
           </div>
         </div>
- 
+
         <!-- Grid compacto: nome | email | senha | [lider] -->
         <div class="pessoa-form-grid">
           <div class="field"><label>Nome</label><input type="text" id="cad-nome" disabled placeholder="Nome completo"></div>
@@ -357,7 +357,7 @@
             </label>
           </div>
         </div>
- 
+
         <!-- Vínculos em linha -->
         <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
           <span id="label-vinculos" style="font-size:.75rem;font-weight:600;color:#aaa;white-space:nowrap;">Categorias:</span>
@@ -366,10 +366,10 @@
             <i class="fas fa-plus"></i> Add
           </button>
         </div>
- 
+
         <div class="msg-box" id="msg-form-pessoa"></div>
       </div>
- 
+
       <!-- TABELA SCROLLÁVEL -->
       <div class="pessoa-table-wrap">
         <div class="pessoa-table-header">
@@ -381,11 +381,11 @@
           <tbody id="tbody-pessoas"></tbody>
         </table>
       </div>
- 
+
     </div><!-- /modal-pessoa-body -->
   </div>
 </div>
- 
+
 <!-- ══════════════════════════════════════
      MODAL CATEGORIAS
 ══════════════════════════════════════ -->
@@ -412,7 +412,7 @@
     </div>
   </div>
 </div>
- 
+
 <!-- ══════════════════════════════════════
      MODAL GERAR
 ══════════════════════════════════════ -->
@@ -435,7 +435,7 @@
     </div>
   </div>
 </div>
- 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
@@ -447,11 +447,11 @@ let modoEdicaoPessoa=false, emailEditando=null;
 let modoEdicaoEscala=false, escalaEditId=null;
 const API="";
 const MESES=["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
- 
+
 const esc=v=>v==null?"":String(v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 const hdrs=()=>({"Content-Type":"application/json","Authorization":`Bearer ${dadosGlobal.token}`});
 const ehLider=()=>!!(dadosGlobal.is_admin||dadosGlobal.eh_lider);
- 
+
 async function api(method,path,body){
   const opts={method,headers:hdrs()};
   if(body) opts.body=JSON.stringify(body);
@@ -460,20 +460,20 @@ async function api(method,path,body){
   if(!res.ok) throw new Error(data.erro||"Erro na requisição");
   return data;
 }
- 
+
 const fmtData=d=>{if(!d)return"";const[a,m,dia]=String(d).slice(0,10).split("-");return`${dia}/${m}/${a}`;};
 const fmtInput=d=>d?String(d).slice(0,10):"";
 const diaSem=d=>{if(!d)return"";const[a,m,dia]=String(d).slice(0,10).split("-").map(Number);return["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"][new Date(a,m-1,dia).getDay()];};
 const mesLabel=s=>{const[a,m]=s.split("-");return`${MESES[Number(m)-1]} ${a}`;};
 const nomePorId=id=>{const p=cachePessoas.find(x=>x.id==id);return p?.nome||p?.email||"";};
- 
+
 function mostrarMsg(id,texto,tipo="sucesso"){
   const el=document.getElementById(id);if(!el)return;
   el.className="msg-box "+(tipo==="erro"?"msg-erro":"msg-sucesso");
   el.textContent=texto;el.style.display="block";
   setTimeout(()=>{el.style.display="none";},3500);
 }
- 
+
 // ═══════════════════════════
 // INIT
 // ═══════════════════════════
@@ -485,7 +485,7 @@ window.onload=async()=>{
   dadosGlobal={...auth.user,token:auth.token};
   document.getElementById("user-nome").textContent=dadosGlobal.nome||dadosGlobal.email;
   if(ehLider()) document.querySelectorAll(".lider-only").forEach(el=>el.style.display="");
- 
+
   const sel=document.getElementById("sel-mes");
   const hoje=new Date();
   for(let i=-3;i<=6;i++){
@@ -503,7 +503,7 @@ window.onload=async()=>{
   await carregarEscala();
   try{const cfg=await api("GET","/config");if(cfg?.travado&&cfg?.mes_atual){sel.value=cfg.mes_atual;sel.disabled=true;}}catch{}
 };
- 
+
 // ═══════════════════════════
 // CATEGORIAS
 // ═══════════════════════════
@@ -543,7 +543,7 @@ async function excluirCategoria(id,nome){
     renderCategorias();preencherCamposInstrumental();
   }catch(err){alert(err.message);}
 }
- 
+
 // ═══════════════════════════
 // PESSOAS
 // ═══════════════════════════
@@ -575,7 +575,7 @@ function renderPessoas(){
   }).join("");
 }
 function filtrarIntegrantes(){renderPessoas();}
- 
+
 function setFormAtivo(ativo){
   const wrap=document.getElementById("pessoa-form-wrap");
   wrap.classList.toggle("active",ativo);
@@ -589,7 +589,7 @@ function setFormAtivo(ativo){
   document.getElementById("btn-salvar-pessoa").disabled=!ativo;
   document.getElementById("label-vinculos").style.color=ativo?"var(--p-dark)":"#aaa";
 }
- 
+
 function limparFormPessoa(){
   document.getElementById("cad-nome").value="";
   document.getElementById("cad-email").value="";
@@ -601,7 +601,7 @@ function limparFormPessoa(){
   setFormAtivo(false);
   modoEdicaoPessoa=false;emailEditando=null;
 }
- 
+
 function novoIntegrante(){
   limparFormPessoa();
   document.getElementById("form-pessoa-title").textContent="Novo Integrante";
@@ -611,7 +611,7 @@ function novoIntegrante(){
   adicionarLinhaVinculo();
   document.getElementById("cad-nome").focus();
 }
- 
+
 function prepararEdicaoPessoa(email){
   const p=cachePessoas.find(x=>x.email===email);if(!p)return;
   limparFormPessoa();
@@ -625,7 +625,7 @@ function prepararEdicaoPessoa(email){
   modoEdicaoPessoa=true;emailEditando=email;
   (p.vinculos||[]).forEach(v=>adicionarLinhaVinculo(v.categoria_id));
 }
- 
+
 function adicionarLinhaVinculo(catId=""){
   const cont=document.getElementById("lista-vinculos-cad");
   const div=document.createElement("div");div.className="vinc-pill";
@@ -634,7 +634,7 @@ function adicionarLinhaVinculo(catId=""){
     <button type="button" onclick="this.parentElement.remove()" title="Remover"><i class="fas fa-times"></i></button>`;
   cont.appendChild(div);
 }
- 
+
 async function salvarPessoa(){
   const nome=document.getElementById("cad-nome").value.trim();
   const email=document.getElementById("cad-email").value.trim();
@@ -663,7 +663,7 @@ async function salvarPessoa(){
   }catch(err){mostrarMsg("msg-form-pessoa",err.message,"erro");}
   finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-save"></i> Salvar';}
 }
- 
+
 async function excluirPessoa(email){
   if(!confirm(`Excluir ${email}?`))return;
   try{
@@ -671,23 +671,37 @@ async function excluirPessoa(email){
     await carregarPessoas();renderPessoas();
   }catch(err){alert(err.message);}
 }
- 
+
 // ═══════════════════════════
 // MODAL ESCALA
 // ═══════════════════════════
 function preencherSelectsVocal(){
-  const pessoas=cachePessoas.filter(p=>(p.vinculos||[]).some(v=>{
-    const cat=cacheCategorias.find(c=>c.id==v.categoria_id);return cat?.tipo==="vocal";
-  }));
-  const opts=pessoas.map(p=>`<option value="${p.id}">${esc(p.nome)}</option>`).join("");
-  ["esc-ministro","esc-back1","esc-back2","esc-back3","esc-back4"].forEach(id=>{
+  // Ministro: somente quem tem vínculo em categoria do tipo vocal cujo nome contém "ministro"
+  const catMinistro = cacheCategorias.find(c=>c.tipo==="vocal" && c.nome.toLowerCase().includes("ministro"));
+  const pessoasMinistro = catMinistro
+    ? cachePessoas.filter(p=>(p.vinculos||[]).some(v=>v.categoria_id==catMinistro.id))
+    : cachePessoas.filter(p=>(p.vinculos||[]).some(v=>{ const c=cacheCategorias.find(x=>x.id==v.categoria_id); return c?.tipo==="vocal"; }));
+
+  // Backs: somente quem tem vínculo em categoria vocal que contenha "back" (ou todas vocais se não encontrar)
+  const catsBacking = cacheCategorias.filter(c=>c.tipo==="vocal" && c.nome.toLowerCase().includes("back"));
+  const pessoasBacking = catsBacking.length
+    ? cachePessoas.filter(p=>(p.vinculos||[]).some(v=>catsBacking.some(c=>c.id==v.categoria_id)))
+    : cachePessoas.filter(p=>(p.vinculos||[]).some(v=>{ const c=cacheCategorias.find(x=>x.id==v.categoria_id); return c?.tipo==="vocal"; }));
+
+  const optsMin = pessoasMinistro.map(p=>`<option value="${p.id}">${esc(p.nome)}</option>`).join("");
+  const optsBk  = pessoasBacking.map(p=>`<option value="${p.id}">${esc(p.nome)}</option>`).join("");
+
+  const elMin = document.getElementById("esc-ministro");
+  if(elMin){ const cur=elMin.value; elMin.innerHTML=`<option value="">— Nenhum —</option>${optsMin}`; elMin.value=cur; }
+
+  ["esc-back1","esc-back2","esc-back3","esc-back4"].forEach(id=>{
     const el=document.getElementById(id);if(!el)return;
     const cur=el.value;
-    el.innerHTML=`<option value="">— Nenhum —</option>${opts}`;
+    el.innerHTML=`<option value="">— Nenhum —</option>${optsBk}`;
     el.value=cur;
   });
 }
- 
+
 function preencherCamposInstrumental(){
   const cont=document.getElementById("instrumental-campos");if(!cont)return;
   const instrumentais=cacheCategorias.filter(c=>c.tipo==="instrumental");
@@ -710,7 +724,7 @@ function preencherCamposInstrumental(){
     cont.appendChild(row);
   });
 }
- 
+
 function abrirModalEscala(id=null){
   modoEdicaoEscala=!!id;escalaEditId=id;
   document.getElementById("modal-esc-titulo").textContent=id?"Editar Escala":"Nova Escala";
@@ -718,14 +732,14 @@ function abrirModalEscala(id=null){
   document.getElementById("modal-hist-wrap").innerHTML=`<div style="font-size:.82rem;color:#bbb;text-align:center;padding:20px 0;">Selecione alguém ao lado</div>`;
   preencherSelectsVocal();
   preencherCamposInstrumental();
- 
+
   // Limpar
   document.getElementById("esc-data").value="";
   document.getElementById("esc-evento").value="";
   ["esc-ministro","esc-back1","esc-back2","esc-back3","esc-back4"].forEach(bid=>{
     const el=document.getElementById(bid);if(el)el.value="";
   });
- 
+
   if(id){
     const e=escalaCache.find(x=>x.id===id);if(!e)return;
     setTimeout(()=>{
@@ -745,7 +759,7 @@ function abrirModalEscala(id=null){
   }
   document.getElementById("modalEscala").classList.add("open");
 }
- 
+
 function fecharModalEscala(){
   if(modoEdicaoEscala){
     // Volta para nova escala sem fechar modal
@@ -762,25 +776,25 @@ function fecharModalEscala(){
   }
   document.getElementById("modalEscala").classList.remove("open");
 }
- 
+
 async function salvarEscala(){
   const mes=document.getElementById("sel-mes").value;
   const data=document.getElementById("esc-data").value;
   const evento=document.getElementById("esc-evento").value.trim();
   if(!data){mostrarMsg("msg-escala","Informe a data","erro");return;}
   if(!evento){mostrarMsg("msg-escala","Informe o evento","erro");return;}
- 
+
   const ministro_id=document.getElementById("esc-ministro").value||null;
   const backs=["esc-back1","esc-back2","esc-back3","esc-back4"]
     .map(id=>document.getElementById(id)?.value||null).filter(Boolean).map(Number);
- 
+
   const instrumental={};let talkback_id=null;
   cacheCategorias.filter(c=>c.tipo==="instrumental").forEach(cat=>{
     const val=document.getElementById(`esc-instr-${cat.id}`)?.value;
     const isTb=document.getElementById(`esc-tb-${cat.id}`)?.checked;
     if(val){instrumental[cat.id]=Number(val);if(isTb)talkback_id=Number(val);}
   });
- 
+
   const dados={mes,data,evento,ministro_id:ministro_id?Number(ministro_id):null,backs,instrumental,talkback_id};
   const btn=document.getElementById("btn-salvar-escala");
   btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i>';
@@ -802,12 +816,12 @@ async function salvarEscala(){
   }catch(err){mostrarMsg("msg-escala",err.message,"erro");}
   finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-save"></i> <span id="btn-esc-label">Salvar Escala</span>';}
 }
- 
+
 // ═══════════════════════════
 // TABELA ESCALA
 // ═══════════════════════════
 async function aoMudarMes(){await carregarEscala();}
- 
+
 async function carregarEscala(){
   const mes=document.getElementById("sel-mes").value;
   try{
@@ -818,7 +832,7 @@ async function carregarEscala(){
     document.getElementById("tabela-escala-wrap").innerHTML=`<div class="empty">${esc(err.message)}</div>`;
   }
 }
- 
+
 function renderEscala(){
   const wrap=document.getElementById("tabela-escala-wrap");
   const filtro=(document.getElementById("filtro-escala")?.value||"").toLowerCase();
@@ -832,26 +846,27 @@ function renderEscala(){
     return;
   }
   let html=`<table><thead><tr>
-    <th>Data</th><th>Evento</th><th>Ministro</th><th>Backs</th><th>Instrumental</th>
-    ${podeEditar?"<th>Ações</th>":""}
+    <th style="width:100px">Data</th><th style="width:130px">Evento</th><th style="width:120px">Ministro</th><th>Backs</th><th>Instrumental</th>
+    ${podeEditar?"<th style='width:80px'>Ações</th>":""}
   </tr></thead><tbody>`;
   lista.forEach(e=>{
     const backs=(e.backs||[]).filter(Boolean).map(id=>esc(nomePorId(id))).join(", ")||"-";
+    // Instrumental em linha: "Cat: Nome (TB) · Cat2: Nome2"
     const instrParts=Object.entries(e.instrumental||{}).map(([catId,pesId])=>{
       const cat=cacheCategorias.find(c=>c.id==catId);
       const isTb=pesId==e.talkback_id;
-      return`<span style="font-size:.73rem;color:#888;">${esc(cat?.nome||catId)}:</span> ${esc(nomePorId(pesId))}${isTb?` <span class="badge badge-talkback" style="font-size:.6rem;padding:2px 5px;">TB</span>`:""}`;
-    }).join("<br>");
+      return`<span style="color:#888;font-size:.78rem;">${esc(cat?.nome||catId)}:</span> <b style="font-size:.88rem;">${esc(nomePorId(pesId))}</b>${isTb?` <span class="badge badge-talkback" style="font-size:.6rem;padding:2px 5px;vertical-align:middle;">TB</span>`:""}`;
+    }).join(" &nbsp;·&nbsp; ");
     const acoes=podeEditar?`<td style="white-space:nowrap;">
-      <button class="btn btn-ghost btn-sm" onclick="abrirModalEscala(${e.id})" title="Editar"><i class="fas fa-edit"></i></button>
+      <button class="btn btn-ghost btn-sm" onclick="editarEscalaId(${e.id})" title="Editar"><i class="fas fa-edit"></i></button>
       <button class="btn btn-danger btn-sm" onclick="deletarEscala(${e.id})" title="Excluir"><i class="fas fa-trash"></i></button>
     </td>`:"";
     html+=`<tr>
-      <td><b>${esc(fmtData(e.data))}</b><br><small style="color:#999">${diaSem(e.data)}</small></td>
-      <td><span style="background:#eaf0f8;color:var(--p-dark);padding:3px 9px;border-radius:20px;font-size:.77rem;font-weight:600;">${esc(e.evento||"-")}</span></td>
-      <td>${esc(nomePorId(e.ministro_id)||"-")}</td>
-      <td style="font-size:.82rem;">${backs}</td>
-      <td style="font-size:.82rem;">${instrParts||"-"}</td>
+      <td style="white-space:nowrap;font-size:.9rem;"><b>${esc(fmtData(e.data))}</b><br><small style="color:#999;font-size:.77rem;">${diaSem(e.data)}</small></td>
+      <td><span style="background:#eaf0f8;color:var(--p-dark);padding:3px 9px;border-radius:20px;font-size:.82rem;font-weight:600;">${esc(e.evento||"-")}</span></td>
+      <td style="font-size:.9rem;">${esc(nomePorId(e.ministro_id)||"-")}</td>
+      <td style="font-size:.9rem;">${backs}</td>
+      <td style="font-size:.88rem;">${instrParts||"-"}</td>
       ${acoes}
     </tr>`;
   });
@@ -859,13 +874,24 @@ function renderEscala(){
   wrap.innerHTML=html;
 }
 function filtrarTabela(){renderEscala();}
- 
+
+async function editarEscalaId(id){
+  // Garante que o item está em cache; se não, recarrega
+  let e = escalaCache.find(x=>x.id===id);
+  if(!e){
+    await carregarEscala();
+    e = escalaCache.find(x=>x.id===id);
+  }
+  if(!e){ alert("Escala não encontrada."); return; }
+  abrirModalEscala(id);
+}
+
 async function deletarEscala(id){
   if(!confirm("Excluir esta escala?"))return;
   try{await api("DELETE",`/escala/${id}`);await carregarEscala();}
   catch(err){alert(err.message);}
 }
- 
+
 // ═══════════════════════════
 // HISTÓRICO (só no modal)
 // ═══════════════════════════
@@ -884,7 +910,7 @@ async function verHistorico(pessoaId){
     </div>`).join("");
   }catch(err){wrap.innerHTML=`<div style="font-size:.8rem;color:#e74c3c;">${esc(err.message)}</div>`;}
 }
- 
+
 // ═══════════════════════════
 // GERAR
 // ═══════════════════════════
@@ -909,7 +935,7 @@ async function confirmarGerarEscala(){
   }catch(err){alert("Erro: "+err.message);}
   finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-magic"></i> Gerar Agora';}
 }
- 
+
 // ═══════════════════════════
 // CONFIG
 // ═══════════════════════════
@@ -925,7 +951,7 @@ async function confirmarLimpar(){
   try{await api("DELETE","/config/limpar",{mes});document.getElementById("sel-mes").disabled=false;await carregarEscala();alert("Escala limpa.");}
   catch(err){alert(err.message);}
 }
- 
+
 // ═══════════════════════════
 // PDF
 // ═══════════════════════════
@@ -963,7 +989,7 @@ async function gerarPdf(){
     pdf.save(`Escala_${mesLabel(mes)}.pdf`);
   }finally{document.body.removeChild(iframe);}
 }
- 
+
 // ═══════════════════════════
 // MODAIS
 // ═══════════════════════════
