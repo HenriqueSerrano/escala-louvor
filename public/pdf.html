@@ -16,14 +16,23 @@
   }
   .logo-box { width: 130px; height: 65px; display: flex; align-items: center; justify-content: center; }
   .logo-box img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
   .header-center { text-align: center; flex: 1; padding: 0 16px; }
   .header-center h1 {
     font-size: 18px; font-weight: 800; color: #03213f;
-    text-transform: none; letter-spacing: 2px;
+    letter-spacing: 2px;
     -webkit-print-color-adjust: exact; print-color-adjust: exact;
   }
-  .header-center .sub { font-size: 11px; color: #555; margin-top: 3px; }
-  .header-meta { display: flex; gap: 10px; justify-content: center; margin-top: 6px; }
+  .header-center .sub { font-size: 10.5px; color: #999; margin-top: 2px; letter-spacing: .4px; }
+
+  /* Linha decorativa dourada sutil entre subtítulo e badges */
+  .header-divider {
+    width: 80px; height: 1.5px; margin: 6px auto 5px;
+    background: linear-gradient(90deg, transparent, #C5A059, transparent);
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+
+  .header-meta { display: flex; gap: 10px; justify-content: center; }
   .meta-pill {
     background: #03213f; color: #fff;
     padding: 3px 14px; border-radius: 20px;
@@ -33,9 +42,8 @@
   .meta-pill b { color: #ffd27a; }
 
   /* ── TABELA ── */
-  table { width: 100%; border-collapse: collapse; margin-top: 0; font-size: 10.5px; table-layout: fixed; }
+  table { width: 100%; border-collapse: collapse; font-size: 10.5px; table-layout: fixed; }
 
-  /* Cabeçalho */
   thead tr th {
     background: #03213f; color: #fff;
     padding: 7px 5px; text-align: center;
@@ -45,21 +53,16 @@
     -webkit-print-color-adjust: exact; print-color-adjust: exact;
   }
   thead tr th:last-child { border-right: none; }
-
-  /* Sub-cabeçalho de categoria (instrumental) */
   .th-cat { font-size: 9px !important; font-weight: 600 !important; letter-spacing: 0 !important; }
 
-  /* Linha de semana */
   .row-semana td {
-    background: #1a56a0;
-    color: #fff;
+    background: #1a56a0; color: #fff;
     font-weight: 700; font-size: 10.5px;
     text-transform: uppercase; letter-spacing: .8px;
     padding: 5px 10px; text-align: center;
     -webkit-print-color-adjust: exact; print-color-adjust: exact;
   }
 
-  /* Linhas normais */
   tbody tr.row-data td {
     padding: 6px 5px;
     border-bottom: 1px solid #e8ecf2;
@@ -72,39 +75,26 @@
     -webkit-print-color-adjust: exact; print-color-adjust: exact;
   }
 
-  /* DATA */
   .col-data { font-weight: 700; font-size: 11px; color: #03213f; }
   .col-dia { font-size: 9px; color: #888; margin-top: 1px; }
-
-  /* EVENTO */
   .ev-badge {
-    display: inline-block;
-    background: #eaf0f8; color: #03213f;
-    border: 1px solid #bed0e8;
-    padding: 2px 7px; border-radius: 20px;
+    display: inline-block; background: #eaf0f8; color: #03213f;
+    border: 1px solid #bed0e8; padding: 2px 7px; border-radius: 20px;
     font-size: 9px; font-weight: 600;
     -webkit-print-color-adjust: exact; print-color-adjust: exact;
   }
-
-  /* MINISTRO */
   .col-ministro { font-weight: 700; font-size: 11px; color: #222; }
-
-  /* BACKS */
   .col-backs { font-size: 10.5px; color: #222; line-height: 1.4; font-weight: 700; }
-
-  /* INSTRUMENTO — célula individual */
   .instr-nome { font-size: 10.5px; color: #222; font-weight: 700; }
   .instr-vazio { font-size: 9px; color: #ccc; }
   .tb-badge {
-    display: inline-block;
-    background: #C5A059; color: #fff;
+    display: inline-block; background: #C5A059; color: #fff;
     font-size: 7.5px; font-weight: 800;
     padding: 1px 4px; border-radius: 3px;
     margin-left: 2px; vertical-align: middle;
     -webkit-print-color-adjust: exact; print-color-adjust: exact;
   }
 
-  /* RODAPÉ */
   .pdf-footer {
     margin-top: 8px; display: flex;
     justify-content: space-between; align-items: center;
@@ -122,14 +112,15 @@
   <div class="header-center">
     <h1>Grupo de Música Verbo Casa Caiada</h1>
     <div class="sub">Verbo da Vida Casa Caiada</div>
+    <div class="header-divider"></div>
     <div class="header-meta">
       <div class="meta-pill">Mês: <b id="span-mes"></b></div>
       <div class="meta-pill">Gerado em: <b id="span-data"></b></div>
     </div>
   </div>
-  <div class="logo-box" style="margin-right: 80px;">
+  <div class="logo-box" style="margin-right:80px;">
     <img id="logo-right" alt="" onerror="this.style.visibility='hidden'">
-</div>
+  </div>
 </div>
 
 <div style="text-align:right;font-size:9px;color:#777;margin:5px 0 4px;">
@@ -170,30 +161,19 @@ function renderPdfTemplate(payload){
   setLogo("logo-left",  dados.logoLeft  || "logo-esq.png");
   setLogo("logo-right", dados.logoRight || "logo-pdf.png");
 
-  // Calcular larguras: fixas para as primeiras colunas, resto dividido pelos instrumentos
-  // A4 landscape ≈ 277mm úteis
-  // Data 48 | Evento 70 | Ministro 75 | Backs 100 | (restante dividido por n instrumentos)
   const nInstr = catsInstr.length || 1;
-  const wFixed = 48 + 70 + 75 + 100;
-  // percentuais aproximados
-  const pData   = "6%";
-  const pEvento = "9%";
-  const pMin    = "9%";
-  const pBacks  = "12%";
-  const pInstr  = `${Math.floor(64 / nInstr)}%`;
+  const pData="6%", pEvento="9%", pMin="9%", pBacks="12%";
+  const pInstr = `${Math.floor(64 / nInstr)}%`;
 
-  // CABEÇALHO
   const thead = document.getElementById("thead");
-  let thHtml = `<tr>
+  thead.innerHTML = `<tr>
     <th style="width:${pData}">Data</th>
     <th style="width:${pEvento}">Evento</th>
     <th style="width:${pMin}">Ministro</th>
     <th style="width:${pBacks}">Backing Vocal</th>
     ${catsInstr.map(c=>`<th class="th-cat" style="width:${pInstr}">${esc(c.nome)}</th>`).join("")}
   </tr>`;
-  thead.innerHTML = thHtml;
 
-  // DADOS
   eventos.sort((a,b)=>{
     const p=s=>{const[d,m,y]=String(s||"").split("/");return new Date(y,m-1,d);};
     return p(a.data)-p(b.data);
@@ -220,9 +200,7 @@ function renderPdfTemplate(payload){
       const instrCols = ev.instrCols || {};
       const instrCells = catsInstr.map(cat=>{
         const col = instrCols[cat.id];
-        if(!col || col.nome==="-"){
-          return `<td><span class="instr-vazio">—</span></td>`;
-        }
+        if(!col || col.nome==="-") return `<td><span class="instr-vazio">—</span></td>`;
         return `<td><span class="instr-nome">${esc(col.nome)}</span>${col.isTb?`<span class="tb-badge">TB</span>`:""}</td>`;
       }).join("");
 
