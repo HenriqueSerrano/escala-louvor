@@ -167,7 +167,7 @@ function renderPdfTemplate(payload){
 
   function setLogo(id,src){ const el=document.getElementById(id); if(!src){el.style.visibility="hidden";return;} el.src=src; el.onerror=()=>el.style.visibility="hidden"; }
   setLogo("logo-left",  dados.logoLeft  || "logo-esq.png");
-  setLogo("logo-right", dados.logoRight || "logo-dir.png");
+  setLogo("logo-right", dados.logoRight || "logo-pdf.png");
 
   // Calcular larguras: fixas para as primeiras colunas, resto dividido pelos instrumentos
   // A4 landscape ≈ 277mm úteis
