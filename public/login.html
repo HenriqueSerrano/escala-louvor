@@ -8,49 +8,111 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#0a0f1e 0%,#0d1b3e 50%,#0a1628 100%);min-height:100vh;display:flex;align-items:center;justify-content:center;}
-    .login-box{background:rgba(255,255,255,0.04);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:48px 40px;width:100%;max-width:400px;box-shadow:0 25px 60px rgba(0,0,0,0.5);}
-    .logo {margin-bottom: 20px;}
-    .logo img {width: 180px;}
-    .logo-area{text-align:center;margin-bottom:36px;}
-    .logo-area .icon{width:64px;height:64px;background:linear-gradient(135deg,#1a56db,#3b82f6);border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;box-shadow:0 8px 24px rgba(59,130,246,0.4);}
-    .logo-area .icon i{color:#fff;font-size:28px;}
-    .logo-area h1{color:#fff;font-size:1.4rem;font-weight:600;letter-spacing:0.5px;}
-    .logo-area p{color:rgba(255,255,255,0.45);font-size:0.82rem;margin-top:4px;}
-    .field{margin-bottom:18px;}
-    .field label{display:block;color:rgba(255,255,255,0.6);font-size:0.78rem;font-weight:500;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.06em;}
-    .field input{width:100%;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.1);color:#fff;padding:13px 16px;border-radius:12px;font-family:'Poppins',sans-serif;font-size:0.9rem;transition:0.3s;}
-    .field input:focus{outline:none;border-color:#3b82f6;background:rgba(59,130,246,0.08);box-shadow:0 0 0 3px rgba(59,130,246,0.15);}
-    .field input::placeholder{color:rgba(255,255,255,0.25);}
-    .btn-login{width:100%;padding:14px;background:linear-gradient(135deg,#1a56db,#3b82f6);color:#fff;border:none;border-radius:12px;font-family:'Poppins',sans-serif;font-weight:600;font-size:0.95rem;cursor:pointer;transition:0.3s;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px;}
-    .btn-login:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(59,130,246,0.45);}
+    body{
+      font-family:'Poppins',sans-serif;
+      background:linear-gradient(135deg,#03213f 0%,#0d3060 50%,#03213f 100%);
+      min-height:100vh;display:flex;align-items:center;justify-content:center;
+    }
+    .login-box{
+      background:rgba(255,255,255,0.06);
+      backdrop-filter:blur(24px);
+      border:1px solid rgba(255,255,255,0.1);
+      border-radius:22px;
+      padding:44px 40px 36px;
+      width:100%;max-width:400px;
+      box-shadow:0 30px 70px rgba(0,0,0,0.5);
+      position:relative;
+    }
+    /* linha dourada no topo */
+    .login-box::before{
+      content:"";position:absolute;top:0;left:20px;right:20px;height:3px;
+      background:linear-gradient(90deg,#C5A059,#ffd27a,#C5A059);
+      border-radius:0 0 4px 4px;
+    }
+
+    /* LOGO */
+    .logo-wrap{
+      text-align:center;margin-bottom:28px;
+    }
+    .logo-wrap img{
+      max-width:180px;max-height:90px;object-fit:contain;
+      filter:brightness(1.05);
+    }
+    .logo-wrap h1{
+      color:#fff;font-size:1.15rem;font-weight:600;
+      margin-top:14px;letter-spacing:.5px;
+    }
+    .logo-wrap p{
+      color:rgba(255,255,255,.45);font-size:.8rem;margin-top:3px;
+    }
+
+    /* CAMPOS */
+    .field{margin-bottom:16px;}
+    .field label{
+      display:block;color:rgba(255,255,255,.55);
+      font-size:.75rem;font-weight:500;
+      margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em;
+    }
+    .field input{
+      width:100%;
+      background:rgba(255,255,255,.07);
+      border:1.5px solid rgba(255,255,255,.12);
+      color:#fff;padding:12px 15px;border-radius:11px;
+      font-family:'Poppins',sans-serif;font-size:.9rem;transition:.3s;
+    }
+    .field input:focus{
+      outline:none;
+      border-color:#C5A059;
+      background:rgba(197,160,89,.1);
+      box-shadow:0 0 0 3px rgba(197,160,89,.15);
+    }
+    .field input::placeholder{color:rgba(255,255,255,.2);}
+
+    /* BOTÃO */
+    .btn-login{
+      width:100%;padding:13px;
+      background:linear-gradient(135deg,#b48d48,#C5A059);
+      color:#fff;border:none;border-radius:11px;
+      font-family:'Poppins',sans-serif;font-weight:600;
+      font-size:.95rem;cursor:pointer;transition:.3s;
+      display:flex;align-items:center;justify-content:center;gap:8px;
+      margin-top:6px;
+    }
+    .btn-login:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(197,160,89,.4);}
     .btn-login:active{transform:none;}
-    .msg{margin-top:14px;padding:10px 14px;border-radius:10px;font-size:0.85rem;display:none;text-align:center;}
-    .msg-erro{background:rgba(239,68,68,0.15);color:#fca5a5;border:1px solid rgba(239,68,68,0.3);}
-    .rodape{text-align:center;margin-top:28px;color:rgba(255,255,255,0.2);font-size:0.72rem;}
+    .btn-login:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+
+    /* MSG */
+    .msg-erro{
+      margin-top:14px;padding:10px 14px;border-radius:10px;
+      font-size:.84rem;display:none;text-align:center;
+      background:rgba(239,68,68,.15);color:#fca5a5;
+      border:1px solid rgba(239,68,68,.3);
+    }
+    .rodape{text-align:center;margin-top:24px;color:rgba(255,255,255,.2);font-size:.7rem;}
   </style>
 </head>
 <body>
   <div class="login-box">
-    <div class="logo-area">
-    <div class="logo">
-       <img class="logo" id="logo-esq" alt="logo">
-    </div>
+    <div class="logo-wrap">
+      <img src="logo-esq.png" alt="Logo Grupo de Música" onerror="this.style.display='none'">
       <h1>Grupo de Música</h1>
       <p>Verbo da Vida Casa Caiada</p>
     </div>
+
     <div class="field">
-      <label>E-mail</label>
+      <label><i class="fas fa-envelope"></i> E-mail</label>
       <input type="email" id="email" placeholder="seu@email.com" autocomplete="username">
     </div>
     <div class="field">
-      <label>Senha</label>
+      <label><i class="fas fa-lock"></i> Senha</label>
       <input type="password" id="senha" placeholder="••••••••" autocomplete="current-password">
     </div>
+
     <button class="btn-login" id="btn-entrar" onclick="fazerLogin()">
       <i class="fas fa-sign-in-alt"></i> Entrar
     </button>
-    <div class="msg msg-erro" id="msg-login"></div>
+    <div class="msg-erro" id="msg-login"></div>
     <div class="rodape">EscalaLouvor v2.0</div>
   </div>
 
@@ -61,36 +123,32 @@
       const btn = document.getElementById("btn-entrar");
       const email = document.getElementById("email").value.trim();
       const senha = document.getElementById("senha").value;
-      const msg = document.getElementById("msg-login");
+      const msg   = document.getElementById("msg-login");
 
-      msg.style.display="none";
-      if(!email||!senha){ mostrarErro("Preencha e-mail e senha."); return; }
+      msg.style.display = "none";
+      if(!email || !senha){ mostrarErro("Preencha e-mail e senha."); return; }
 
-      btn.disabled=true;
-      btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Entrando...';
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Entrando...';
 
       try{
-        const res = await fetch("/users/login",{
-          method:"POST",
-          headers:{"Content-Type":"application/json"},
-          body:JSON.stringify({email,senha})
-        });
+        const res  = await fetch("/users/login",{ method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({email,senha}) });
         const data = await res.json();
-        if(!res.ok) throw new Error(data.erro||"Erro ao fazer login");
+        if(!res.ok) throw new Error(data.erro || "Erro ao fazer login");
         localStorage.setItem("auth", JSON.stringify(data));
-        window.location.href="/app";
+        window.location.href = "/app";
       }catch(err){
         mostrarErro(err.message);
       }finally{
-        btn.disabled=false;
-        btn.innerHTML='<i class="fas fa-sign-in-alt"></i> Entrar';
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Entrar';
       }
     }
 
     function mostrarErro(msg){
-      const el=document.getElementById("msg-login");
-      el.textContent=msg;
-      el.style.display="block";
+      const el = document.getElementById("msg-login");
+      el.textContent = msg;
+      el.style.display = "block";
     }
   </script>
 </body>

@@ -1,279 +1,288 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Escala Departamento Infantil</title>
-
+<title>Escala Grupo de Música</title>
 <style>
-:root{
-  --primary:#336699;
-  --muted:#6b7280;
-  --line:#e5e7eb;
-}
+  @page { size: A4 landscape; margin: 10mm 12mm; }
 
-@page { size: A4 landscape; margin: 12mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
-body{
-  font-family: Arial, sans-serif;
-  color:#140d0d;
-  margin:0;
-  padding: 12px;
-  font-size:11px;
-  background:#fff;
-}
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    color: #1a1a2e;
+    background: #fff;
+    font-size: 10px;
+    padding: 0;
+  }
 
-.pdf-header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom:4px;
-}
+  /* ── HEADER ── */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 8px;
+    margin-bottom: 6px;
+    border-bottom: 3px solid #03213f;
+    position: relative;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    bottom: -5px; left: 0; width: 100%; height: 2px;
+    background: linear-gradient(90deg, #C5A059, #ffd27a, #C5A059);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .logo-box {
+    width: 130px; height: 60px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .logo-box img { max-width: 100%; max-height: 100%; object-fit: contain; }
+  .header-center { text-align: center; flex: 1; }
+  .header-center h1 {
+    font-size: 17px; font-weight: 700; color: #03213f;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .header-center .sub { font-size: 10px; color: #666; margin-top: 2px; }
+  .header-meta {
+    display: flex; gap: 10px; justify-content: center;
+    margin-top: 6px; flex-wrap: wrap;
+  }
+  .meta-pill {
+    background: #03213f; color: #fff;
+    padding: 3px 12px; border-radius: 20px;
+    font-size: 10px; font-weight: 600;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .meta-pill span { color: #C5A059; }
 
-.pdf-logo{
-  width:170px;
-  height:70px;
-  object-fit:contain;
-}
+  /* ── TABELA ── */
+  table {
+    width: 100%; border-collapse: collapse;
+    margin-top: 12px; font-size: 9.5px;
+  }
 
-/* Se a logo falhar, esconde sem quebrar layout */
-.pdf-logo[data-erro="1"]{
-  visibility: hidden;
-}
+  /* Cabeçalho */
+  thead tr th {
+    background: #03213f;
+    color: #fff;
+    padding: 7px 8px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
 
-.pdf-title{
-  text-align:center;
-  flex:1;
-}
+  /* Linhas de semana */
+  .row-semana td {
+    background: linear-gradient(90deg, #C5A059, #e8c97a);
+    color: #03213f;
+    font-weight: 700;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    padding: 5px 10px;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
 
-.pdf-title h1{
-  font-size:22px;
-  font-weight:bold;
-  color:#336699;
-  margin: 0 0 4px 0;
-}
+  /* Linhas normais */
+  tbody tr td {
+    padding: 6px 8px;
+    border-bottom: 1px solid #edf0f4;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 1.4;
+  }
 
-.pdf-title p{
-  font-size:14px;
-  margin: 0;
-}
+  tbody tr:nth-child(even):not(.row-semana) td {
+    background: #f7f9fc;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  tbody tr:hover td { background: #eef2f8; }
 
-.meta-row{
-  display:flex;
-  justify-content:center;
-  gap:40px;
-  margin:6px 0 10px;
-  font-size:14px;
-}
+  /* Coluna DATA */
+  .col-data { font-weight: 700; font-size: 10px; color: #03213f; white-space: nowrap; }
+  .col-dia   { font-size: 9px; color: #888; }
 
-.meta-item{
-  font-weight:bold;
-  padding:6px 14px;
-  border:1px solid #d1d5db;
-  border-radius:6px;
-  background:#f1f5f9;
-  color: #336699;
-}
+  /* EVENTO badge */
+  .ev-badge {
+    display: inline-block;
+    background: #eaf0f8; color: #03213f;
+    border: 1px solid #c8d8ec;
+    padding: 2px 8px; border-radius: 20px;
+    font-size: 8.5px; font-weight: 600;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
 
-table{
-  width:100%;
-  border-collapse:collapse;
-  font-size:12px;
-  text-align:center;
-}
+  /* MINISTRO */
+  .col-ministro { font-weight: 600; color: #03213f; }
 
-thead th{
-  background:#336699 !important;
-  color:#fff !important;
-  padding:8px;
-  text-align:center;
-  -webkit-print-color-adjust: exact;
-  print-color-adjust: exact;
-}
+  /* BACKS */
+  .col-backs { color: #444; font-size: 9px; }
 
-tbody td{
-  padding:8px;
-  border-bottom:1px solid var(--line);
-  text-align:center;
-}
+  /* INSTRUMENTAL — cada item */
+  .instr-grid {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 3px 8px;
+  }
+  .instr-item { white-space: nowrap; font-size: 9px; }
+  .instr-cat { color: #7094B8; font-weight: 600; }
+  .instr-nome { color: #222; }
+  .tb-badge {
+    background: #C5A059; color: #fff;
+    font-size: 7.5px; font-weight: 700;
+    padding: 1px 4px; border-radius: 3px;
+    vertical-align: middle;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
 
-tbody tr:nth-child(even) td{
-  background:#f9fafb;
-  -webkit-print-color-adjust: exact;
-  print-color-adjust: exact;
-}
-
-.linha-semana td{
-  font-weight:bold;
-  padding:4px 6px;
-  font-size:13px;
-  text-align:center;
-  text-transform:uppercase;
-  background:#e2e8f0 !important;
-  -webkit-print-color-adjust: exact;
-  print-color-adjust: exact;
-}
-
-
-.top-info{
-  text-align:right;
-  font-size:10px;
-  color:#6b7280;
-  margin-bottom:8px;
-}
+  /* RODAPÉ */
+  .pdf-footer {
+    margin-top: 10px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 8px; color: #aaa;
+    border-top: 1px solid #eee; padding-top: 5px;
+  }
 </style>
 </head>
-
 <body>
 
-<div class="pdf-header">
-  <img class="pdf-logo" id="logo-left" alt="Logo esquerda">
-
-  <div class="pdf-title">
-    <h1>Escala Departamento Infantil</h1>
-    <p>Verbo da Vida Casa Caiada</p>
+<!-- HEADER -->
+<div class="header">
+  <div class="logo-box">
+    <img id="logo-left" alt="Logo esquerda" onerror="this.style.visibility='hidden'">
   </div>
-
-  <img class="pdf-logo" id="logo-right" alt="Logo direita">
+  <div class="header-center">
+    <h1>Grupo de Música Verbo Casa Caiada</h1>
+    <div class="sub">Verbo da Vida Casa Caiada</div>
+    <div class="header-meta">
+      <div class="meta-pill">Mês: <span id="span-mes"></span></div>
+      <div class="meta-pill">Gerado em: <span id="span-data"></span></div>
+    </div>
+  </div>
+  <div class="logo-box">
+    <img id="logo-right" alt="Logo direita" onerror="this.style.visibility='hidden'">
+  </div>
 </div>
 
-<div class="meta-row">
-  <div class="meta-item">Sala: <span id="sala"></span></div>
-  <div class="meta-item">Mês: <span id="mes"></span></div>
-</div>
-
-<div class="top-info">
-  Gerado em: <span id="data-geracao"></span>
-</div>
-
+<!-- TABELA -->
 <table>
   <thead>
     <tr>
-      <th>DATA</th>
-      <th>DIA DA SEMANA</th>
-      <th>EVENTO</th>
-      <th>PROFESSOR</th>
-      <th>MONITORES</th>
+      <th style="width:70px">Data</th>
+      <th style="width:110px">Evento</th>
+      <th style="width:90px">Ministro</th>
+      <th style="width:140px">Backing Vocal</th>
+      <th>Instrumental</th>
     </tr>
   </thead>
   <tbody id="tbody"></tbody>
 </table>
 
-
+<!-- RODAPÉ -->
+<div class="pdf-footer">
+  <span>EscalaLouvor v2.0 — Grupo de Música Verbo da Vida Casa Caiada</span>
+  <span id="rodape-data"></span>
+</div>
 
 <script>
 window.__PDF_READY__ = false;
 
-function escapeHtml(valor) {
-  if (valor === null || valor === undefined) return "";
-  return String(valor)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
+function esc(v){
+  if(v==null)return"";
+  return String(v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 }
 
-function param(nome) {
-  return new URLSearchParams(window.location.search).get(nome) || "";
-}
-
-function obterPayload() {
-  // Prioridade 1: dados injetados via iframe (window.PDF_PAYLOAD)
-  if (window.PDF_PAYLOAD && typeof window.PDF_PAYLOAD === "object") {
-    return window.PDF_PAYLOAD;
-  }
-  // Prioridade 2: dados via query string (abertura direta)
-  let eventos = [];
-  try {
-    eventos = JSON.parse(decodeURIComponent(param("dados") || "[]"));
-  } catch {
-    eventos = [];
-  }
-  return {
-    sala: param("sala"),
-    mes: param("mes"),
-    logoLeft: param("logo_left") || "logo-esq.png",
-    logoRight: param("logo_right") || "logo-dir.png",
-    eventos
-  };
-}
-
-function aplicarLogo(id, url) {
-  const el = document.getElementById(id);
-  if (!url) {
-    el.style.visibility = "hidden";
-    return;
-  }
-  el.style.visibility = "";
-  el.src = url;
-  el.onerror = () => {
-    // Se falhar (ex: logo local não existe), tenta não mostrar sem quebrar layout
-    el.style.visibility = "hidden";
-    el.setAttribute("data-erro", "1");
-  };
-}
-
-function semanaMes(dataStr) {
-  const [d, m, y] = String(dataStr || "").split("/").map(Number);
-  const inicio = new Date(y, m - 1, 1);
+function semanaMes(dataStr){
+  const [d,m,y] = String(dataStr||"").split("/").map(Number);
+  const inicio = new Date(y, m-1, 1);
   return Math.ceil((d + inicio.getDay()) / 7);
 }
 
-function renderPdfTemplate(payload) {
+function renderPdfTemplate(payload){
   const dados = payload || {};
   const eventos = Array.isArray(dados.eventos) ? [...dados.eventos] : [];
-  const tbody = document.getElementById("tbody");
 
-  document.getElementById("sala").innerText = dados.sala || "";
-  document.getElementById("mes").innerText = dados.mes || "";
-  document.getElementById("data-geracao").innerText = new Date().toLocaleDateString("pt-BR");
+  document.getElementById("span-mes").textContent  = dados.mes || "";
+  document.getElementById("span-data").textContent = new Date().toLocaleDateString("pt-BR");
+  document.getElementById("rodape-data").textContent = "Gerado em " + new Date().toLocaleString("pt-BR");
 
-  // Logos: usa o que vier no payload, senão tenta locais, senão esconde
-  aplicarLogo("logo-left",  dados.logoLeft  || "logo-esq.png");
-  aplicarLogo("logo-right", dados.logoRight || "logo-dir.png");
+  // Logos
+  function setLogo(id, src){
+    const el = document.getElementById(id);
+    if(!src){ el.style.visibility="hidden"; return; }
+    el.src = src;
+    el.onerror = () => el.style.visibility = "hidden";
+  }
+  setLogo("logo-left",  dados.logoLeft  || "logo-esq.png");
+  setLogo("logo-right", dados.logoRight || "logo-dir.png");
 
-  eventos.sort((a, b) => {
-    const [d1, m1, y1] = String(a?.data || "").split("/");
-    const [d2, m2, y2] = String(b?.data || "").split("/");
-    return new Date(y1, m1 - 1, d1) - new Date(y2, m2 - 1, d2);
+  // Ordenar por data
+  eventos.sort((a,b)=>{
+    const parse = s => { const [d,m,y]=String(s||"").split("/"); return new Date(y,m-1,d); };
+    return parse(a.data) - parse(b.data);
   });
 
+  const tbody = document.getElementById("tbody");
   tbody.innerHTML = "";
 
-  if (eventos.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:20px;">Nenhuma escala encontrada.</td></tr>`;
+  if(!eventos.length){
+    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:20px;color:#aaa;">Nenhuma escala encontrada.</td></tr>`;
     window.__PDF_READY__ = true;
     return;
   }
 
+  // Agrupar por semana
   const semanas = {};
-  eventos.forEach((ev) => {
-    const semana = semanaMes(ev.data);
-    if (!semanas[semana]) semanas[semana] = [];
-    semanas[semana].push(ev);
+  eventos.forEach(ev => {
+    const s = semanaMes(ev.data);
+    if(!semanas[s]) semanas[s] = [];
+    semanas[s].push(ev);
   });
 
-  Object.keys(semanas)
-    .sort((a, b) => Number(a) - Number(b))
-    .forEach((semana) => {
-      const trSemana = document.createElement("tr");
-      trSemana.className = "linha-semana";
-      trSemana.innerHTML = `<td colspan="5">Semana ${escapeHtml(semana)}</td>`;
-      tbody.appendChild(trSemana);
+  Object.keys(semanas).sort((a,b)=>Number(a)-Number(b)).forEach(semana => {
+    // Linha de separação de semana
+    const trSem = document.createElement("tr");
+    trSem.className = "row-semana";
+    trSem.innerHTML = `<td colspan="5">Semana ${esc(semana)}</td>`;
+    tbody.appendChild(trSem);
 
-      semanas[semana].forEach((ev) => {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>${escapeHtml(ev?.data || "")}</td>
-          <td>${escapeHtml(ev?.dia || "")}</td>
-          <td>${escapeHtml(ev?.evento || "")}</td>
-          <td>${escapeHtml(ev?.professor || "")}</td>
-          <td>${escapeHtml(ev?.monitores || "")}</td>
-        `;
-        tbody.appendChild(tr);
-      });
+    semanas[semana].forEach(ev => {
+      // Montar instrumental com mini-grid
+      let instrHtml = "-";
+      if(ev.instrumental && ev.instrumental !== "-"){
+        const partes = String(ev.instrumental).split("|").map(s=>s.trim()).filter(Boolean);
+        if(partes.length){
+          instrHtml = `<div class="instr-grid">` + partes.map(p => {
+            // formato "Cat: Nome (TB)" ou "Cat: Nome"
+            const isTb = p.includes("(TB)");
+            const clean = p.replace("(TB)","").trim();
+            const sep = clean.indexOf(":");
+            if(sep > -1){
+              const cat  = clean.slice(0, sep).trim();
+              const nome = clean.slice(sep+1).trim();
+              return `<span class="instr-item"><span class="instr-cat">${esc(cat)}:</span> <span class="instr-nome">${esc(nome)}</span>${isTb?` <span class="tb-badge">TB</span>`:""}`;
+            }
+            return `<span class="instr-item">${esc(clean)}${isTb?` <span class="tb-badge">TB</span>`:""}</span>`;
+          }).join("") + `</div>`;
+        }
+      }
+
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td><div class="col-data">${esc(ev.data||"")}</div><div class="col-dia">${esc(ev.dia||"")}</div></td>
+        <td><span class="ev-badge">${esc(ev.evento||"")}</span></td>
+        <td class="col-ministro">${esc(ev.ministro||"-")}</td>
+        <td class="col-backs">${esc(ev.backs||"-")}</td>
+        <td>${instrHtml}</td>
+      `;
+      tbody.appendChild(tr);
     });
+  });
 
   window.__PDF_READY__ = true;
 }
@@ -281,9 +290,8 @@ function renderPdfTemplate(payload) {
 window.renderPdfTemplate = renderPdfTemplate;
 
 window.addEventListener("DOMContentLoaded", () => {
-  renderPdfTemplate(obterPayload());
+  if(window.PDF_PAYLOAD) renderPdfTemplate(window.PDF_PAYLOAD);
 });
 </script>
-
 </body>
 </html>
