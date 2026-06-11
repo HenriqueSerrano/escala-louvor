@@ -281,6 +281,7 @@
 
       <!-- COLUNA FORM -->
       <div class="modal-escala-form">
+        <div class="msg-box" id="msg-escala" style="margin-bottom:12px;"></div>
         <div class="frow" style="margin-bottom:14px;">
           <div class="field" style="max-width:190px;">
             <label><i class="fas fa-calendar"></i> Data</label>
@@ -313,7 +314,6 @@
           <div id="instrumental-campos"></div>
         </div>
 
-        <div class="msg-box" id="msg-escala"></div>
       </div>
 
       <!-- COLUNA HISTÓRICO -->
@@ -804,8 +804,24 @@ async function salvarEscala(){
   const mes=document.getElementById("sel-mes").value;
   const data=document.getElementById("esc-data").value;
   const evento=document.getElementById("esc-evento").value.trim();
-  if(!data){mostrarMsg("msg-escala","Informe a data","erro");return;}
-  if(!evento){mostrarMsg("msg-escala","Informe o evento","erro");return;}
+  if(!data){
+    mostrarMsg("msg-escala","⚠ Informe a data do evento.","erro");
+    document.getElementById("esc-data").focus();
+    return;
+  }
+  // Validar se a data pertence ao mês selecionado
+  const [anoMes, mesMes] = mes.split("-").map(Number);
+  const [anoData, mesData] = data.split("-").map(Number);
+  if(anoData !== anoMes || mesData !== mesMes){
+    mostrarMsg("msg-escala",`⚠ A data ${fmtData(data)} não pertence ao mês selecionado (${mesLabel(mes)}). Corrija antes de salvar.`,"erro");
+    document.getElementById("esc-data").focus();
+    return;
+  }
+  if(!evento){
+    mostrarMsg("msg-escala","⚠ Informe o nome do evento (ex: Domingo Manhã, Quinta Noite...).","erro");
+    document.getElementById("esc-evento").focus();
+    return;
+  }
 
   const ministro_id=document.getElementById("esc-ministro").value||null;
   const backs=["esc-back1","esc-back2","esc-back3","esc-back4"]
@@ -1004,7 +1020,7 @@ async function gerarPdf(){
   const eventos=escalaCache.map(e=>({
     data:fmtData(e.data),dia:diaSem(e.data),evento:e.evento||"",
     ministro:nomePorId(e.ministro_id)||"-",
-    backs:(e.backs||[]).map(nomePorId).filter(Boolean).join(", ")||"-",
+    backs:(e.backs||[]).map(nomePorId).filter(Boolean).join(" / ")||"-",
     instrCols:Object.fromEntries(catsInstr.map(cat=>{
       const pesId=(e.instrumental||{})[cat.id];
       return[cat.id,{nome:pesId?nomePorId(pesId):"-",isTb:pesId?pesId==e.talkback_id:false}];
