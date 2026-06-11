@@ -355,6 +355,7 @@
           </span>
           <div style="display:flex;gap:8px;">
             <button class="btn btn-ghost btn-sm" onclick="novoIntegrante()"><i class="fas fa-plus"></i> Novo</button>
+            <button class="btn btn-ghost btn-sm" id="btn-cancelar-pessoa" onclick="limparFormPessoa()" disabled style="border-color:#e74c3c;color:#e74c3c;"><i class="fas fa-times"></i> Cancelar</button>
             <button class="btn btn-primary btn-sm" id="btn-salvar-pessoa" onclick="salvarPessoa()" disabled><i class="fas fa-save"></i> Salvar</button>
           </div>
         </div>
@@ -389,7 +390,7 @@
           <span style="font-size:.82rem;font-weight:600;color:#888;">Integrantes cadastrados</span>
           <input type="text" class="filtro-input" id="busca-integrantes" placeholder="🔎 Buscar..." oninput="filtrarIntegrantes()" style="width:200px;">
         </div>
-        <table>
+        <table style="font-size:.92rem;">
           <thead><tr><th>Nome / E-mail</th><th>Categorias</th><th>Líder</th><th>Ações</th></tr></thead>
           <tbody id="tbody-pessoas"></tbody>
         </table>
@@ -600,6 +601,8 @@ function setFormAtivo(ativo){
   document.getElementById("btn-add-vinculo").disabled=!ativo;
   document.getElementById("btn-add-vinculo").style.opacity=ativo?"1":".45";
   document.getElementById("btn-salvar-pessoa").disabled=!ativo;
+  document.getElementById("btn-cancelar-pessoa").disabled=!ativo;
+  document.getElementById("btn-cancelar-pessoa").style.opacity=ativo?"1":".45";
   document.getElementById("label-vinculos").style.color=ativo?"var(--p-dark)":"#aaa";
 }
 
@@ -993,25 +996,28 @@ async function gerarPdf(){
   if(!escalaCache.length){alert("Nenhuma escala para gerar PDF.");return;}
   const iframe=document.createElement("iframe");
   iframe.src="pdf.html";
-  iframe.style.cssText="position:fixed;left:-9999px;top:0;width:1200px;height:900px;border:none;";
+  iframe.style.cssText="position:fixed;left:-9999px;top:0;width:1400px;height:1000px;border:none;";
   document.body.appendChild(iframe);
   await new Promise(r=>iframe.addEventListener("load",r));
+
+  const catsInstr=cacheCategorias.filter(c=>c.tipo==="instrumental");
   const eventos=escalaCache.map(e=>({
     data:fmtData(e.data),dia:diaSem(e.data),evento:e.evento||"",
     ministro:nomePorId(e.ministro_id)||"-",
     backs:(e.backs||[]).map(nomePorId).filter(Boolean).join(", ")||"-",
-    instrumental:Object.entries(e.instrumental||{}).map(([catId,pesId])=>{
-      const cat=cacheCategorias.find(c=>c.id==catId);
-      return`${cat?.nome||catId}: ${nomePorId(pesId)}${pesId==e.talkback_id?" (TB)":""}`;
-    }).join(" | ")||"-",
-    talkback:e.talkback_id?nomePorId(e.talkback_id):"-"
+    instrCols:Object.fromEntries(catsInstr.map(cat=>{
+      const pesId=(e.instrumental||{})[cat.id];
+      return[cat.id,{nome:pesId?nomePorId(pesId):"-",isTb:pesId?pesId==e.talkback_id:false}];
+    }))
   }));
+
   const win=iframe.contentWindow;
   if(typeof win.renderPdfTemplate==="function"){
-    win.renderPdfTemplate({sala:"Grupo de Música",mes:mesLabel(mes),logoLeft:"logo-esq.png",logoRight:"logo-dir.png",eventos});
+    win.renderPdfTemplate({sala:"Grupo de Música",mes:mesLabel(mes),logoLeft:"logo-esq.png",logoRight:"logo-dir.png",
+      eventos,catsInstr:catsInstr.map(c=>({id:c.id,nome:c.nome}))});
   }
   await new Promise(r=>{const chk=setInterval(()=>{if(win.__PDF_READY__){clearInterval(chk);r();}},50);});
-  await new Promise(r=>setTimeout(r,400));
+  await new Promise(r=>setTimeout(r,500));
   try{
     const{jsPDF}=window.jspdf;
     const canvas=await html2canvas(iframe.contentDocument.body,{scale:2,useCORS:true,backgroundColor:"#fff",logging:false});

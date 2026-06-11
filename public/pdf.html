@@ -4,186 +4,139 @@
 <meta charset="utf-8">
 <title>Escala Grupo de Música</title>
 <style>
-  @page { size: A4 landscape; margin: 10mm 12mm; }
-
+  @page { size: A4 landscape; margin: 8mm 10mm; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    color: #1a1a2e;
-    background: #fff;
-    font-size: 10px;
-    padding: 0;
-  }
+  body { font-family: 'Segoe UI', Arial, sans-serif; color: #1a1a2e; background: #fff; font-size: 11px; }
 
   /* ── HEADER ── */
   .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-bottom: 8px;
-    margin-bottom: 6px;
-    border-bottom: 3px solid #03213f;
-    position: relative;
+    display: flex; align-items: center; justify-content: space-between;
+    padding-bottom: 8px; margin-bottom: 10px;
+    border-bottom: 4px solid #03213f;
   }
-  .header::after {
-    content: "";
-    position: absolute;
-    bottom: -5px; left: 0; width: 100%; height: 2px;
-    background: linear-gradient(90deg, #C5A059, #ffd27a, #C5A059);
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
-  .logo-box {
-    width: 130px; height: 60px;
-    display: flex; align-items: center; justify-content: center;
-  }
+  .logo-box { width: 130px; height: 65px; display: flex; align-items: center; justify-content: center; }
   .logo-box img { max-width: 100%; max-height: 100%; object-fit: contain; }
-  .header-center { text-align: center; flex: 1; }
+  .header-center { text-align: center; flex: 1; padding: 0 16px; }
   .header-center h1 {
-    font-size: 17px; font-weight: 700; color: #03213f;
-    text-transform: uppercase; letter-spacing: 1.5px;
+    font-size: 18px; font-weight: 800; color: #03213f;
+    text-transform: uppercase; letter-spacing: 2px;
     -webkit-print-color-adjust: exact; print-color-adjust: exact;
   }
-  .header-center .sub { font-size: 10px; color: #666; margin-top: 2px; }
-  .header-meta {
-    display: flex; gap: 10px; justify-content: center;
-    margin-top: 6px; flex-wrap: wrap;
-  }
+  .header-center .sub { font-size: 11px; color: #555; margin-top: 3px; }
+  .header-meta { display: flex; gap: 10px; justify-content: center; margin-top: 6px; }
   .meta-pill {
     background: #03213f; color: #fff;
-    padding: 3px 12px; border-radius: 20px;
-    font-size: 10px; font-weight: 600;
+    padding: 3px 14px; border-radius: 20px;
+    font-size: 10.5px; font-weight: 600;
     -webkit-print-color-adjust: exact; print-color-adjust: exact;
   }
-  .meta-pill span { color: #C5A059; }
+  .meta-pill b { color: #ffd27a; }
 
   /* ── TABELA ── */
-  table {
-    width: 100%; border-collapse: collapse;
-    margin-top: 12px; font-size: 9.5px;
-  }
+  table { width: 100%; border-collapse: collapse; margin-top: 0; font-size: 10.5px; table-layout: fixed; }
 
   /* Cabeçalho */
   thead tr th {
-    background: #03213f;
-    color: #fff;
-    padding: 7px 8px;
-    text-align: center;
-    font-weight: 600;
-    font-size: 9px;
-    text-transform: uppercase;
-    letter-spacing: .5px;
+    background: #03213f; color: #fff;
+    padding: 7px 5px; text-align: center;
+    font-weight: 700; font-size: 9.5px;
+    text-transform: uppercase; letter-spacing: .4px;
+    border-right: 1px solid rgba(255,255,255,.15);
     -webkit-print-color-adjust: exact; print-color-adjust: exact;
   }
+  thead tr th:last-child { border-right: none; }
 
-  /* Linhas de semana */
+  /* Sub-cabeçalho de categoria (instrumental) */
+  .th-cat { font-size: 9px !important; font-weight: 600 !important; letter-spacing: 0 !important; }
+
+  /* Linha de semana */
   .row-semana td {
-    background: linear-gradient(90deg, #C5A059, #e8c97a);
-    color: #03213f;
-    font-weight: 700;
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: .8px;
-    padding: 5px 10px;
+    background: #1a56a0;
+    color: #fff;
+    font-weight: 700; font-size: 10.5px;
+    text-transform: uppercase; letter-spacing: .8px;
+    padding: 5px 10px; text-align: center;
     -webkit-print-color-adjust: exact; print-color-adjust: exact;
   }
 
   /* Linhas normais */
-  tbody tr td {
-    padding: 6px 8px;
-    border-bottom: 1px solid #edf0f4;
-    text-align: center;
-    vertical-align: middle;
-    line-height: 1.4;
+  tbody tr.row-data td {
+    padding: 6px 5px;
+    border-bottom: 1px solid #e8ecf2;
+    border-right: 1px solid #f0f3f7;
+    text-align: center; vertical-align: middle;
   }
-
-  tbody tr:nth-child(even):not(.row-semana) td {
+  tbody tr.row-data td:last-child { border-right: none; }
+  tbody tr.row-data:nth-child(even):not(.row-semana) td {
     background: #f7f9fc;
     -webkit-print-color-adjust: exact; print-color-adjust: exact;
   }
-  tbody tr:hover td { background: #eef2f8; }
 
-  /* Coluna DATA */
-  .col-data { font-weight: 700; font-size: 10px; color: #03213f; white-space: nowrap; }
-  .col-dia   { font-size: 9px; color: #888; }
+  /* DATA */
+  .col-data { font-weight: 700; font-size: 11px; color: #03213f; }
+  .col-dia { font-size: 9px; color: #888; margin-top: 1px; }
 
-  /* EVENTO badge */
+  /* EVENTO */
   .ev-badge {
     display: inline-block;
     background: #eaf0f8; color: #03213f;
-    border: 1px solid #c8d8ec;
-    padding: 2px 8px; border-radius: 20px;
-    font-size: 8.5px; font-weight: 600;
+    border: 1px solid #bed0e8;
+    padding: 2px 7px; border-radius: 20px;
+    font-size: 9px; font-weight: 600;
     -webkit-print-color-adjust: exact; print-color-adjust: exact;
   }
 
   /* MINISTRO */
-  .col-ministro { font-weight: 600; color: #03213f; }
+  .col-ministro { font-weight: 700; font-size: 11px; color: #03213f; }
 
   /* BACKS */
-  .col-backs { color: #444; font-size: 9px; }
+  .col-backs { font-size: 10px; color: #333; line-height: 1.4; }
 
-  /* INSTRUMENTAL — cada item */
-  .instr-grid {
-    display: flex; flex-wrap: wrap; justify-content: center;
-    gap: 3px 8px;
-  }
-  .instr-item { white-space: nowrap; font-size: 9px; }
-  .instr-cat { color: #7094B8; font-weight: 600; }
-  .instr-nome { color: #222; }
+  /* INSTRUMENTO — célula individual */
+  .instr-nome { font-size: 10.5px; color: #222; font-weight: 600; }
+  .instr-vazio { font-size: 9px; color: #ccc; }
   .tb-badge {
+    display: inline-block;
     background: #C5A059; color: #fff;
-    font-size: 7.5px; font-weight: 700;
+    font-size: 7.5px; font-weight: 800;
     padding: 1px 4px; border-radius: 3px;
-    vertical-align: middle;
+    margin-left: 2px; vertical-align: middle;
     -webkit-print-color-adjust: exact; print-color-adjust: exact;
   }
 
   /* RODAPÉ */
   .pdf-footer {
-    margin-top: 10px;
-    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 8px; display: flex;
+    justify-content: space-between; align-items: center;
     font-size: 8px; color: #aaa;
-    border-top: 1px solid #eee; padding-top: 5px;
+    border-top: 1px solid #eee; padding-top: 4px;
   }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <div class="header">
   <div class="logo-box">
-    <img id="logo-left" alt="Logo esquerda" onerror="this.style.visibility='hidden'">
+    <img id="logo-left" alt="" onerror="this.style.visibility='hidden'">
   </div>
   <div class="header-center">
     <h1>Grupo de Música Verbo Casa Caiada</h1>
     <div class="sub">Verbo da Vida Casa Caiada</div>
     <div class="header-meta">
-      <div class="meta-pill">Mês: <span id="span-mes"></span></div>
-      <div class="meta-pill">Gerado em: <span id="span-data"></span></div>
+      <div class="meta-pill">Mês: <b id="span-mes"></b></div>
+      <div class="meta-pill">Gerado em: <b id="span-data"></b></div>
     </div>
   </div>
   <div class="logo-box">
-    <img id="logo-right" alt="Logo direita" onerror="this.style.visibility='hidden'">
+    <img id="logo-right" alt="" onerror="this.style.visibility='hidden'">
   </div>
 </div>
 
-<!-- TABELA -->
-<table>
-  <thead>
-    <tr>
-      <th style="width:70px">Data</th>
-      <th style="width:110px">Evento</th>
-      <th style="width:90px">Ministro</th>
-      <th style="width:140px">Backing Vocal</th>
-      <th>Instrumental</th>
-    </tr>
-  </thead>
+<table id="pdf-table">
+  <thead id="thead"></thead>
   <tbody id="tbody"></tbody>
 </table>
 
-<!-- RODAPÉ -->
 <div class="pdf-footer">
   <span>EscalaLouvor v2.0 — Grupo de Música Verbo da Vida Casa Caiada</span>
   <span id="rodape-data"></span>
@@ -192,93 +145,90 @@
 <script>
 window.__PDF_READY__ = false;
 
-function esc(v){
-  if(v==null)return"";
-  return String(v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-}
+function esc(v){ if(v==null)return""; return String(v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
 
 function semanaMes(dataStr){
-  const [d,m,y] = String(dataStr||"").split("/").map(Number);
-  const inicio = new Date(y, m-1, 1);
-  return Math.ceil((d + inicio.getDay()) / 7);
+  const [d,m,y]=String(dataStr||"").split("/").map(Number);
+  return Math.ceil((d + new Date(y,m-1,1).getDay()) / 7);
 }
 
 function renderPdfTemplate(payload){
   const dados = payload || {};
   const eventos = Array.isArray(dados.eventos) ? [...dados.eventos] : [];
+  const catsInstr = Array.isArray(dados.catsInstr) ? dados.catsInstr : [];
 
   document.getElementById("span-mes").textContent  = dados.mes || "";
   document.getElementById("span-data").textContent = new Date().toLocaleDateString("pt-BR");
   document.getElementById("rodape-data").textContent = "Gerado em " + new Date().toLocaleString("pt-BR");
 
-  // Logos
-  function setLogo(id, src){
-    const el = document.getElementById(id);
-    if(!src){ el.style.visibility="hidden"; return; }
-    el.src = src;
-    el.onerror = () => el.style.visibility = "hidden";
-  }
+  function setLogo(id,src){ const el=document.getElementById(id); if(!src){el.style.visibility="hidden";return;} el.src=src; el.onerror=()=>el.style.visibility="hidden"; }
   setLogo("logo-left",  dados.logoLeft  || "logo-esq.png");
   setLogo("logo-right", dados.logoRight || "logo-dir.png");
 
-  // Ordenar por data
+  // Calcular larguras: fixas para as primeiras colunas, resto dividido pelos instrumentos
+  // A4 landscape ≈ 277mm úteis
+  // Data 48 | Evento 70 | Ministro 75 | Backs 100 | (restante dividido por n instrumentos)
+  const nInstr = catsInstr.length || 1;
+  const wFixed = 48 + 70 + 75 + 100;
+  // percentuais aproximados
+  const pData   = "6%";
+  const pEvento = "9%";
+  const pMin    = "9%";
+  const pBacks  = "12%";
+  const pInstr  = `${Math.floor(64 / nInstr)}%`;
+
+  // CABEÇALHO
+  const thead = document.getElementById("thead");
+  let thHtml = `<tr>
+    <th style="width:${pData}">Data</th>
+    <th style="width:${pEvento}">Evento</th>
+    <th style="width:${pMin}">Ministro</th>
+    <th style="width:${pBacks}">Backing Vocal</th>
+    ${catsInstr.map(c=>`<th class="th-cat" style="width:${pInstr}">${esc(c.nome)}</th>`).join("")}
+  </tr>`;
+  thead.innerHTML = thHtml;
+
+  // DADOS
   eventos.sort((a,b)=>{
-    const parse = s => { const [d,m,y]=String(s||"").split("/"); return new Date(y,m-1,d); };
-    return parse(a.data) - parse(b.data);
+    const p=s=>{const[d,m,y]=String(s||"").split("/");return new Date(y,m-1,d);};
+    return p(a.data)-p(b.data);
   });
 
   const tbody = document.getElementById("tbody");
   tbody.innerHTML = "";
 
   if(!eventos.length){
-    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:20px;color:#aaa;">Nenhuma escala encontrada.</td></tr>`;
-    window.__PDF_READY__ = true;
-    return;
+    tbody.innerHTML=`<tr class="row-data"><td colspan="${4+nInstr}" style="text-align:center;padding:20px;color:#aaa;">Nenhuma escala encontrada.</td></tr>`;
+    window.__PDF_READY__=true; return;
   }
 
-  // Agrupar por semana
   const semanas = {};
-  eventos.forEach(ev => {
-    const s = semanaMes(ev.data);
-    if(!semanas[s]) semanas[s] = [];
-    semanas[s].push(ev);
-  });
+  eventos.forEach(ev=>{ const s=semanaMes(ev.data); if(!semanas[s])semanas[s]=[]; semanas[s].push(ev); });
 
-  Object.keys(semanas).sort((a,b)=>Number(a)-Number(b)).forEach(semana => {
-    // Linha de separação de semana
-    const trSem = document.createElement("tr");
-    trSem.className = "row-semana";
-    trSem.innerHTML = `<td colspan="5">Semana ${esc(semana)}</td>`;
+  Object.keys(semanas).sort((a,b)=>Number(a)-Number(b)).forEach(semana=>{
+    const trSem=document.createElement("tr");
+    trSem.className="row-semana";
+    trSem.innerHTML=`<td colspan="${4+nInstr}">Semana ${esc(semana)}</td>`;
     tbody.appendChild(trSem);
 
-    semanas[semana].forEach(ev => {
-      // Montar instrumental com mini-grid
-      let instrHtml = "-";
-      if(ev.instrumental && ev.instrumental !== "-"){
-        const partes = String(ev.instrumental).split("|").map(s=>s.trim()).filter(Boolean);
-        if(partes.length){
-          instrHtml = `<div class="instr-grid">` + partes.map(p => {
-            // formato "Cat: Nome (TB)" ou "Cat: Nome"
-            const isTb = p.includes("(TB)");
-            const clean = p.replace("(TB)","").trim();
-            const sep = clean.indexOf(":");
-            if(sep > -1){
-              const cat  = clean.slice(0, sep).trim();
-              const nome = clean.slice(sep+1).trim();
-              return `<span class="instr-item"><span class="instr-cat">${esc(cat)}:</span> <span class="instr-nome">${esc(nome)}</span>${isTb?` <span class="tb-badge">TB</span>`:""}`;
-            }
-            return `<span class="instr-item">${esc(clean)}${isTb?` <span class="tb-badge">TB</span>`:""}</span>`;
-          }).join("") + `</div>`;
+    semanas[semana].forEach(ev=>{
+      const instrCols = ev.instrCols || {};
+      const instrCells = catsInstr.map(cat=>{
+        const col = instrCols[cat.id];
+        if(!col || col.nome==="-"){
+          return `<td><span class="instr-vazio">—</span></td>`;
         }
-      }
+        return `<td><span class="instr-nome">${esc(col.nome)}</span>${col.isTb?`<span class="tb-badge">TB</span>`:""}</td>`;
+      }).join("");
 
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
+      const tr=document.createElement("tr");
+      tr.className="row-data";
+      tr.innerHTML=`
         <td><div class="col-data">${esc(ev.data||"")}</div><div class="col-dia">${esc(ev.dia||"")}</div></td>
         <td><span class="ev-badge">${esc(ev.evento||"")}</span></td>
         <td class="col-ministro">${esc(ev.ministro||"-")}</td>
         <td class="col-backs">${esc(ev.backs||"-")}</td>
-        <td>${instrHtml}</td>
+        ${instrCells}
       `;
       tbody.appendChild(tr);
     });
@@ -288,10 +238,7 @@ function renderPdfTemplate(payload){
 }
 
 window.renderPdfTemplate = renderPdfTemplate;
-
-window.addEventListener("DOMContentLoaded", () => {
-  if(window.PDF_PAYLOAD) renderPdfTemplate(window.PDF_PAYLOAD);
-});
+window.addEventListener("DOMContentLoaded", ()=>{ if(window.PDF_PAYLOAD) renderPdfTemplate(window.PDF_PAYLOAD); });
 </script>
 </body>
 </html>
