@@ -185,7 +185,7 @@
     .pessoa-table-wrap::-webkit-scrollbar{width:5px;}
     .pessoa-table-wrap::-webkit-scrollbar-thumb{background:#d1d9e0;border-radius:4px;}
     .pessoa-table-header{display:flex;align-items:center;justify-content:space-between;
-      padding:12px 0 8px;position:sticky;top:0;background:#fff;z-index:2;}
+      background:#fff;border-bottom:1px solid #eee;}
 
     /* FILTRO */
     .filtro-input{padding:8px 12px;border-radius:8px;border:1px solid #d1d9e0;
@@ -384,14 +384,15 @@
         <div class="msg-box" id="msg-form-pessoa"></div>
       </div>
 
+      <!-- CABEÇALHO FIXO (fora do scroll) -->
+      <div class="pessoa-table-header" style="padding:10px 22px 6px;flex-shrink:0;">
+        <span style="font-size:.82rem;font-weight:600;color:#888;">Integrantes cadastrados</span>
+        <input type="text" class="filtro-input" id="busca-integrantes" placeholder="🔎 Buscar..." oninput="filtrarIntegrantes()" style="width:200px;">
+      </div>
       <!-- TABELA SCROLLÁVEL -->
       <div class="pessoa-table-wrap">
-        <div class="pessoa-table-header">
-          <span style="font-size:.82rem;font-weight:600;color:#888;">Integrantes cadastrados</span>
-          <input type="text" class="filtro-input" id="busca-integrantes" placeholder="🔎 Buscar..." oninput="filtrarIntegrantes()" style="width:200px;">
-        </div>
         <table style="font-size:.92rem;">
-          <thead><tr><th>Nome / E-mail</th><th>Categorias</th><th>Líder</th><th>Ações</th></tr></thead>
+          <thead style="position:sticky;top:0;z-index:2;"><tr><th>Nome / E-mail</th><th>Categorias</th><th>Líder</th><th>Ações</th></tr></thead>
           <tbody id="tbody-pessoas"></tbody>
         </table>
       </div>
@@ -900,13 +901,13 @@ function renderEscala(){
     ${podeEditar?"<th style='width:80px'>Ações</th>":""}
   </tr></thead><tbody>`;
   lista.forEach(e=>{
-    const backs=(e.backs||[]).filter(Boolean).map(id=>esc(nomePorId(id))).join(", ")||"-";
+    const backs=(e.backs||[]).filter(Boolean).map(id=>esc(nomePorId(id))).join(" / ")||"-";
     // Instrumental em linha: "Cat: Nome (TB) · Cat2: Nome2"
     const instrParts=Object.entries(e.instrumental||{}).map(([catId,pesId])=>{
       const cat=cacheCategorias.find(c=>c.id==catId);
       const isTb=pesId==e.talkback_id;
-      return`<span style="color:#555;font-size:.78rem;font-weight:600;">${esc(cat?.nome||catId)}:</span> <span style="font-size:.88rem;">${esc(nomePorId(pesId))}</span>${isTb?` <span class="badge badge-talkback" style="font-size:.6rem;padding:2px 5px;vertical-align:middle;">TB</span>`:""}`;
-    }).join(" &nbsp;·&nbsp; ");
+      return`<span style="white-space:nowrap;display:inline-block;margin:1px 4px 1px 0;"><span style="color:#555;font-size:.76rem;font-weight:600;">${esc(cat?.nome||catId)}:</span> <b style="font-size:.86rem;">${esc(nomePorId(pesId))}</b>${isTb?` <span class="badge badge-talkback" style="font-size:.6rem;padding:2px 5px;vertical-align:middle;">TB</span>`:""}</span>`;
+    }).join("&nbsp;·&nbsp;");
     const acoes=podeEditar?`<td style="white-space:nowrap;">
       <button class="btn btn-ghost btn-sm" onclick="editarEscalaId(${e.id})" title="Editar"><i class="fas fa-edit"></i></button>
       <button class="btn btn-danger btn-sm" onclick="deletarEscala(${e.id})" title="Excluir"><i class="fas fa-trash"></i></button>
@@ -1029,7 +1030,7 @@ async function gerarPdf(){
 
   const win=iframe.contentWindow;
   if(typeof win.renderPdfTemplate==="function"){
-    win.renderPdfTemplate({sala:"Grupo de Música",mes:mesLabel(mes),logoLeft:"logo-esq.png",logoRight:"logo-dir.png",
+    win.renderPdfTemplate({sala:"Grupo de Música",mes:mesLabel(mes),logoLeft:"logo-esq.png",logoRight:"logo-pdf.png",
       eventos,catsInstr:catsInstr.map(c=>({id:c.id,nome:c.nome}))});
   }
   await new Promise(r=>{const chk=setInterval(()=>{if(win.__PDF_READY__){clearInterval(chk);r();}},50);});
